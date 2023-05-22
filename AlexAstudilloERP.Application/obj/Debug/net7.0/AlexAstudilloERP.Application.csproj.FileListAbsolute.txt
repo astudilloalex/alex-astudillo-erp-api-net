@@ -1,0 +1,5 @@
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.csproj.AssemblyReference.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.AssemblyInfoInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.AssemblyInfo.cs
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.csproj.CoreCompileInputs.cache

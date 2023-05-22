@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexAstudilloERP.Domain", "AlexAstudilloERP.Domain\AlexAstudilloERP.Domain.csproj", "{9E46EB79-4A6E-41AD-A790-68B9FE97BB37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexAstudilloERP.Application", "AlexAstudilloERP.Application\AlexAstudilloERP.Application.csproj", "{AED09C46-D34B-4E8D-8D25-B88DB81DC80B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexAstudilloERP.Infrastructure", "AlexAstudilloERP.Infrastructure\AlexAstudilloERP.Infrastructure.csproj", "{873B6D3F-920E-4F71-A3BB-83A109B3C086}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexAstudilloERP.API", "AlexAstudilloERP.API\AlexAstudilloERP.API.csproj", "{B1E680CD-E5A0-4637-987B-CF11DA119AFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypt", "BCrypt\BCrypt.csproj", "{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCommonCRUD", "EFCommonCRUD\EFCommonCRUD.csproj", "{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E46EB79-4A6E-41AD-A790-68B9FE97BB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E46EB79-4A6E-41AD-A790-68B9FE97BB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E46EB79-4A6E-41AD-A790-68B9FE97BB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E46EB79-4A6E-41AD-A790-68B9FE97BB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED09C46-D34B-4E8D-8D25-B88DB81DC80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED09C46-D34B-4E8D-8D25-B88DB81DC80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED09C46-D34B-4E8D-8D25-B88DB81DC80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED09C46-D34B-4E8D-8D25-B88DB81DC80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{873B6D3F-920E-4F71-A3BB-83A109B3C086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{873B6D3F-920E-4F71-A3BB-83A109B3C086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{873B6D3F-920E-4F71-A3BB-83A109B3C086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{873B6D3F-920E-4F71-A3BB-83A109B3C086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E680CD-E5A0-4637-987B-CF11DA119AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E680CD-E5A0-4637-987B-CF11DA119AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E680CD-E5A0-4637-987B-CF11DA119AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E680CD-E5A0-4637-987B-CF11DA119AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BB9C3A5-3E3E-4660-8435-224AF033BA04}
+	EndGlobalSection
+EndGlobal

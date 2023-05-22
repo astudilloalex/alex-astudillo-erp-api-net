@@ -1,0 +1,5 @@
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.csproj.AssemblyReference.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.AssemblyInfoInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.AssemblyInfo.cs
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.csproj.CoreCompileInputs.cache

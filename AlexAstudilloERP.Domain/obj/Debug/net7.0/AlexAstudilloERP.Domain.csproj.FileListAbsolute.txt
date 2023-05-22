@@ -1,0 +1,12 @@
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.csproj.AssemblyReference.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.AssemblyInfoInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.AssemblyInfo.cs
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.csproj.CoreCompileInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\AlexAstudilloERP.Domain.deps.json
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\AlexAstudilloERP.Domain.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\AlexAstudilloERP.Domain.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\refint\AlexAstudilloERP.Domain.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\ref\AlexAstudilloERP.Domain.dll

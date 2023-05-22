@@ -1,0 +1,12 @@
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\bin\Debug\net7.0\BCrypt.deps.json
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\bin\Debug\net7.0\BCrypt.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\bin\Debug\net7.0\BCrypt.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.csproj.AssemblyReference.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.AssemblyInfoInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.AssemblyInfo.cs
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.csproj.CoreCompileInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\refint\BCrypt.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\BCrypt.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\BCrypt\obj\Debug\net7.0\ref\BCrypt.dll
