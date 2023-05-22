@@ -64,25 +64,15 @@ public class ExceptionMiddleware
 
     private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        Dictionary<string, object> exceptionProperties;
-        switch (exception)
+        Dictionary<string, object> exceptionProperties = exception switch
         {
-            case ForbiddenException:
-                exceptionProperties = ForbiddenExceptionData((ForbiddenException)exception);
-                break;
-            case PostgresException:
-                exceptionProperties = PostgresExceptionData((PostgresException)exception);
-                break;
-            case UnauthorizedException:
-                exceptionProperties = UnauthorizedExceptionData((UnauthorizedException)exception);
-                break;
-            case BadRequestException:
-                exceptionProperties = BadRequestExceptionData((BadRequestException)exception);
-                break;
-            default:
-                exceptionProperties = ResponseHandler.Error(500, exception.Message);
-                break;
+            ForbiddenException => ForbiddenExceptionData((ForbiddenException)exception),
+            PostgresException => PostgresExceptionData((PostgresException)exception),
+            UnauthorizedException => UnauthorizedExceptionData((UnauthorizedException)exception),
+            BadRequestException => BadRequestExceptionData((BadRequestException)exception),
+            _ => ResponseHandler.Error(500, exception.Message),
         };
+        ;
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)exceptionProperties["statusCode"];
         await context.Response.WriteAsync(JsonConvert.SerializeObject(exceptionProperties));
@@ -103,7 +93,7 @@ public class ExceptionMiddleware
     {
         return exception switch
         {
-            _ => ResponseHandler.Unauthorized(exception.Message),
+            _ => ResponseHandler.Unauthorized(exception.Code),
         };
     }
 
@@ -111,7 +101,7 @@ public class ExceptionMiddleware
     {
         return exception switch
         {
-            _ => ResponseHandler.Forbidden(exception.Message),
+            _ => ResponseHandler.Forbidden(exception.Code),
         };
     }
 
@@ -119,7 +109,7 @@ public class ExceptionMiddleware
     {
         return exception switch
         {
-            _ => ResponseHandler.BadRequest(exception.Message),
+            _ => ResponseHandler.BadRequest(exception.Code),
         };
     }
 }
