@@ -1,5 +1,10 @@
-﻿namespace AlexAstudilloERP.Domain.Exceptions.BadRequest;
+﻿using AlexAstudilloERP.Domain.Enums.Custom;
 
-public class BadRequestException : Exception
+namespace AlexAstudilloERP.Domain.Exceptions.BadRequest;
+
+public class BadRequestException : CustomException
 {
+    public BadRequestException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
+    {
+    }
 }

@@ -11,6 +11,10 @@ public enum ExceptionEnum : short
     /// </summary>
     EmailAlreadyInUse,
     /// <summary>
+    /// Thrown if OTP in email link expires.
+    /// </summary>
+    ExpiredActionCode,
+    /// <summary>
     /// Thrown if the credential is malformed or has expired.
     /// </summary>
     InvalidCredential,
@@ -19,6 +23,14 @@ public enum ExceptionEnum : short
     /// </summary>
     InvalidEmail,
     /// <summary>
+    /// Thrown if verification code of the credential is not valid.
+    /// </summary>
+    InvalidVerificationCode,
+    /// <summary>
+    /// Thrown if verification ID of the credential is not valid.
+    /// </summary>
+    InvalidVerificationId,
+    /// <summary>
     /// If operation is not allowed.
     /// </summary>
     OperationNotAllowed,
@@ -26,6 +38,10 @@ public enum ExceptionEnum : short
     /// Thrown if the user corresponding to the given email has been disabled.
     /// </summary>
     UserDisabled,
+    /// <summary>
+    /// Thrown if the credential given does not correspond to the user.
+    /// </summary>
+    UserMismatch,
     /// <summary>
     /// Thrown if there is no user corresponding to the given email or username.
     /// </summary>

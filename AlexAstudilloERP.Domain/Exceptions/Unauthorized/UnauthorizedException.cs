@@ -1,5 +1,10 @@
-﻿namespace AlexAstudilloERP.Domain.Exceptions.Unauthorized;
+﻿using AlexAstudilloERP.Domain.Enums.Custom;
 
-public class UnauthorizedException : Exception
+namespace AlexAstudilloERP.Domain.Exceptions.Unauthorized;
+
+public class UnauthorizedException : CustomException
 {
+    public UnauthorizedException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
+    {
+    }
 }
