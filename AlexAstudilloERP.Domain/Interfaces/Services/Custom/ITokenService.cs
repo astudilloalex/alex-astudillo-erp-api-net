@@ -15,9 +15,9 @@ public interface ITokenService
     /// Generate a JWT Token for specific days.
     /// </summary>
     /// <param name="user">The user to generate token.</param>
-    /// <param name="days">The number of days to valid the token.</param>
+    /// <param name="lifeTime">The life time of token in seconds.</param>
     /// <returns>A JWT Token.</returns>
-    public string GenerateToken(User user, int days = 1);
+    public string GenerateToken(User user, int lifeTime = 3600);
 
     /// <summary>
     /// Get a user unique identifier based in the token.

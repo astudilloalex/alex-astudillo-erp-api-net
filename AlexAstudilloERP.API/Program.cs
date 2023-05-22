@@ -1,8 +1,10 @@
 using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Application.Services.Common;
+using AlexAstudilloERP.Application.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Common;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Common;
+using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Infrastructure.Connections;
 using AlexAstudilloERP.Infrastructure.Repositories.Common;
 using AlexAstudilloERP.Infrastructure.Repositories.Public;
@@ -34,6 +36,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 
 #region Declare all services
+// Singleton services
+builder.Services.AddSingleton<ITokenService, TokenService>();
+
 // Common schema
 builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
 #endregion
