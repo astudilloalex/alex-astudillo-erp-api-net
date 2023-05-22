@@ -3,3 +3,17 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Applicatio
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.AssemblyInfoInputs.cache
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.AssemblyInfo.cs
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.csproj.CoreCompileInputs.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\AlexAstudilloERP.Application.deps.json
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\AlexAstudilloERP.Application.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\AlexAstudilloERP.Application.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\AlexAstudilloERP.Domain.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\BCrypt.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\EFCommonCRUD.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\AlexAstudilloERP.Domain.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\BCrypt.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\bin\Debug\net7.0\EFCommonCRUD.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.csproj.CopyComplete
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\refint\AlexAstudilloERP.Application.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\AlexAstudilloERP.Application.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Application\obj\Debug\net7.0\ref\AlexAstudilloERP.Application.dll
