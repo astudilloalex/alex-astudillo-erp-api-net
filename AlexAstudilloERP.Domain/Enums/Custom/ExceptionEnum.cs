@@ -11,9 +11,17 @@ public enum ExceptionEnum : short
     /// </summary>
     EmailAlreadyInUse,
     /// <summary>
+    /// Thrown if account expired.
+    /// </summary>
+    ExpiredAccount,
+    /// <summary>
     /// Thrown if OTP in email link expires.
     /// </summary>
     ExpiredActionCode,
+    /// <summary>
+    /// Thrown if credentials expired.
+    /// </summary>
+    ExpiredCredential,
     /// <summary>
     /// Thrown if the credential is malformed or has expired.
     /// </summary>
@@ -30,6 +38,10 @@ public enum ExceptionEnum : short
     /// Thrown if verification ID of the credential is not valid.
     /// </summary>
     InvalidVerificationId,
+    /// <summary>
+    /// Thrown if locked account.
+    /// </summary>
+    LockedAccount,
     /// <summary>
     /// If operation is not allowed.
     /// </summary>
