@@ -11,4 +11,6 @@ public partial class Email
     public bool Verified { get; set; }
 
     public virtual User? User { get; set; }
+
+    public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }

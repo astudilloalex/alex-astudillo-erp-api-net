@@ -33,4 +33,10 @@ public partial class Person
     public virtual Supplier? Supplier { get; set; }
 
     public virtual User? User { get; set; }
+
+    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
+
+    public virtual ICollection<Email> Emails { get; set; } = new List<Email>();
+
+    public virtual ICollection<Phone> Phones { get; set; } = new List<Phone>();
 }

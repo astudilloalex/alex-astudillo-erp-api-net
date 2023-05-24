@@ -13,4 +13,6 @@ public partial class Phone
     public bool Verified { get; set; }
 
     public virtual DialInCode? DialInCode { get; set; }
+
+    public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }

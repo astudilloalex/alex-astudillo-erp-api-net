@@ -6,7 +6,7 @@ public partial class Address
 
     public int PoliticalDivisionId { get; set; }
 
-    public string? Code { get; set; } 
+    public string? Code { get; set; }
 
     public string MainStreet { get; set; } = null!;
 
@@ -23,4 +23,6 @@ public partial class Address
     public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
     public virtual PoliticalDivision? PoliticalDivision { get; set; }
+
+    public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }
