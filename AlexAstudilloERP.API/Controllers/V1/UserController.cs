@@ -1,5 +1,6 @@
 ﻿using AlexAstudilloERP.API.DTOs.Requests;
 using AlexAstudilloERP.API.Handlers;
+using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,5 +25,13 @@ public class UserController : CommonController
     public async Task<IActionResult> SignIn([FromBody] SignInDTO signInDTO)
     {
         return Ok(ResponseHandler.Ok(await _service.SignIn(signInDTO.Username, signInDTO.Password)));
+    }
+
+    [HttpPost]
+    [Route("sign-up")]
+    [AllowAnonymous]
+    public async Task<IActionResult> SignUp([FromBody] User user)
+    {
+        return Ok(ResponseHandler.Ok(await _service.SignUp(user)));
     }
 }

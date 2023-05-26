@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-internal class EmailRepository : NPPostgreSQLRepository<Email, int>, IEmailRepository
+public class EmailRepository : NPPostgreSQLRepository<Email, int>, IEmailRepository
 {
     private readonly PostgreSQLContext _context;
 

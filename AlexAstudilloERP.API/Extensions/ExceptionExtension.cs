@@ -2,8 +2,8 @@
 using AlexAstudilloERP.API.Middlewares;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using Microsoft.AspNetCore.Diagnostics;
-using Newtonsoft.Json;
 using System.Net;
+using System.Text.Json;
 
 namespace AlexAstudilloERP.API.Extensions;
 
@@ -22,7 +22,7 @@ public static class ExceptionExtension
                 {
                     logger.LogError($"Something went wrong: {contextFeature.Error}");
                     Dictionary<string, object> exceptionProperties = ResponseHandler.Error(context.Response.StatusCode, "internal-server-error");
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(exceptionProperties));
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(exceptionProperties));
                 }
             });
         });

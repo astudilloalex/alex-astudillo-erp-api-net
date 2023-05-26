@@ -9,11 +9,13 @@ namespace AlexAstudilloERP.Application.Services.Public;
 
 public class UserService : IUserService
 {
-    private readonly ITokenService _tokenService;
+    private readonly IEmailRepository _emailRepository;
     private readonly IUserRepository _repository;
+    private readonly ITokenService _tokenService;
 
-    public UserService(IUserRepository repository, ITokenService tokenService)
+    public UserService(IEmailRepository emailRepository, IUserRepository repository, ITokenService tokenService)
     {
+        _emailRepository = emailRepository;
         _repository = repository;
         _tokenService = tokenService;
     }
@@ -27,5 +29,10 @@ public class UserService : IUserService
         if (!user.CredentialsNonExpired) throw new AccountException(ExceptionEnum.ExpiredCredential);
         if (!user.Enabled) throw new AccountException(ExceptionEnum.UserDisabled);
         return _tokenService.GenerateToken(user);
+    }
+
+    public Task<User> SignUp(User user)
+    {
+        throw new NotImplementedException();
     }
 }

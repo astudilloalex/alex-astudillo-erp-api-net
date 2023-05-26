@@ -1,7 +1,7 @@
 ﻿using AlexAstudilloERP.Domain.Interfaces.Services.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 
 namespace AlexAstudilloERP.API.Handlers;
 
@@ -16,7 +16,7 @@ public class AuthorizeHandler : JwtBearerEvents
                 context.Response.StatusCode = 403;
                 context.Response.ContentType = "application/json";
                 Dictionary<string, object> response = ResponseHandler.Forbidden();
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
         };
         //OnAuthenticationFailed = async context =>
@@ -37,7 +37,7 @@ public class AuthorizeHandler : JwtBearerEvents
                 context.Response.StatusCode = 401;
                 context.Response.ContentType = "application/json";
                 Dictionary<string, object> response = ResponseHandler.Unauthorized("unauthorized");
-                await context.HttpContext.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                await context.HttpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
         };
         OnTokenValidated = async context =>

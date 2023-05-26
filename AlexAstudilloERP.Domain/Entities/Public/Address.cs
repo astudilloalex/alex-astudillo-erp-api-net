@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Address
 {
@@ -20,9 +22,11 @@ public partial class Address
 
     public double? Longitude { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
     public virtual PoliticalDivision? PoliticalDivision { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }

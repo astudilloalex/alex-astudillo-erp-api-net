@@ -533,6 +533,63 @@ public partial class PostgreSQLContext : DbContext
             entity.HasOne(d => d.Gender).WithMany(p => p.People)
                 .HasForeignKey(d => d.GenderId)
                 .HasConstraintName("people_gender_id_fkey");
+
+            entity.HasMany(d => d.Addresses).WithMany(p => p.People)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PersonAddress",
+                    r => r.HasOne<Address>().WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("person_addresses_address_id_fkey"),
+                    l => l.HasOne<Person>().WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("person_addresses_person_id_fkey"),
+                    j =>
+                    {
+                        j.HasKey("PersonId", "AddressId").HasName("person_addresses_pkey");
+                        j.ToTable("person_addresses");
+                        j.IndexerProperty<long>("PersonId").HasColumnName("person_id");
+                        j.IndexerProperty<int>("AddressId").HasColumnName("address_id");
+                    });
+
+            entity.HasMany(d => d.Emails).WithMany(p => p.People)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PersonEmail",
+                    r => r.HasOne<Email>().WithMany()
+                        .HasForeignKey("EmailId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("person_emails_email_id_fkey"),
+                    l => l.HasOne<Person>().WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("person_emails_person_id_fkey"),
+                    j =>
+                    {
+                        j.HasKey("PersonId", "EmailId").HasName("person_emails_pkey");
+                        j.ToTable("person_emails");
+                        j.IndexerProperty<long>("PersonId").HasColumnName("person_id");
+                        j.IndexerProperty<int>("EmailId").HasColumnName("email_id");
+                    });
+
+            entity.HasMany(d => d.Phones).WithMany(p => p.People)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PersonPhone",
+                    r => r.HasOne<Phone>().WithMany()
+                        .HasForeignKey("PhoneId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("person_phones_phone_id_fkey"),
+                    l => l.HasOne<Person>().WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("person_phones_person_id_fkey"),
+                    j =>
+                    {
+                        j.HasKey("PersonId", "PhoneId").HasName("person_phones_pkey");
+                        j.ToTable("person_phones");
+                        j.IndexerProperty<long>("PersonId").HasColumnName("person_id");
+                        j.IndexerProperty<int>("PhoneId").HasColumnName("phone_id");
+                    });
         });
 
         modelBuilder.Entity<PersonDocumentType>(entity =>

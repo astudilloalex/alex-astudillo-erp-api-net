@@ -22,7 +22,6 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\De
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.OpenApi.dll
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Npgsql.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll

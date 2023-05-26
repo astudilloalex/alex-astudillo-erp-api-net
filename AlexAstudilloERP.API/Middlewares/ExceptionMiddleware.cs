@@ -4,9 +4,9 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Exceptions.Unauthorized;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using Npgsql;
 using System.Net;
+using System.Text.Json;
 
 namespace AlexAstudilloERP.API.Middlewares;
 
@@ -31,7 +31,7 @@ public class ExceptionMiddleware
                 context.Response.ContentType = "application/json";
                 if (context.Response.StatusCode == 404)
                 {
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ResponseHandler.NotFound()));
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(ResponseHandler.NotFound()));
                 }
             }
         }
@@ -75,7 +75,7 @@ public class ExceptionMiddleware
         ;
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)exceptionProperties["statusCode"];
-        await context.Response.WriteAsync(JsonConvert.SerializeObject(exceptionProperties));
+        await context.Response.WriteAsync(JsonSerializer.Serialize(exceptionProperties));
     }
 
     private static Dictionary<string, object> PostgresExceptionData(PostgresException exception)

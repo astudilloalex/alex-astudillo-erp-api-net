@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class PersonDocumentType
 {
@@ -16,5 +18,6 @@ public partial class PersonDocumentType
 
     public DateTime UpdateDate { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }

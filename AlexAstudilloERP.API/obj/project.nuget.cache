@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kuzazpw/TczDl0gaRBWLgJgFadL0BmWvZdxvcSFqTrcK1WCbd12YGr2kRvl0A0GHdJRua73xhPo6GqmbF7OzlA==",
+  "dgSpecHash": "K4VmZfclv4anmkT9YItLQ1Z6EqRjx3r7xb5r5yeSOJBcY2rGnWwZZOImqBLPpGc3/56kAZeVLK6bNpuyEepXOg==",
   "success": true,
   "projectFilePath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\AlexAstudilloERP.API\\AlexAstudilloERP.API.csproj",
   "expectedPackageFiles": [
@@ -27,7 +27,6 @@
     "C:\\Users\\alex-\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.15.1\\microsoft.identitymodel.protocols.openidconnect.6.15.1.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.15.1\\microsoft.identitymodel.tokens.6.15.1.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
-    "C:\\Users\\alex-\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\nlog\\5.1.4\\nlog.5.1.4.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\npgsql\\7.0.4\\npgsql.7.0.4.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.4\\npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",

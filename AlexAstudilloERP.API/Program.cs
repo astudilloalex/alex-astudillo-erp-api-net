@@ -44,6 +44,7 @@ builder.Services.AddDbContext<PostgreSQLContext>(options =>
 builder.Services.AddScoped<IJwtBlacklistRepository, JwtBlacklistRepository>();
 
 // Public schema
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 

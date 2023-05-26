@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Person
 {
@@ -20,18 +22,23 @@ public partial class Person
 
     public bool JuridicalPerson { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
 
+    [JsonIgnore]
     public virtual Customer? Customer { get; set; }
 
     public virtual PersonDocumentType? DocumentType { get; set; }
 
+    [JsonIgnore]
     public virtual Employee? Employee { get; set; }
 
     public virtual Gender? Gender { get; set; }
 
+    [JsonIgnore]
     public virtual Supplier? Supplier { get; set; }
 
+    [JsonIgnore]
     public virtual User? User { get; set; }
 
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
