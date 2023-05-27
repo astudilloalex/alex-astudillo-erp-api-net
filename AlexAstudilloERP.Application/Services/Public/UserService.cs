@@ -9,15 +9,17 @@ namespace AlexAstudilloERP.Application.Services.Public;
 
 public class UserService : IUserService
 {
-    private readonly IEmailRepository _emailRepository;
     private readonly IUserRepository _repository;
+    private readonly ISetData _setData;
     private readonly ITokenService _tokenService;
+    private readonly IValidateData _validateData;
 
-    public UserService(IEmailRepository emailRepository, IUserRepository repository, ITokenService tokenService)
+    public UserService(IUserRepository repository, ISetData setData, ITokenService tokenService, IValidateData validateData)
     {
-        _emailRepository = emailRepository;
         _repository = repository;
+        _setData = setData;
         _tokenService = tokenService;
+        _validateData = validateData;
     }
 
     public async Task<string> SignIn(string username, string password)
@@ -31,8 +33,9 @@ public class UserService : IUserService
         return _tokenService.GenerateToken(user);
     }
 
-    public Task<User> SignUp(User user)
+    public async Task<User> SignUp(User user)
     {
+        await _validateData.ValidateUser(user);
         throw new NotImplementedException();
     }
 }

@@ -12,6 +12,7 @@ public partial class Email
 
     public bool Verified { get; set; }
 
+    [JsonIgnore]
     public virtual User? User { get; set; }
 
     [JsonIgnore]

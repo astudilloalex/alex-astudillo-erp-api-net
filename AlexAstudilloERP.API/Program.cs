@@ -44,14 +44,20 @@ builder.Services.AddDbContext<PostgreSQLContext>(options =>
 builder.Services.AddScoped<IJwtBlacklistRepository, JwtBlacklistRepository>();
 
 // Public schema
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 
 #region Declare all services
-// Singleton services
+// Singleton services.
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
+builder.Services.AddSingleton<ISetData, SetData>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
+
+// Custom services.
+builder.Services.AddScoped<IValidateData, ValidateData>();
 
 // Common schema
 builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
@@ -69,7 +75,6 @@ builder.Services.AddCors(options =>
         List<string> cors = new();
         builder.Configuration.GetSection("Cors").Bind(cors);
         cors.ForEach(cor => policyBuilder.WithOrigins(cor).Build());
-
         policyBuilder.AllowAnyHeader();
         policyBuilder.AllowAnyMethod();
         policyBuilder.SetIsOriginAllowed(_ => true);

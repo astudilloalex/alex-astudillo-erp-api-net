@@ -23,6 +23,10 @@ public enum ExceptionEnum : short
     /// </summary>
     ExpiredCredential,
     /// <summary>
+    /// Thrown if the id card already exists.
+    /// </summary>
+    IdCardAlreadyExists,
+    /// <summary>
     /// Thrown if the credential is malformed or has expired.
     /// </summary>
     InvalidCredential,
@@ -30,6 +34,26 @@ public enum ExceptionEnum : short
     /// Thrown if the email address is not valid.
     /// </summary>
     InvalidEmail,
+    /// <summary>
+    /// Thrown if person first name is invalid.
+    /// </summary>
+    InvalidFirstName,
+    /// <summary>
+    /// Thrown if person last name is invalid.
+    /// </summary>
+    InvalidLastName,
+    /// <summary>
+    /// Thrown if the password length is invalid.
+    /// </summary>
+    InvalidPasswordLength,
+    /// <summary>
+    /// Thrown if the person first name or last name or social reason are invalid.
+    /// </summary>
+    InvalidPersonNames,    
+    /// <summary>
+    /// Thrown if the person social reason is invalid.
+    /// </summary>
+    InvalidSocialReason,
     /// <summary>
     /// Thrown if verification code of the credential is not valid.
     /// </summary>
@@ -54,6 +78,10 @@ public enum ExceptionEnum : short
     /// Thrown if the credential given does not correspond to the user.
     /// </summary>
     UserMismatch,
+    /// <summary>
+    /// Thrown if username already exists.
+    /// </summary>
+    UsernameAlreadyExist,
     /// <summary>
     /// Thrown if there is no user corresponding to the given email or username.
     /// </summary>

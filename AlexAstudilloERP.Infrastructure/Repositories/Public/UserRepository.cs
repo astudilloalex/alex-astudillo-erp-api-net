@@ -14,6 +14,11 @@ public class UserRepository : NPPostgreSQLRepository<User, long>, IUserRepositor
         _context = context;
     }
 
+    public Task<bool> ExistsUsername(string username)
+    {
+        return _context.Users.AsNoTracking().AnyAsync(x => x.Username.Equals(username));
+    }
+
     public Task<User?> FindByUsernameOrEmail(string value)
     {
         return _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Username.Equals(value) || x.Email!.Mail.Equals(value));

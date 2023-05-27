@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class PoliticalDivisionType
 {
@@ -16,5 +18,6 @@ public partial class PoliticalDivisionType
 
     public DateTime UpdateDate { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<PoliticalDivision> PoliticalDivisions { get; set; } = new List<PoliticalDivision>();
 }
