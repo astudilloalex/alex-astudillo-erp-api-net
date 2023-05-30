@@ -1,5 +1,6 @@
 ﻿using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Domain.Exceptions.BadRequest;
+using AlexAstudilloERP.Domain.Exceptions.Conflict;
 using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Exceptions.Unauthorized;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
@@ -70,6 +71,7 @@ public class ExceptionMiddleware
             PostgresException => PostgresExceptionData((PostgresException)exception),
             UnauthorizedException => UnauthorizedExceptionData((UnauthorizedException)exception),
             BadRequestException => BadRequestExceptionData((BadRequestException)exception),
+            ConflictException => ConflictExceptionData((ConflictException)exception),
             _ => ResponseHandler.Error(500, exception.Message),
         };
         ;
@@ -110,6 +112,14 @@ public class ExceptionMiddleware
         return exception switch
         {
             _ => ResponseHandler.BadRequest(exception.Code),
+        };
+    }
+
+    private static Dictionary<string, object> ConflictExceptionData(ConflictException exception)
+    {
+        return exception switch
+        {
+            _ => ResponseHandler.Conflict(exception.Code),
         };
     }
 }

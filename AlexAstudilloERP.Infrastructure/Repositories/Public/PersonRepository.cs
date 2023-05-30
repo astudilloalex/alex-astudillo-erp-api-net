@@ -18,4 +18,9 @@ public class PersonRepository : NPPostgreSQLRepository<Person, long>, IPersonRep
     {
         return _context.People.AsNoTracking().AnyAsync(p => p.IdCard.Equals(idCard));
     }
+
+    public Task<Person?> FindByIdCard(string idCard)
+    {
+        return _context.People.AsNoTracking().FirstOrDefaultAsync(p => p.IdCard.Equals(idCard));
+    }
 }

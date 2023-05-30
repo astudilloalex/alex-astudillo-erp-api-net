@@ -13,3 +13,5 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\EFCommonCRUD.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\EFCommonCRUD.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\obj\Debug\net7.0\AlexAstudilloERP.Domain.csproj.CopyComplete
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\BCrypt.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Domain\bin\Debug\net7.0\BCrypt.pdb

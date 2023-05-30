@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WEnRhO36XvUkAj/xpCHYsLOOdD7Zwuu3JKxxmlOGYwUp0MnduEDK++YsJldic/f4GgtwdtXlvEbtv8ZXgggwEA==",
+  "dgSpecHash": "tvhU7wGfA+RAi7KL5BVLJGOF3KmgUpMV2oYMQn223cWx5UqMkbET7Af8Ix3dqZ4Snkq9s9Ta6iNO+LJBcCDPDg==",
   "success": true,
   "projectFilePath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\AlexAstudilloERP.Domain\\AlexAstudilloERP.Domain.csproj",
   "expectedPackageFiles": [
@@ -28,7 +28,8 @@
     "C:\\Users\\alex-\\.nuget\\packages\\npgsql\\7.0.4\\npgsql.7.0.4.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.4\\npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",
     "C:\\Users\\alex-\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.15.1\\system.identitymodel.tokens.jwt.6.15.1.nupkg.sha512",
-    "C:\\Users\\alex-\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    "C:\\Users\\alex-\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "C:\\Users\\alex-\\.nuget\\packages\\bcrypt\\1.0.0\\bcrypt.1.0.0.nupkg.sha512"
   ],
   "logs": []
 }

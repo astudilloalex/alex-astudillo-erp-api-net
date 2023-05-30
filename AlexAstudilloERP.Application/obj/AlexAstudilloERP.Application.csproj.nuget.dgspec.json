@@ -90,6 +90,9 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+              "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\BCrypt\\BCrypt.csproj": {
+                "projectPath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\BCrypt\\BCrypt.csproj"
+              },
               "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\EFCommonCRUD\\EFCommonCRUD.csproj": {
                 "projectPath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\EFCommonCRUD\\EFCommonCRUD.csproj"
               }

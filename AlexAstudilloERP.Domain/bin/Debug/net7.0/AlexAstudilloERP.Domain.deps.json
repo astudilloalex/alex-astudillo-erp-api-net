@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "AlexAstudilloERP.Domain/1.0.0": {
         "dependencies": {
+          "BCrypt": "1.0.0",
           "EFCommonCRUD": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.5",
           "Microsoft.EntityFrameworkCore": "7.0.5",
@@ -209,6 +210,11 @@
         }
       },
       "System.Security.Cryptography.Cng/4.5.0": {},
+      "BCrypt/1.0.0": {
+        "runtime": {
+          "BCrypt.dll": {}
+        }
+      },
       "EFCommonCRUD/1.0.0": {
         "runtime": {
           "EFCommonCRUD.dll": {}
@@ -396,6 +402,11 @@
       "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
       "path": "system.security.cryptography.cng/4.5.0",
       "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    },
+    "BCrypt/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "EFCommonCRUD/1.0.0": {
       "type": "project",

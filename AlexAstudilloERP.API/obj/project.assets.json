@@ -549,6 +549,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "BCrypt": "1.0.0",
           "EFCommonCRUD": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.5",
           "Microsoft.EntityFrameworkCore": "7.0.5",

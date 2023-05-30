@@ -22,10 +22,17 @@ public partial class PoliticalDivision
 
     public DateTime UpdateDate { get; set; }
 
+    public int? ParentId { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
     public virtual Country? Country { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<PoliticalDivision> InverseParent { get; set; } = new List<PoliticalDivision>();
+
+    public virtual PoliticalDivision? Parent { get; set; }
 
     public virtual PoliticalDivisionType? PoliticalDivisionType { get; set; } = null!;
 }

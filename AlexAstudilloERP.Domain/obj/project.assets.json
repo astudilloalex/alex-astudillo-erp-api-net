@@ -425,6 +425,16 @@
           }
         }
       },
+      "BCrypt/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/BCrypt.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BCrypt.dll": {}
+        }
+      },
       "EFCommonCRUD/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1115,6 +1125,11 @@
         "version.txt"
       ]
     },
+    "BCrypt/1.0.0": {
+      "type": "project",
+      "path": "../BCrypt/BCrypt.csproj",
+      "msbuildProject": "../BCrypt/BCrypt.csproj"
+    },
     "EFCommonCRUD/1.0.0": {
       "type": "project",
       "path": "../EFCommonCRUD/EFCommonCRUD.csproj",
@@ -1123,6 +1138,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "BCrypt >= 1.0.0",
       "EFCommonCRUD >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.5",
       "Microsoft.EntityFrameworkCore >= 7.0.5",
@@ -1157,6 +1173,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\BCrypt\\BCrypt.csproj": {
+              "projectPath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\BCrypt\\BCrypt.csproj"
+            },
             "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\EFCommonCRUD\\EFCommonCRUD.csproj": {
               "projectPath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\EFCommonCRUD\\EFCommonCRUD.csproj"
             }

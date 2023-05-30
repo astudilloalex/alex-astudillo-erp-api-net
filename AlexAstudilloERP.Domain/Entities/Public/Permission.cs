@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Permission
 {
@@ -14,5 +16,6 @@ public partial class Permission
 
     public bool Active { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 }

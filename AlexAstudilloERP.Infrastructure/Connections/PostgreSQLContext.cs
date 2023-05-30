@@ -726,6 +726,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(150)
                 .HasColumnName("name");
+            entity.Property(e => e.ParentId).HasColumnName("parent_id");
             entity.Property(e => e.PoliticalDivisionTypeId).HasColumnName("political_division_type_id");
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("timestamp without time zone")
@@ -735,6 +736,10 @@ public partial class PostgreSQLContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("political_divisions_country_id_fkey");
+
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
+                .HasForeignKey(d => d.ParentId)
+                .HasConstraintName("political_divisions_parent_id_fkey");
 
             entity.HasOne(d => d.PoliticalDivisionType).WithMany(p => p.PoliticalDivisions)
                 .HasForeignKey(d => d.PoliticalDivisionTypeId)

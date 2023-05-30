@@ -429,6 +429,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "BCrypt": "1.0.0",
           "EFCommonCRUD": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.5",
           "Microsoft.EntityFrameworkCore": "7.0.5",
@@ -440,6 +441,16 @@
         },
         "runtime": {
           "bin/placeholder/AlexAstudilloERP.Domain.dll": {}
+        }
+      },
+      "BCrypt/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/BCrypt.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BCrypt.dll": {}
         }
       },
       "EFCommonCRUD/1.0.0": {
@@ -1136,6 +1147,11 @@
       "type": "project",
       "path": "../AlexAstudilloERP.Domain/AlexAstudilloERP.Domain.csproj",
       "msbuildProject": "../AlexAstudilloERP.Domain/AlexAstudilloERP.Domain.csproj"
+    },
+    "BCrypt/1.0.0": {
+      "type": "project",
+      "path": "../BCrypt/BCrypt.csproj",
+      "msbuildProject": "../BCrypt/BCrypt.csproj"
     },
     "EFCommonCRUD/1.0.0": {
       "type": "project",

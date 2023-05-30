@@ -208,6 +208,7 @@
       "System.Security.Cryptography.Cng/4.5.0": {},
       "AlexAstudilloERP.Domain/1.0.0": {
         "dependencies": {
+          "BCrypt": "1.0.0",
           "EFCommonCRUD": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.5",
           "Microsoft.EntityFrameworkCore": "7.0.5",
@@ -216,6 +217,11 @@
         },
         "runtime": {
           "AlexAstudilloERP.Domain.dll": {}
+        }
+      },
+      "BCrypt/1.0.0": {
+        "runtime": {
+          "BCrypt.dll": {}
         }
       },
       "EFCommonCRUD/1.0.0": {
@@ -407,6 +413,11 @@
       "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
     },
     "AlexAstudilloERP.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BCrypt/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -21,9 +21,18 @@ namespace AlexAstudilloERP.Application.Services.Custom
             _userRepository = userRepository;
         }
 
-        public Task ValidateCompany(Company company, bool update = false)
+        public void ValidateAddress(Address address, bool update = false)
         {
-            throw new NotImplementedException();
+            if (address.MainStreet.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidMainStreet);
+        }
+
+        public void ValidateCompany(Company company, bool update = false)
+        {
+            if (company.Tradename.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidCompanyName);
+            if (!update)
+            {
+                if (company.Establishments.Count(e => e.Main) != 1) throw new InvalidFieldException(ExceptionEnum.MainEstablishmentIsRequired);
+            }
         }
 
         public async Task ValidateEmail(Email email, bool update = false)
@@ -33,6 +42,15 @@ namespace AlexAstudilloERP.Application.Services.Custom
             {
                 email.Verified = false;
                 if (await _emailRepository.ExistsMail(email.Mail)) throw new UniqueKeyException(ExceptionEnum.EmailAlreadyInUse);
+            }
+        }
+
+        public void ValidateEstablishment(Establishment establishment, bool update = false)
+        {
+            if (establishment.Name.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidEstablishmentName);
+            if (!update)
+            {
+                if (establishment.Address == null) throw new InvalidFieldException(ExceptionEnum.EstablishmentAddressIsRequired);
             }
         }
 

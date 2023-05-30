@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Establishment
 {
@@ -26,5 +28,6 @@ public partial class Establishment
 
     public virtual Company? Company { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

@@ -59,7 +59,7 @@ public class TokenService : ITokenService
 
     public string GetUsername(string token)
     {
-        return GetClaims(token).FirstOrDefault(claim => claim.Type.Equals(ClaimTypes.Sid))?.Value ?? "";
+        return GetClaims(token).FirstOrDefault(claim => claim.Type.Equals(ClaimTypes.Name))?.Value ?? "";
     }
 
     #region This is not part of the interface.

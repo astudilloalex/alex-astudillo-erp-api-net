@@ -19,6 +19,13 @@ public class UserController : CommonController
         _service = service;
     }
 
+    [HttpGet]
+    [Route("current")]
+    public async Task<IActionResult> GetCurrent()
+    {
+        return Ok(ResponseHandler.Ok(await _service.GetByToken(Token)));
+    }
+
     [HttpPost]
     [Route("sign-in")]
     [AllowAnonymous]

@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Company
 {
@@ -28,16 +30,17 @@ public partial class Company
 
     public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
+    [JsonIgnore]
     public virtual ICollection<Company> InverseParent { get; set; } = new List<Company>();
 
     public virtual Company? Parent { get; set; }
 
     public virtual Person? Person { get; set; }
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
-
+    [JsonIgnore]
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
-
+    [JsonIgnore]
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
-
+    [JsonIgnore]
     public virtual ICollection<Supplier> Suppliers { get; set; } = new List<Supplier>();
 }

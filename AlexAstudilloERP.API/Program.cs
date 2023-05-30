@@ -63,6 +63,7 @@ builder.Services.AddScoped<IValidateData, ValidateData>();
 builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
 
 // Public schema
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IUserService, UserService>();
 #endregion
 

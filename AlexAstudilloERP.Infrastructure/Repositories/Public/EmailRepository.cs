@@ -18,4 +18,9 @@ public class EmailRepository : NPPostgreSQLRepository<Email, int>, IEmailReposit
     {
         return _context.Emails.AsNoTracking().AnyAsync(e => e.Mail.Equals(mail));
     }
+
+    public Task<Email?> FindByMail(string mail)
+    {
+        return _context.Emails.AsNoTracking().FirstOrDefaultAsync(e => e.Mail.Equals(mail));
+    }
 }

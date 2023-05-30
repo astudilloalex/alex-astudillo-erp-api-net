@@ -11,6 +11,10 @@ public enum ExceptionEnum : short
     /// </summary>
     EmailAlreadyInUse,
     /// <summary>
+    /// Thrown if the establishment does not contains an address.
+    /// </summary>
+    EstablishmentAddressIsRequired,
+    /// <summary>
     /// Thrown if account expired.
     /// </summary>
     ExpiredAccount,
@@ -27,6 +31,10 @@ public enum ExceptionEnum : short
     /// </summary>
     IdCardAlreadyExists,
     /// <summary>
+    /// Thrown if the company name is invalid.
+    /// </summary>
+    InvalidCompanyName,
+    /// <summary>
     /// Thrown if the credential is malformed or has expired.
     /// </summary>
     InvalidCredential,
@@ -34,6 +42,10 @@ public enum ExceptionEnum : short
     /// Thrown if the email address is not valid.
     /// </summary>
     InvalidEmail,
+    /// <summary>
+    /// Thrown if the establishment name is invalid.
+    /// </summary>
+    InvalidEstablishmentName,
     /// <summary>
     /// Thrown if person first name is invalid.
     /// </summary>
@@ -43,13 +55,17 @@ public enum ExceptionEnum : short
     /// </summary>
     InvalidLastName,
     /// <summary>
+    /// Thrown if address main street is invalid.
+    /// </summary>
+    InvalidMainStreet,
+    /// <summary>
     /// Thrown if the password length is invalid.
     /// </summary>
     InvalidPasswordLength,
     /// <summary>
     /// Thrown if the person first name or last name or social reason are invalid.
     /// </summary>
-    InvalidPersonNames,    
+    InvalidPersonNames,
     /// <summary>
     /// Thrown if the person social reason is invalid.
     /// </summary>
@@ -67,6 +83,10 @@ public enum ExceptionEnum : short
     /// </summary>
     LockedAccount,
     /// <summary>
+    /// Thrown if company does not contains a main establishment.
+    /// </summary>
+    MainEstablishmentIsRequired,
+    /// <summary>
     /// If operation is not allowed.
     /// </summary>
     OperationNotAllowed,
@@ -74,6 +94,10 @@ public enum ExceptionEnum : short
     /// Thrown if the user corresponding to the given email has been disabled.
     /// </summary>
     UserDisabled,
+    /// <summary>
+    /// Thrown if exists a user with id card.
+    /// </summary>
+    UserIdCardAlreadyExists,
     /// <summary>
     /// Thrown if the credential given does not correspond to the user.
     /// </summary>
