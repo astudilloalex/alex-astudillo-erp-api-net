@@ -24,6 +24,7 @@ public class CompanyService : ICompanyService
     {
         _setData.SetCompanyData(company);
         _validateData.ValidateCompany(company: company, update: false);
+        // Validate all establishments.
         for (int i = 0; i < company.Establishments.Count; i++)
         {
             Establishment establishment = company.Establishments.ElementAt(i);

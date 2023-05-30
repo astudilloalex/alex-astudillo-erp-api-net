@@ -46,6 +46,7 @@ builder.Services.AddScoped<IJwtBlacklistRepository, JwtBlacklistRepository>();
 // Public schema
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+builder.Services.AddScoped<IPersonDocumentTypeRepository, PersonDocumentTypeRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
@@ -64,6 +65,7 @@ builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
 
 // Public schema
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IPersonDocumentTypeService, PersonDocumentTypeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 #endregion
 
