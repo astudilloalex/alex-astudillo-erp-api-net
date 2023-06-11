@@ -16,11 +16,17 @@ public class PoliticalDivisionRepository : NPPostgreSQLRepository<PoliticalDivis
 
     public Task<List<PoliticalDivision>> FindByParentId(int parentId)
     {
-        return _context.PoliticalDivisions.AsNoTracking().Where(p => p.ParentId == parentId).ToListAsync();
+        return _context.PoliticalDivisions.AsNoTracking()
+            .Where(p => p.ParentId == parentId)
+            .OrderBy(p => p.Name)
+            .ToListAsync();
     }
 
     public Task<List<PoliticalDivision>> FindByTypeId(short typeId)
     {
-        return _context.PoliticalDivisions.AsNoTracking().Where(p => p.PoliticalDivisionTypeId == typeId).ToListAsync();
+        return _context.PoliticalDivisions.AsNoTracking()
+            .Where(p => p.PoliticalDivisionTypeId == typeId)
+            .OrderBy(p => p.Name)
+            .ToListAsync();
     }
 }
