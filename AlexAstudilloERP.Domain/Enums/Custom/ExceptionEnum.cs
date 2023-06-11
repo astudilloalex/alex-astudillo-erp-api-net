@@ -7,6 +7,10 @@ public enum ExceptionEnum : short
     /// </summary>
     AccountExistsWithDifferentCredential,
     /// <summary>
+    /// Thrown if exists company with unique person id card.
+    /// </summary>
+    AlreadyExistsCompanyWithThatIdCard,
+    /// <summary>
     /// Thrown if there already exists an account with the given email address.
     /// </summary>
     EmailAlreadyInUse,

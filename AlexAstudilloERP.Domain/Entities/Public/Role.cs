@@ -20,6 +20,8 @@ public partial class Role
 
     public DateTime UpdateDate { get; set; }
 
+    public bool Editable { get; } = true;
+
     public virtual Company? Company { get; set; }
 
     public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();

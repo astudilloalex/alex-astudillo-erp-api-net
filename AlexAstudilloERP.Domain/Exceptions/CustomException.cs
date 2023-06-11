@@ -18,6 +18,7 @@ public class CustomException : Exception
             return _exceptionEnum switch
             {
                 ExceptionEnum.AccountExistsWithDifferentCredential => "account-exists-with-different-credential",
+                ExceptionEnum.AlreadyExistsCompanyWithThatIdCard => "already-exists-company-with-that-id-card",
                 ExceptionEnum.EmailAlreadyInUse => "email-already-in-use",
                 ExceptionEnum.EstablishmentAddressIsRequired => "establishment-address-is-required",
                 ExceptionEnum.ExpiredAccount => "expired-account",

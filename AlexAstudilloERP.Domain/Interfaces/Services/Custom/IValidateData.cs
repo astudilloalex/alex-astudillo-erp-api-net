@@ -5,7 +5,7 @@ namespace AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 public interface IValidateData
 {
     public void ValidateAddress(Address address, bool update = false);
-    public void ValidateCompany(Company company, bool update = false);
+    public Task ValidateCompany(Company company, bool update = false);
     public Task ValidateEmail(Email email, bool update = false);
     public void ValidateEstablishment(Establishment establishment, bool update = false);
     public void ValidateMail(string mail);

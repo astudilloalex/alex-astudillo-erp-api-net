@@ -800,6 +800,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
+            entity.Property(e => e.Editable).HasColumnName("editable");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");

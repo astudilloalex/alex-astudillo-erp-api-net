@@ -10,15 +10,18 @@ namespace AlexAstudilloERP.Application.Services.Custom
 {
     public class ValidateData : IValidateData
     {
+        private readonly ICompanyRepository _companyRepository;
         private readonly IEmailRepository _emailRepository;
         private readonly IPersonRepository _personRepository;
         private readonly IUserRepository _userRepository;
 
-        public ValidateData(IEmailRepository emailRepository, IPersonRepository personRepository, IUserRepository userRepository)
+        public ValidateData(ICompanyRepository companyRepository, IEmailRepository emailRepository,
+            IPersonRepository personRepository, IUserRepository userRepository)
         {
             _emailRepository = emailRepository;
             _personRepository = personRepository;
             _userRepository = userRepository;
+            _companyRepository = companyRepository;
         }
 
         public void ValidateAddress(Address address, bool update = false)
@@ -26,8 +29,12 @@ namespace AlexAstudilloERP.Application.Services.Custom
             if (address.MainStreet.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidMainStreet);
         }
 
-        public void ValidateCompany(Company company, bool update = false)
+        public async Task ValidateCompany(Company company, bool update = false)
         {
+            if (company.Person != null && await _companyRepository.ExistsCompanyByPersonIdCard(company.Person.IdCard))
+            {
+                throw new UniqueKeyException(ExceptionEnum.AlreadyExistsCompanyWithThatIdCard);
+            }
             if (company.Tradename.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidCompanyName);
             if (!update)
             {

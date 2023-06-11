@@ -23,7 +23,7 @@ public class CompanyService : ICompanyService
     public async Task<Company> AddAsync(Company company, string token)
     {
         _setData.SetCompanyData(company);
-        _validateData.ValidateCompany(company: company, update: false);
+        await _validateData.ValidateCompany(company: company, update: false);
         // Validate all establishments.
         for (int i = 0; i < company.Establishments.Count; i++)
         {
@@ -40,12 +40,9 @@ public class CompanyService : ICompanyService
         if (company.Person != null)
         {
             _setData.SetPersonData(person: company.Person);
-            Person? person = await _personRepository.FindByIdCard(company.Person.IdCard);
-            if (person == null)
-            {
-                await _validateData.ValidatePerson(company.Person, update: false);
-            }
-            else
+            await _validateData.ValidatePerson(company.Person, update: false);
+            Person? person = await _personRepository.FindByIdCard(company.Person.IdCard);       
+            if (person != null)
             {
                 person.JuridicalPerson = company.Person.JuridicalPerson;
                 person.DocumentTypeId = company.Person.DocumentTypeId;

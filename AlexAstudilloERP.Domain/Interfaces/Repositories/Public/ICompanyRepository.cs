@@ -5,4 +5,5 @@ namespace AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 
 public interface ICompanyRepository : INPRepository<Company, int>
 {
+    public Task<bool> ExistsCompanyByPersonIdCard(string idCard);
 }
