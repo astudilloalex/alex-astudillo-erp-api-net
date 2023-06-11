@@ -36,10 +36,6 @@ namespace AlexAstudilloERP.Application.Services.Custom
                 throw new UniqueKeyException(ExceptionEnum.AlreadyExistsCompanyWithThatIdCard);
             }
             if (company.Tradename.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidCompanyName);
-            if (!update)
-            {
-                if (company.Establishments.Count(e => e.Main) != 1) throw new InvalidFieldException(ExceptionEnum.MainEstablishmentIsRequired);
-            }
         }
 
         public async Task ValidateEmail(Email email, bool update = false)

@@ -9,49 +9,37 @@ public class CompanyService : ICompanyService
 {
     private readonly ICompanyRepository _repository;
     private readonly IPersonRepository _personRepository;
+    private readonly ITokenService _tokenService;
     private readonly ISetData _setData;
     private readonly IValidateData _validateData;
 
-    public CompanyService(ICompanyRepository repository, IPersonRepository personRepository, ISetData setData, IValidateData validateData)
+    public CompanyService(ICompanyRepository repository, IPersonRepository personRepository,
+        ITokenService tokenService, ISetData setData,
+        IValidateData validateData)
     {
         _repository = repository;
         _validateData = validateData;
         _setData = setData;
         _personRepository = personRepository;
+        _tokenService = tokenService;
     }
 
     public async Task<Company> AddAsync(Company company, string token)
     {
+        company.UserId = _tokenService.GetUserId(token);
         _setData.SetCompanyData(company);
         await _validateData.ValidateCompany(company: company, update: false);
-        // Validate all establishments.
-        for (int i = 0; i < company.Establishments.Count; i++)
-        {
-            Establishment establishment = company.Establishments.ElementAt(i);
-            _setData.SetEstablishmentData(establishment, false);
-            if (establishment.Address != null)
-            {
-                _setData.SetAddressData(establishment.Address, false);
-                _validateData.ValidateAddress(establishment.Address, false);
-            }
-            _validateData.ValidateEstablishment(establishment: establishment, update: false);
-        }
         // Validate if person exists.
         if (company.Person != null)
         {
             _setData.SetPersonData(person: company.Person);
-            await _validateData.ValidatePerson(company.Person, update: false);
-            Person? person = await _personRepository.FindByIdCard(company.Person.IdCard);       
-            if (person != null)
+            Person? person = await _personRepository.FindByIdCard(company.Person.IdCard);
+            if (person == null)
             {
-                person.JuridicalPerson = company.Person.JuridicalPerson;
-                person.DocumentTypeId = company.Person.DocumentTypeId;
-                person.Birthdate = company.Person.Birthdate;
-                person.FirstName = company.Person.FirstName;
-                person.LastName = company.Person.LastName;
-                person.SocialReason = company.Person.SocialReason;
-                person.GenderId = company.Person.GenderId;
-                await _personRepository.UpdateAsync(person);
+                await _validateData.ValidatePerson(company.Person, update: false);
+            }
+            else
+            {
                 company.Person = null;
                 company.PersonId = person.Id;
             }

@@ -28,6 +28,9 @@ public partial class Company
 
     public DateTime UpdateDate { get; set; }
 
+    public long UserId { get; set; }
+
+    [JsonIgnore]
     public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
     [JsonIgnore]
@@ -36,11 +39,19 @@ public partial class Company
     public virtual Company? Parent { get; set; }
 
     public virtual Person? Person { get; set; }
+
+    [JsonIgnore]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+
+    [JsonIgnore]
+    public virtual User? User { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
+
     [JsonIgnore]
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
     [JsonIgnore]
     public virtual ICollection<Supplier> Suppliers { get; set; } = new List<Supplier>();
 }

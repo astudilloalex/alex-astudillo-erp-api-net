@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿using System.Text.Json.Serialization;
+
+namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class User
 {
@@ -24,11 +26,17 @@ public partial class User
 
     public DateTime UpdateDate { get; set; }
 
+    [JsonIgnore]
+    public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
+
     public virtual Email? Email { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
     public virtual Person? Person { get; set; }
 
-    public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
+    public virtual ICollection<Establishment> EstablishmentsNavigation { get; set; } = new List<Establishment>();
 
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 }

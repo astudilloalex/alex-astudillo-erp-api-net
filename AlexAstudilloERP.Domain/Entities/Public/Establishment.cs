@@ -24,9 +24,14 @@ public partial class Establishment
 
     public DateTime UpdateDate { get; set; }
 
+    public long UserId { get; set; }
+
     public virtual Address? Address { get; set; }
 
     public virtual Company? Company { get; set; }
+
+    [JsonIgnore]
+    public virtual User? User { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<User> Users { get; set; } = new List<User>();

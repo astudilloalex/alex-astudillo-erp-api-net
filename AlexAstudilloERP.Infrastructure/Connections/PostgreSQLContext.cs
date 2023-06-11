@@ -171,6 +171,8 @@ public partial class PostgreSQLContext : DbContext
 
             entity.HasIndex(e => e.Code, "companies_code_key").IsUnique();
 
+            entity.HasIndex(e => e.PersonId, "companies_person_id_key").IsUnique();
+
             entity.Property(e => e.Id)
                 .HasIdentityOptions(null, null, null, null, true, null)
                 .HasColumnName("id");
@@ -197,15 +199,21 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("update_date");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .HasForeignKey(d => d.ParentId)
                 .HasConstraintName("companies_parent_id_fkey");
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Companies)
-                .HasForeignKey(d => d.PersonId)
+            entity.HasOne(d => d.Person).WithOne(p => p.Company)
+                .HasForeignKey<Company>(d => d.PersonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("companies_person_id_fkey");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Companies)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("companies_user_id_fkey");
 
             entity.HasMany(d => d.Customers).WithMany(p => p.Companies)
                 .UsingEntity<Dictionary<string, object>>(
@@ -460,6 +468,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("update_date");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Address).WithMany(p => p.Establishments)
                 .HasForeignKey(d => d.AddressId)
@@ -470,6 +479,11 @@ public partial class PostgreSQLContext : DbContext
                 .HasForeignKey(d => d.CompanyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("establishments_company_id_fkey");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Establishments)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("establishments_user_id_fkey");
         });
 
         modelBuilder.Entity<Gender>(entity =>
@@ -907,7 +921,7 @@ public partial class PostgreSQLContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("users_person_id_fkey");
 
-            entity.HasMany(d => d.Establishments).WithMany(p => p.Users)
+            entity.HasMany(d => d.EstablishmentsNavigation).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
                     "UserEstablishment",
                     r => r.HasOne<Establishment>().WithMany()

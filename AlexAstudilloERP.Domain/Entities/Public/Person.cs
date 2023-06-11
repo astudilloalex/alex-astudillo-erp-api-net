@@ -23,7 +23,7 @@ public partial class Person
     public bool JuridicalPerson { get; set; }
 
     [JsonIgnore]
-    public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
+    public virtual Company? Company { get; set; }
 
     [JsonIgnore]
     public virtual Customer? Customer { get; set; }

@@ -54,6 +54,7 @@ builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
 builder.Services.AddScoped<IPersonDocumentTypeRepository, PersonDocumentTypeRepository>();
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPoliticalDivisionRepository, PoliticalDivisionRepository>();
 builder.Services.AddScoped<IPoliticalDivisionTypeRepository, PoliticalDivisionTypeRepository>();
