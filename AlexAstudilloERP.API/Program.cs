@@ -52,6 +52,7 @@ builder.Services.AddScoped<IJwtBlacklistRepository, JwtBlacklistRepository>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+builder.Services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
 builder.Services.AddScoped<IPersonDocumentTypeRepository, PersonDocumentTypeRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPoliticalDivisionRepository, PoliticalDivisionRepository>();
@@ -74,6 +75,7 @@ builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
 // Public schema
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IEstablishmentService, EstablishmentService>();
 builder.Services.AddScoped<IPersonDocumentTypeService, PersonDocumentTypeService>();
 builder.Services.AddScoped<IPoliticalDivisionService, PoliticalDivisionService>();
 builder.Services.AddScoped<IPoliticalDivisionTypeService, PoliticalDivisionTypeService>();
