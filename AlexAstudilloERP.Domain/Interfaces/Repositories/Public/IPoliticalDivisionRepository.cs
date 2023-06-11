@@ -7,4 +7,5 @@ public interface IPoliticalDivisionRepository : INPRepository<PoliticalDivision,
 {
     public Task<List<PoliticalDivision>> FindByParentId(int parentId);
     public Task<List<PoliticalDivision>> FindByTypeId(short typeId);
+    public Task<List<PoliticalDivision>> FindByTypeIdAndCountryId(short countryId, short typeId);
 }

@@ -19,8 +19,8 @@ public class PoliticalDivisionTypeController : CommonController
 
     [HttpGet]
     [Route("all")]
-    public async Task<IActionResult> GetAll([FromQuery(Name = "only_active")] bool? onlyActive)
+    public async Task<IActionResult> GetAll([FromQuery] bool? active)
     {
-        return Ok(ResponseHandler.Ok(await _service.GetAll(onlyActive)));
+        return Ok(ResponseHandler.Ok(await _service.GetAll(active)));
     }
 }

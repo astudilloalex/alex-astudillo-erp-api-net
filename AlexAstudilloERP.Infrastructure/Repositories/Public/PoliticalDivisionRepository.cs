@@ -29,4 +29,12 @@ public class PoliticalDivisionRepository : NPPostgreSQLRepository<PoliticalDivis
             .OrderBy(p => p.Name)
             .ToListAsync();
     }
+
+    public Task<List<PoliticalDivision>> FindByTypeIdAndCountryId(short countryId, short typeId)
+    {
+        return _context.PoliticalDivisions.AsNoTracking()
+            .Where(p => p.PoliticalDivisionTypeId == typeId && p.CountryId == countryId)
+            .OrderBy(p => p.Name)
+            .ToListAsync();
+    }
 }
