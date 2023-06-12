@@ -31,6 +31,10 @@ public enum ExceptionEnum : short
     /// </summary>
     ExpiredCredential,
     /// <summary>
+    /// Thrown if user try access to forbidden resource.
+    /// </summary>
+    Forbidden,
+    /// <summary>
     /// Thrown if the id card already exists.
     /// </summary>
     IdCardAlreadyExists,
@@ -70,6 +74,10 @@ public enum ExceptionEnum : short
     /// Thrown if the person first name or last name or social reason are invalid.
     /// </summary>
     InvalidPersonNames,
+    /// <summary>
+    /// Thrown if the political division type is invalid.
+    /// </summary>
+    InvalidPoliticalDivisionType,
     /// <summary>
     /// Thrown if the person social reason is invalid.
     /// </summary>

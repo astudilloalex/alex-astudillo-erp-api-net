@@ -2,7 +2,7 @@
 
 public enum PermissionEnum : short
 {
-    EstablishmentsCreate = 1,
-    EstablishmentsUpdate = 2,
-    EstablishmentsList = 3,
+    EstablishmentCreate = 1,
+    EstablishmentUpdate = 2,
+    EstablishmentList = 3,
 }

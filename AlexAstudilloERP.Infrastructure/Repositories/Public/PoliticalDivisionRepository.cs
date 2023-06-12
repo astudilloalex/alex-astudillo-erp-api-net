@@ -37,4 +37,12 @@ public class PoliticalDivisionRepository : NPPostgreSQLRepository<PoliticalDivis
             .OrderBy(p => p.Name)
             .ToListAsync();
     }
+
+    public Task<short> FindTypeIdById(int id)
+    {
+        return _context.PoliticalDivisions.AsNoTracking()
+            .Where(p => p.Id == id)
+            .Select(p => p.PoliticalDivisionTypeId)
+            .FirstOrDefaultAsync();
+    }
 }

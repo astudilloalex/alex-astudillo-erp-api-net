@@ -1,5 +1,6 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Enums.Custom;
+using AlexAstudilloERP.Domain.Enums.Public;
 using AlexAstudilloERP.Domain.Exceptions.BadRequest;
 using AlexAstudilloERP.Domain.Exceptions.Conflict;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
@@ -12,21 +13,28 @@ namespace AlexAstudilloERP.Application.Services.Custom
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IEmailRepository _emailRepository;
+        private readonly IEstablishmentRepository _establishmentRepository;
         private readonly IPersonRepository _personRepository;
+        private readonly IPoliticalDivisionRepository _politicalDivisionRepository;
         private readonly IUserRepository _userRepository;
 
         public ValidateData(ICompanyRepository companyRepository, IEmailRepository emailRepository,
-            IPersonRepository personRepository, IUserRepository userRepository)
+            IPersonRepository personRepository, IUserRepository userRepository,
+            IEstablishmentRepository establishmentRepository, IPoliticalDivisionRepository politicalDivisionRepository)
         {
             _emailRepository = emailRepository;
             _personRepository = personRepository;
             _userRepository = userRepository;
             _companyRepository = companyRepository;
+            _establishmentRepository = establishmentRepository;
+            _politicalDivisionRepository = politicalDivisionRepository;
         }
 
-        public void ValidateAddress(Address address, bool update = false)
+        public async Task ValidateAddress(Address address, bool update = false)
         {
             if (address.MainStreet.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidMainStreet);
+            short politicalDivisionTypeId = await _politicalDivisionRepository.FindTypeIdById(address.PoliticalDivisionId);
+            if (politicalDivisionTypeId != (short)PoliticalDivisionTypeEnum.Canton) throw new InvalidFieldException(ExceptionEnum.InvalidPoliticalDivisionType);
         }
 
         public async Task ValidateCompany(Company company, bool update = false)
@@ -48,12 +56,17 @@ namespace AlexAstudilloERP.Application.Services.Custom
             }
         }
 
-        public void ValidateEstablishment(Establishment establishment, bool update = false)
+        public async Task ValidateEstablishment(Establishment establishment, bool update = false)
         {
             if (establishment.Name.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidEstablishmentName);
             if (!update)
             {
                 if (establishment.Address == null) throw new InvalidFieldException(ExceptionEnum.EstablishmentAddressIsRequired);
+                Establishment? finded = await _establishmentRepository.FindMainByCompanyId(establishment.CompanyId);
+                if (finded == null && !establishment.Main)
+                {
+                    throw new InvalidFieldException(ExceptionEnum.MainEstablishmentIsRequired);
+                }
             }
         }
 
