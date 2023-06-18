@@ -40,6 +40,7 @@ public class CustomException : Exception
                 ExceptionEnum.InvalidVerificationCode => "invalid-verification-code",
                 ExceptionEnum.InvalidVerificationId => "invalid-verification-id",
                 ExceptionEnum.LockedAccount => "locked-account",
+                ExceptionEnum.MainEstablishmentAlreadyExists => "main-establishment-already-exists",
                 ExceptionEnum.MainEstablishmentIsRequired => "main-establishment-is-required",
                 ExceptionEnum.OperationNotAllowed => "operation-not-allowed",
                 ExceptionEnum.UserDisabled => "user-disabled",

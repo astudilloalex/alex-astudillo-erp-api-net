@@ -5,6 +5,9 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using EFCommonCRUD.Interfaces;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.Design;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -41,5 +44,42 @@ public class EstablishmentService : IEstablishmentService
             await _validateData.ValidateAddress(address: establishment.Address, update: false);
         }
         return await _repository.SaveAsync(establishment);
+    }
+
+    public async Task<IPage<Establishment>> FindByCompanyId(IPageable pageable, int companyId, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        bool permitted = await _permissionRepository.HasPermission(userId, companyId, PermissionEnum.EstablishmentList);
+        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return await _repository.FindByCompanyId(pageable, companyId);
+    }
+
+    public async Task<Establishment?> GetByCode(string code, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        Establishment? establishment = await _repository.FindByCode(code);
+        if (establishment == null) return null;
+        bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, establishment.Id, PermissionEnum.EstablishmentGet);
+        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return establishment;
+    }
+
+    public async Task<Establishment> SetMain(int id, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, id, PermissionEnum.EstablishmentUpdate);
+        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return await _repository.SetMain(id, userId);
+    }
+
+    public async Task<Establishment> Update(Establishment establishment, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        establishment.UserId = userId;
+        bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, establishment.Id, PermissionEnum.EstablishmentUpdate);
+        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        _setData.SetEstablishmentData(establishment, update: true);
+        await _validateData.ValidateEstablishment(establishment: establishment, update: true);
+        return await _repository.UpdateAsync(establishment);
     }
 }

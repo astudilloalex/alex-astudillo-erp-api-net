@@ -67,6 +67,10 @@ namespace AlexAstudilloERP.Application.Services.Custom
                 {
                     throw new InvalidFieldException(ExceptionEnum.MainEstablishmentIsRequired);
                 }
+                else if (finded != null && establishment.Main)
+                {
+                    throw new InvalidFieldException(ExceptionEnum.MainEstablishmentAlreadyExists);
+                }
             }
         }
 

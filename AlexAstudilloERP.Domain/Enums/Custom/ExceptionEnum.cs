@@ -95,6 +95,10 @@ public enum ExceptionEnum : short
     /// </summary>
     LockedAccount,
     /// <summary>
+    /// Thrown if company already contains a main establishment.
+    /// </summary>
+    MainEstablishmentAlreadyExists,
+    /// <summary>
     /// Thrown if company does not contains a main establishment.
     /// </summary>
     MainEstablishmentIsRequired,
