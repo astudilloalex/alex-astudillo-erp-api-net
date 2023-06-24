@@ -19,6 +19,7 @@ public class PermissionService : IPermissionService
 
     public Task<IPage<Permission>> GetAll(IPageable pageable, int companyId, string token)
     {
-        throw new NotImplementedException();
+        long userId = _tokenService.GetUserId(token);
+        return _repository.FindAllAsync(pageable, companyId, userId);
     }
 }
