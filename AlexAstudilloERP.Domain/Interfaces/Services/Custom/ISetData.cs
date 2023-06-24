@@ -41,6 +41,12 @@ public interface ISetData
         person.Gender = null;
     }
 
+    public void SetRoleData(Role role, bool update = false)
+    {
+        role.Name = role.Name.Trim().ToUpperInvariant();
+        role.Description = role.Description?.Trim().ToUpperInvariant();
+    }
+
     public void SetUserData(User user, bool update = false)
     {
         user.Username = user.Username.Trim();

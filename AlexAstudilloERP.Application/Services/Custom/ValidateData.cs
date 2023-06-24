@@ -16,11 +16,13 @@ namespace AlexAstudilloERP.Application.Services.Custom
         private readonly IEstablishmentRepository _establishmentRepository;
         private readonly IPersonRepository _personRepository;
         private readonly IPoliticalDivisionRepository _politicalDivisionRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IUserRepository _userRepository;
 
         public ValidateData(ICompanyRepository companyRepository, IEmailRepository emailRepository,
             IPersonRepository personRepository, IUserRepository userRepository,
-            IEstablishmentRepository establishmentRepository, IPoliticalDivisionRepository politicalDivisionRepository)
+            IEstablishmentRepository establishmentRepository, IPoliticalDivisionRepository politicalDivisionRepository, 
+            IRoleRepository roleRepository)
         {
             _emailRepository = emailRepository;
             _personRepository = personRepository;
@@ -28,6 +30,7 @@ namespace AlexAstudilloERP.Application.Services.Custom
             _companyRepository = companyRepository;
             _establishmentRepository = establishmentRepository;
             _politicalDivisionRepository = politicalDivisionRepository;
+            _roleRepository = roleRepository;
         }
 
         public async Task ValidateAddress(Address address, bool update = false)
