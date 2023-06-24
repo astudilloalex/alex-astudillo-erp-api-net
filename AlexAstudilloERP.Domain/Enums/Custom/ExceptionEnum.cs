@@ -107,6 +107,10 @@ public enum ExceptionEnum : short
     /// </summary>
     OperationNotAllowed,
     /// <summary>
+    /// Thrown if taxpayer number is null when company is a special taxpayer.
+    /// </summary>
+    TaxpayerNumberIsRequired,
+    /// <summary>
     /// Thrown if the user corresponding to the given email has been disabled.
     /// </summary>
     UserDisabled,

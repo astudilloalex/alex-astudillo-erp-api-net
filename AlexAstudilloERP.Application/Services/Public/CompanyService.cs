@@ -1,4 +1,7 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
+using AlexAstudilloERP.Domain.Enums.Custom;
+using AlexAstudilloERP.Domain.Enums.Public;
+using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
@@ -8,6 +11,7 @@ namespace AlexAstudilloERP.Application.Services.Public;
 public class CompanyService : ICompanyService
 {
     private readonly ICompanyRepository _repository;
+    private readonly IPermissionRepository _permissionRepository;
     private readonly IPersonRepository _personRepository;
     private readonly ITokenService _tokenService;
     private readonly ISetData _setData;
@@ -15,13 +19,14 @@ public class CompanyService : ICompanyService
 
     public CompanyService(ICompanyRepository repository, IPersonRepository personRepository,
         ITokenService tokenService, ISetData setData,
-        IValidateData validateData)
+        IValidateData validateData, IPermissionRepository permissionRepository)
     {
         _repository = repository;
         _validateData = validateData;
         _setData = setData;
         _personRepository = personRepository;
         _tokenService = tokenService;
+        _permissionRepository = permissionRepository;
     }
 
     public async Task<Company> AddAsync(Company company, string token)
@@ -45,5 +50,29 @@ public class CompanyService : ICompanyService
             }
         }
         return await _repository.SaveAsync(company);
+    }
+
+    public async Task<Company?> GetByCode(string code, string token)
+    {
+        Company? finded = await _repository.FindByCode(code);
+        long userId = _tokenService.GetUserId(token);
+        return finded;
+    }
+
+    public async Task<Company> Update(Company company, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        bool permitted = await _permissionRepository.HasPermission(userId, company.Id, PermissionEnum.CompanyUpdate);
+        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        company.UserId = userId;
+        _setData.SetCompanyData(company, update: true);
+        await _validateData.ValidateCompany(company: company, update: true);
+        if (company.Person != null)
+        {
+            _setData.SetPersonData(company.Person, update: true);
+            await _validateData.ValidatePerson(company.Person, update: true);
+
+        }
+        return await _repository.UpdateAsync(company);
     }
 }

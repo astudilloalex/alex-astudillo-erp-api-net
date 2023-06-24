@@ -58,6 +58,7 @@ builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPoliticalDivisionRepository, PoliticalDivisionRepository>();
 builder.Services.AddScoped<IPoliticalDivisionTypeRepository, PoliticalDivisionTypeRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 
@@ -77,9 +78,11 @@ builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IEstablishmentService, EstablishmentService>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddScoped<IPersonDocumentTypeService, PersonDocumentTypeService>();
 builder.Services.AddScoped<IPoliticalDivisionService, PoliticalDivisionService>();
 builder.Services.AddScoped<IPoliticalDivisionTypeService, PoliticalDivisionTypeService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserService, UserService>();
 #endregion
 

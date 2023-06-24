@@ -800,7 +800,7 @@ public partial class PostgreSQLContext : DbContext
 
             entity.HasIndex(e => e.Code, "roles_code_key").IsUnique();
 
-            entity.HasIndex(e => new { e.CompanyId, e.Name }, "roles_company_id_code_key").IsUnique();
+            entity.HasIndex(e => new { e.CompanyId, e.Name }, "roles_company_id_name_key").IsUnique();
 
             entity.Property(e => e.Id)
                 .HasIdentityOptions(null, null, null, null, true, null)

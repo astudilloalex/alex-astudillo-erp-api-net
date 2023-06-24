@@ -28,7 +28,7 @@ public interface ISetData
         if (!update) email.Verified = false;
     }
 
-    public void SetPersonData(Person person)
+    public void SetPersonData(Person person, bool update = false)
     {
         person.IdCard = person.IdCard.Trim().ToUpper();
         person.FirstName = person.JuridicalPerson ? null : person.FirstName?.Trim().ToUpperInvariant();

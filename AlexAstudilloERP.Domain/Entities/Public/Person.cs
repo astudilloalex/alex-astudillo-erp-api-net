@@ -41,9 +41,12 @@ public partial class Person
     [JsonIgnore]
     public virtual User? User { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
+    [JsonIgnore]
     public virtual ICollection<Email> Emails { get; set; } = new List<Email>();
 
+    [JsonIgnore]
     public virtual ICollection<Phone> Phones { get; set; } = new List<Phone>();
 }

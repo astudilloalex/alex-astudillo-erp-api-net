@@ -2,6 +2,8 @@
 using AlexAstudilloERP.Domain.Enums.Public;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Infrastructure.Connections;
+using EFCommonCRUD.Interfaces;
+using EFCommonCRUD.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 
@@ -14,6 +16,19 @@ public class PermissionRepository : NPPostgreSQLRepository<Permission, short>, I
     public PermissionRepository(PostgreSQLContext context) : base(context)
     {
         _context = context;
+    }
+
+    public async Task<IPage<Permission>> FindAllAsync(IPageable pageable, int companyId, long userId)
+    {
+        int offset = Convert.ToInt32(pageable.GetOffset());
+        List<Permission> data = await _context.Permissions.AsNoTracking()
+            .Where(p => p.Roles.Select(r => r.CompanyId).Contains(companyId) && p.Roles.SelectMany(r => r.Users).Select(u => u.PersonId).Contains(userId))
+            .OrderBy(p => p.Code)
+            .ThenBy(p => p.Action)
+            .Skip(offset)
+            .Take(pageable.GetPageSize())
+            .ToListAsync();
+        return new Page<Permission>(data, pageable, await _context.Permissions.AsNoTracking().LongCountAsync());
     }
 
     public Task<bool> HasEstablishmentPermission(long userId, int establishmentId, PermissionEnum permission)

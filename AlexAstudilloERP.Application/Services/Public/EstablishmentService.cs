@@ -6,8 +6,6 @@ using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using EFCommonCRUD.Interfaces;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.Design;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 

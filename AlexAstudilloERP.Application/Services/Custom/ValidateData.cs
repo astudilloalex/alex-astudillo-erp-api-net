@@ -39,11 +39,18 @@ namespace AlexAstudilloERP.Application.Services.Custom
 
         public async Task ValidateCompany(Company company, bool update = false)
         {
-            if (company.Person != null && await _companyRepository.ExistsCompanyByPersonIdCard(company.Person.IdCard))
-            {
-                throw new UniqueKeyException(ExceptionEnum.AlreadyExistsCompanyWithThatIdCard);
-            }
             if (company.Tradename.Length < 4) throw new InvalidFieldException(ExceptionEnum.InvalidCompanyName);
+            if (company.SpecialTaxpayer && company.SpecialTaxpayerNumber == null) throw new InvalidFieldException(ExceptionEnum.TaxpayerNumberIsRequired);
+            Company? finded = null;
+            if (company.Person != null) finded = await _companyRepository.FindByIdCard(company.Person.IdCard);
+            if (update)
+            {
+                if (finded != null && finded.Id != company.Id) throw new UniqueKeyException(ExceptionEnum.AlreadyExistsCompanyWithThatIdCard);
+            }
+            else
+            {
+                if (finded != null) throw new UniqueKeyException(ExceptionEnum.AlreadyExistsCompanyWithThatIdCard);
+            }
         }
 
         public async Task ValidateEmail(Email email, bool update = false)

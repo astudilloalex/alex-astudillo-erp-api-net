@@ -24,4 +24,12 @@ public class CompanyController : CommonController
     {
         return Ok(ResponseHandler.Ok(await _service.AddAsync(company, Token)));
     }
+
+    [HttpPut]
+    [Route("update/{id}")]
+    public async Task<IActionResult> Update([FromBody] Company company, int id)
+    {
+        company.Id = id;
+        return Ok(ResponseHandler.Ok(await _service.Update(company, Token)));
+    }
 }
