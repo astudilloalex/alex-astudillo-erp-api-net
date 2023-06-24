@@ -19,7 +19,7 @@ public class PermissionController : CommonController
         _service = service;
     }
 
-    [HttpPost]
+    [HttpGet]
     [Route("all/{companyId}")]
     public async Task<IActionResult> All(int companyId, [FromQuery] int page = 1, [FromQuery] int size = 10)
     {

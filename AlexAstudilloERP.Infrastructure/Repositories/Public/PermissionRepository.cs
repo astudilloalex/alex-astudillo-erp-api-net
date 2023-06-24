@@ -20,15 +20,18 @@ public class PermissionRepository : NPPostgreSQLRepository<Permission, short>, I
 
     public async Task<IPage<Permission>> FindAllAsync(IPageable pageable, int companyId, long userId)
     {
+        string query = "SELECT DISTINCT p.* FROM permissions p " +
+            "INNER JOIN role_permissions rp ON rp.permission_id = p.id " +
+            "INNER JOIN roles r ON r.id = rp.role_id " +
+            "INNER JOIN user_roles ur ON ur.role_id = r.id " +
+            "WHERE r.company_id = {0} AND ur.user_id = {1} AND p.active";
         int offset = Convert.ToInt32(pageable.GetOffset());
-        List<Permission> data = await _context.Permissions.AsNoTracking()
-            .Where(p => p.Roles.Select(r => r.CompanyId).Contains(companyId) && p.Roles.SelectMany(r => r.Users).Select(u => u.PersonId).Contains(userId))
+        List<Permission> data = await _context.Permissions.FromSqlRaw(query, new object[] { companyId, userId }).AsNoTracking()
             .OrderBy(p => p.Code)
-            .ThenBy(p => p.Action)
             .Skip(offset)
             .Take(pageable.GetPageSize())
             .ToListAsync();
-        return new Page<Permission>(data, pageable, await _context.Permissions.AsNoTracking().LongCountAsync());
+        return new Page<Permission>(data, pageable, await _context.Permissions.FromSqlRaw(query, new object[] { companyId, userId }).AsNoTracking().LongCountAsync());
     }
 
     public Task<bool> HasEstablishmentPermission(long userId, int establishmentId, PermissionEnum permission)
