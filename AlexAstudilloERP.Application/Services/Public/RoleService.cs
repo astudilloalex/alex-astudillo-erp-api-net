@@ -6,6 +6,7 @@ using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using EFCommonCRUD.Interfaces;
+using System.ComponentModel.Design;
 using System.Data;
 
 namespace AlexAstudilloERP.Application.Services.Public;
@@ -52,6 +53,16 @@ public class RoleService : IRoleService
         bool hasPermission = await _permissionRepository.HasPermission(userId, companyId, PermissionEnum.RoleList);
         if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return await _repository.FindByCompanyId(pageable, companyId, active);
+    }
+
+    public async Task<Role?> GetByCode(string code, string token)
+    {
+        Role? finded = await _repository.FindByCode(code);
+        if (finded == null) return null;
+        long userId = _tokenService.GetUserId(token);
+        bool hasPermission = await _permissionRepository.HasPermission(userId, finded.CompanyId, PermissionEnum.RoleGet);
+        if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return finded;
     }
 
     public async Task<Role> Update(Role role, string token)

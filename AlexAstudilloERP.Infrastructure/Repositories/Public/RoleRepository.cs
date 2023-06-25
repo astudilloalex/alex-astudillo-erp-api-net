@@ -30,6 +30,11 @@ public class RoleRepository : NPPostgreSQLRepository<Role, int>, IRoleRepository
         return _context.Roles.AsNoTracking().AnyAsync(r => r.Name.Equals(name) && r.CompanyId == companyId);
     }
 
+    public Task<Role?> FindByCode(string code)
+    {
+        return _context.Roles.AsNoTracking().FirstOrDefaultAsync(r => r.Code!.Equals(code));
+    }
+
     public async Task<IPage<Role>> FindByCompanyId(IPageable pageable, int companyId, bool? active = null)
     {
         int offset = Convert.ToInt32(pageable.GetOffset());

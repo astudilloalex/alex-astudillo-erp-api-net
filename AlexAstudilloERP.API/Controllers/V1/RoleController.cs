@@ -35,6 +35,13 @@ public class RoleController : CommonController
         )));
     }
 
+    [HttpGet]
+    [Route("get/{code}")]
+    public async Task<IActionResult> GetByCode(string code)
+    {
+        return Ok(ResponseHandler.Ok(await _service.GetByCode(code, Token)));
+    }
+
     [HttpPost]
     [Route("add")]
     public async Task<IActionResult> Add([FromBody] RoleRequestDTO roleRequestDTO)

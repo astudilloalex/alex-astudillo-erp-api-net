@@ -22,6 +22,14 @@ public interface IRoleRepository : INPRepository<Role, int>
     /// <param name="name">The name of the role.</param>
     /// <returns>True if exists, otherwise null.</returns>
     public Task<bool> ExistsByNameAndCompanyId(int companyId, string name);
+
+    /// <summary>
+    /// Find role by code.
+    /// </summary>
+    /// <param name="code">The unique code identifier.</param>
+    /// <returns>A <see cref="Role"/> if exists, otherwise null.</returns>
+    public Task<Role?> FindByCode(string code);
+
     /// <summary>
     /// Find roles by company identifier.
     /// </summary>

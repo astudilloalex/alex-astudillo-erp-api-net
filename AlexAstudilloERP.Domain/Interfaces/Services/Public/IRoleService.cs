@@ -7,5 +7,6 @@ public interface IRoleService
 {
     public Task<Role> Add(Role role, string token);
     public Task<IPage<Role>> GetAll(IPageable pageable, int companyId, string token, bool? active = null);
+    public Task<Role?> GetByCode(string code, string token);
     public Task<Role> Update(Role role, string token);
 }
