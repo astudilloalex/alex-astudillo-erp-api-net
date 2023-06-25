@@ -11,9 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexAstudilloERP.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexAstudilloERP.API", "AlexAstudilloERP.API\AlexAstudilloERP.API.csproj", "{B1E680CD-E5A0-4637-987B-CF11DA119AFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypt", "BCrypt\BCrypt.csproj", "{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BCrypt", "BCrypt\BCrypt.csproj", "{BECD503D-BC4F-477F-A4AE-7E3C480A4EDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCommonCRUD", "EFCommonCRUD\EFCommonCRUD.csproj", "{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCommonCRUD", "EFCommonCRUD\EFCommonCRUD.csproj", "{4A8EEC84-45BF-4F9D-ADD4-2AA23EA18135}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B3BE7EE-BFE3-4A93-8461-1C233CE921F0}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
