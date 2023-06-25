@@ -19,7 +19,7 @@ A ERP API
 This project works with Clean Architecture (Hexagonal Architecture).
 
 ### Domain
-This is the core of the project, you ca see:
+This is the core of the project, you can see:
 * **Entities**: The class representation of database table row, separated by schemas.
 * **Enums**: Value type that represents a set of named constants, separated by schemas and custom enums.
 * **Exceptions**: A custom exceptions to throw in the system.
