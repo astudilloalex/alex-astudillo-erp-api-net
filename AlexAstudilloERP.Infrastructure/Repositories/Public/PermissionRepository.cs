@@ -34,6 +34,18 @@ public class PermissionRepository : NPPostgreSQLRepository<Permission, short>, I
         return new Page<Permission>(data, pageable, await _context.Permissions.FromSqlRaw(query, new object[] { companyId, userId }).AsNoTracking().LongCountAsync());
     }
 
+    public Task<List<Permission>> FindByCompanyIdAndUserId(int companyId, long userId, List<short> permissionIds)
+    {
+        string query = "SELECT p.* FROM permissions p " +
+            "INNER JOIN role_permissions rp ON rp.permission_id = p.id " +
+            "INNER JOIN roles r ON r.id = rp.role_id " +
+            "INNER JOIN user_roles ur ON ur.role_id = r.id " +
+            "WHERE ur.user_id = {0} AND r.company_id = {1}";
+        return _context.Permissions.FromSqlRaw(query, new object[] { userId, companyId }).AsNoTracking()
+            .Where(p => permissionIds.Contains(p.Id))
+            .ToListAsync();
+    }
+
     public Task<bool> HasEstablishmentPermission(long userId, int establishmentId, PermissionEnum permission)
     {
         short permissionId = (short)permission;

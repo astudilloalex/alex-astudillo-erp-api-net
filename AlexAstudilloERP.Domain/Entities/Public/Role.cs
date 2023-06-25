@@ -22,7 +22,12 @@ public partial class Role
 
     public bool Editable { get; } = true;
 
+    public long UserId { get; set; }
+
     public virtual Company? Company { get; set; }
+
+    [JsonIgnore]
+    public virtual User? User { get; set; }
 
     public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
 

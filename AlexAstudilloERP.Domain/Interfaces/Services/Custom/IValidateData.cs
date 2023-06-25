@@ -11,5 +11,6 @@ public interface IValidateData
     public void ValidateMail(string mail);
     public void ValidatePassword(string password);
     public Task ValidatePerson(Person person, bool update = false);
+    public Task ValidateRole(Role role, bool update = false);
     public Task ValidateUser(User user, bool update = false);
 }

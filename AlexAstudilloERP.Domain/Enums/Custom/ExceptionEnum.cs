@@ -103,9 +103,17 @@ public enum ExceptionEnum : short
     /// </summary>
     MainEstablishmentIsRequired,
     /// <summary>
-    /// If operation is not allowed.
+    /// Thrown if operation is not allowed.
     /// </summary>
     OperationNotAllowed,
+    /// <summary>
+    /// Thrown if role permissions is empty.
+    /// </summary>
+    PermissionsAreRequired,
+    /// <summary>
+    /// Thrown if role name already exists.
+    /// </summary>
+    RoleNameAlreadyExists,
     /// <summary>
     /// Thrown if taxpayer number is null when company is a special taxpayer.
     /// </summary>

@@ -43,6 +43,8 @@ public class CustomException : Exception
                 ExceptionEnum.MainEstablishmentAlreadyExists => "main-establishment-already-exists",
                 ExceptionEnum.MainEstablishmentIsRequired => "main-establishment-is-required",
                 ExceptionEnum.OperationNotAllowed => "operation-not-allowed",
+                ExceptionEnum.PermissionsAreRequired => "permissions-are-required",
+                ExceptionEnum.RoleNameAlreadyExists => "role-name-already-exists",
                 ExceptionEnum.TaxpayerNumberIsRequired => "taxpayer-number-is-required",
                 ExceptionEnum.UserDisabled => "user-disabled",
                 ExceptionEnum.UserIdCardAlreadyExists => "user-id-card-already-exists",

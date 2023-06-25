@@ -21,7 +21,7 @@ namespace AlexAstudilloERP.Application.Services.Custom
 
         public ValidateData(ICompanyRepository companyRepository, IEmailRepository emailRepository,
             IPersonRepository personRepository, IUserRepository userRepository,
-            IEstablishmentRepository establishmentRepository, IPoliticalDivisionRepository politicalDivisionRepository, 
+            IEstablishmentRepository establishmentRepository, IPoliticalDivisionRepository politicalDivisionRepository,
             IRoleRepository roleRepository)
         {
             _emailRepository = emailRepository;
@@ -116,6 +116,26 @@ namespace AlexAstudilloERP.Application.Services.Custom
             else
             {
 
+            }
+        }
+
+        public async Task ValidateRole(Role role, bool update = false)
+        {
+            if (role.Permissions.Count < 1) throw new InvalidFieldException(ExceptionEnum.PermissionsAreRequired);
+            if (update)
+            {
+                Role? finded = await _roleRepository.FindByNameAndCompanyId(role.CompanyId, role.Name);
+                if (finded != null && finded.Id != role.Id)
+                {
+                    throw new InvalidFieldException(ExceptionEnum.RoleNameAlreadyExists);
+                }
+            }
+            else
+            {
+                if (await _roleRepository.ExistsByNameAndCompanyId(role.CompanyId, role.Name))
+                {
+                    throw new InvalidFieldException(ExceptionEnum.RoleNameAlreadyExists);
+                }
             }
         }
 

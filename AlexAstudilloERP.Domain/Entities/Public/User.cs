@@ -36,7 +36,10 @@ public partial class User
 
     public virtual Person? Person { get; set; }
 
+    [JsonIgnore]
+    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+
     public virtual ICollection<Establishment> EstablishmentsNavigation { get; set; } = new List<Establishment>();
 
-    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+    public virtual ICollection<Role> RolesNavigation { get; set; } = new List<Role>();
 }

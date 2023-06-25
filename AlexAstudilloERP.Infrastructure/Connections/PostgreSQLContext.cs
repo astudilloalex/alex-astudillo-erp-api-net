@@ -823,11 +823,17 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("update_date");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Company).WithMany(p => p.Roles)
                 .HasForeignKey(d => d.CompanyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("roles_company_id_fkey");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Roles)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("roles_user_id_fkey");
 
             entity.HasMany(d => d.Permissions).WithMany(p => p.Roles)
                 .UsingEntity<Dictionary<string, object>>(
@@ -942,7 +948,7 @@ public partial class PostgreSQLContext : DbContext
                         j.IndexerProperty<int>("EstablishmentId").HasColumnName("establishment_id");
                     });
 
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+            entity.HasMany(d => d.RolesNavigation).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
                     "UserRole",
                     r => r.HasOne<Role>().WithMany()
