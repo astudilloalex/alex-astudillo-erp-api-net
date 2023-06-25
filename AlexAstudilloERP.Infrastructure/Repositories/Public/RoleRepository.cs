@@ -1,6 +1,8 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Infrastructure.Connections;
+using EFCommonCRUD.Interfaces;
+using EFCommonCRUD.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -26,6 +28,36 @@ public class RoleRepository : NPPostgreSQLRepository<Role, int>, IRoleRepository
     public Task<bool> ExistsByNameAndCompanyId(int companyId, string name)
     {
         return _context.Roles.AsNoTracking().AnyAsync(r => r.Name.Equals(name) && r.CompanyId == companyId);
+    }
+
+    public async Task<IPage<Role>> FindByCompanyId(IPageable pageable, int companyId, bool? active = null)
+    {
+        int offset = Convert.ToInt32(pageable.GetOffset());
+        List<Role> data = new();
+        long count = 0;
+        // Get all actives and inactives roles
+        if (active == null)
+        {
+            data.AddRange(
+                await _context.Roles.AsNoTracking().Where(r => r.CompanyId == companyId).OrderBy(r => r.Name)
+                .Skip(offset)
+                .Take(pageable.GetPageSize())
+                .ToListAsync()
+            );
+            count = await _context.Roles.AsNoTracking().LongCountAsync(r => r.CompanyId == companyId);
+        }
+        // Get actives or inactives depending of active value.
+        else
+        {
+            data.AddRange(
+                await _context.Roles.AsNoTracking().Where(r => r.CompanyId == companyId && r.Active == active).OrderBy(r => r.Name)
+                .Skip(offset)
+                .Take(pageable.GetPageSize())
+                .ToListAsync()
+            );
+            count = await _context.Roles.AsNoTracking().LongCountAsync(r => r.CompanyId == companyId && r.Active == active);
+        }
+        return new Page<Role>(data, pageable, count);
     }
 
     public Task<Role?> FindByNameAndCompanyId(int companyId, string name)

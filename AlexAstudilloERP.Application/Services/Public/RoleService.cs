@@ -5,6 +5,8 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using EFCommonCRUD.Interfaces;
+using System.Data;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -42,6 +44,14 @@ public class RoleService : IRoleService
         await _validateData.ValidateRole(role: role, update: false);
         role.UserId = userId;
         return await _repository.SaveAsync(role);
+    }
+
+    public async Task<IPage<Role>> GetAll(IPageable pageable, int companyId, string token, bool? active = null)
+    {
+        long userId = _tokenService.GetUserId(token);
+        bool hasPermission = await _permissionRepository.HasPermission(userId, companyId, PermissionEnum.RoleList);
+        if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return await _repository.FindByCompanyId(pageable, companyId, active);
     }
 
     public async Task<Role> Update(Role role, string token)

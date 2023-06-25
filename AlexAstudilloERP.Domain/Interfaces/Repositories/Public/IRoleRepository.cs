@@ -23,6 +23,14 @@ public interface IRoleRepository : INPRepository<Role, int>
     /// <returns>True if exists, otherwise null.</returns>
     public Task<bool> ExistsByNameAndCompanyId(int companyId, string name);
     /// <summary>
+    /// Find roles by company identifier.
+    /// </summary>
+    /// <param name="pageable">The pageable information.</param>
+    /// <param name="companyId">The company unique identifier.</param>
+    /// <param name="active">If null returns actives and inactives.</param>
+    /// <returns>A <see cref="Role"/> page.</returns>
+    public Task<IPage<Role>> FindByCompanyId(IPageable pageable, int companyId, bool? active = null);
+    /// <summary>
     /// Find a role by name and company id.
     /// </summary>
     /// <param name="companyId">The company unique identifier.</param>
