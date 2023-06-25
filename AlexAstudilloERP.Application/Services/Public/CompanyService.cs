@@ -65,6 +65,7 @@ public class CompanyService : ICompanyService
         bool permitted = await _permissionRepository.HasPermission(userId, company.Id, PermissionEnum.CompanyUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         company.UserId = userId;
+        company.Active = true;
         _setData.SetCompanyData(company, update: true);
         await _validateData.ValidateCompany(company: company, update: true);
         if (company.Person != null)
