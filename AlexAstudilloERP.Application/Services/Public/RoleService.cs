@@ -40,7 +40,7 @@ public class RoleService : IRoleService
             permissionIds: role.Permissions.Select(p => p.Id).ToList()
         );
         await _validateData.ValidateRole(role: role, update: false);
-        role.UserId = userId;        
+        role.UserId = userId;
         return await _repository.SaveAsync(role);
     }
 
@@ -48,7 +48,18 @@ public class RoleService : IRoleService
     {
         long userId = _tokenService.GetUserId(token);
         bool hasPermission = await _permissionRepository.HasPermission(userId, role.CompanyId, PermissionEnum.RoleUpdate);
-        if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        throw new NotImplementedException();
+        bool roleExist = await _repository.ExistsByIdAndCompanyId(role.Id, role.CompanyId);
+        bool isEditable = await _repository.IsEditable(role.Id, role.CompanyId);
+        if (!hasPermission || !roleExist || !isEditable) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        // Set data and validate common data.
+        _setData.SetRoleData(role: role, update: true);
+        role.Permissions = await _permissionRepository.FindByCompanyIdAndUserId(
+            companyId: role.CompanyId,
+            userId: userId,
+            permissionIds: role.Permissions.Select(p => p.Id).ToList()
+        );
+        await _validateData.ValidateRole(role: role, update: true);
+        role.UserId = userId;
+        return await _repository.UpdateAsync(role);
     }
 }

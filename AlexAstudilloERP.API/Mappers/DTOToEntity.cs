@@ -15,6 +15,7 @@ public static class DTOToEntity
             Name = dto.Name,
             Description = dto.Description,
             Permissions = permissions,
+            Active = dto.Active,
         };
     }
 }

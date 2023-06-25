@@ -22,8 +22,17 @@ public class RoleController : CommonController
 
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> All([FromBody] RoleRequestDTO roleRequestDTO)
+    public async Task<IActionResult> Add([FromBody] RoleRequestDTO roleRequestDTO)
     {
         return Ok(ResponseHandler.Ok(await _service.Add(DTOToEntity.RoleRequestDTOToRole(roleRequestDTO), Token)));
+    }
+
+    [HttpPut]
+    [Route("update/{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] RoleRequestDTO roleRequestDTO)
+    {
+        Role role = DTOToEntity.RoleRequestDTOToRole(roleRequestDTO);
+        role.Id = id;
+        return Ok(ResponseHandler.Ok(await _service.Update(role, Token)));
     }
 }
