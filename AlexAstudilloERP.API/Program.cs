@@ -51,6 +51,7 @@ builder.Services.AddScoped<IJwtBlacklistRepository, JwtBlacklistRepository>();
 // Public schema
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
 builder.Services.AddScoped<IEstablishmentTypeRepository, EstablishmentTypeRepository>();
