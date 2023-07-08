@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlexAstudilloERP.Domain\AlexAstudilloERP.Domain.csproj" />
-    <ProjectReference Include="..\EFCommonCRUD\EFCommonCRUD.csproj" />
   </ItemGroup>
 
 </Project>

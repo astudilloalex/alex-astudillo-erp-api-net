@@ -4,6 +4,7 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\De
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.AssemblyInfo.cs
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.csproj.CoreCompileInputs.cache
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.MvcApplicationPartsAssemblyInfo.cache
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\nlog.config
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\appsettings.Development.json
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\appsettings.json
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\AlexAstudilloERP.API.exe
@@ -22,6 +23,7 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\De
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.OpenApi.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\NLog.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Npgsql.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
@@ -53,5 +55,3 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\De
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.genruntimeconfig.cache
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\ref\AlexAstudilloERP.API.dll
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\nlog.config
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\NLog.dll

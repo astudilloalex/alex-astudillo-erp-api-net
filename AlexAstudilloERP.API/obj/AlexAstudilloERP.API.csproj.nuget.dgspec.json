@@ -250,9 +250,6 @@
             "projectReferences": {
               "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\AlexAstudilloERP.Domain\\AlexAstudilloERP.Domain.csproj": {
                 "projectPath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\AlexAstudilloERP.Domain\\AlexAstudilloERP.Domain.csproj"
-              },
-              "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\EFCommonCRUD\\EFCommonCRUD.csproj": {
-                "projectPath": "D:\\Users\\Alex\\Documents\\NetProjects\\AlexAstudilloERP\\EFCommonCRUD\\EFCommonCRUD.csproj"
               }
             }
           }

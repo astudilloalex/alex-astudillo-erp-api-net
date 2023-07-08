@@ -1,11 +1,11 @@
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\bin\Debug\net7.0\EFCommonCRUD.deps.json
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\bin\Debug\net7.0\EFCommonCRUD.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\bin\Debug\net7.0\EFCommonCRUD.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.csproj.AssemblyReference.cache
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.GeneratedMSBuildEditorConfig.editorconfig
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.AssemblyInfoInputs.cache
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.AssemblyInfo.cs
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.csproj.CoreCompileInputs.cache
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\bin\Debug\net7.0\EFCommonCRUD.deps.json
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\bin\Debug\net7.0\EFCommonCRUD.dll
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\bin\Debug\net7.0\EFCommonCRUD.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\refint\EFCommonCRUD.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\EFCommonCRUD\obj\Debug\net7.0\EFCommonCRUD.pdb

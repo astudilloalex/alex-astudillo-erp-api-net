@@ -567,8 +567,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "AlexAstudilloERP.Domain": "1.0.0",
-          "EFCommonCRUD": "1.0.0"
+          "AlexAstudilloERP.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/AlexAstudilloERP.Infrastructure.dll": {}

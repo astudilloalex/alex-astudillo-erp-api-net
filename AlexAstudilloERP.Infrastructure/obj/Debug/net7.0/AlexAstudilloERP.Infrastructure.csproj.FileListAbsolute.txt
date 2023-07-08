@@ -7,13 +7,13 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastruc
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\AlexAstudilloERP.Infrastructure.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\AlexAstudilloERP.Infrastructure.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\AlexAstudilloERP.Domain.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\BCrypt.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\EFCommonCRUD.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\AlexAstudilloERP.Domain.pdb
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\BCrypt.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\EFCommonCRUD.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\obj\Debug\net7.0\AlexAstudilloERP.Infrastructure.csproj.CopyComplete
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\obj\Debug\net7.0\AlexAstudilloERP.Infrastructure.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\obj\Debug\net7.0\refint\AlexAstudilloERP.Infrastructure.dll
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\obj\Debug\net7.0\AlexAstudilloERP.Infrastructure.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\obj\Debug\net7.0\ref\AlexAstudilloERP.Infrastructure.dll
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\BCrypt.dll
-D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.Infrastructure\bin\Debug\net7.0\BCrypt.pdb

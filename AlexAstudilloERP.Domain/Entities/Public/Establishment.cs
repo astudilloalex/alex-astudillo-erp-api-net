@@ -26,9 +26,13 @@ public partial class Establishment
 
     public long UserId { get; set; }
 
+    public short EstablishmentTypeId { get; set; }
+
     public virtual Address? Address { get; set; }
 
     public virtual Company? Company { get; set; }
+
+    public virtual EstablishmentType? EstablishmentType { get; set; }
 
     [JsonIgnore]
     public virtual User? User { get; set; }

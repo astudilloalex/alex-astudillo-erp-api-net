@@ -31,6 +31,8 @@ public partial class PostgreSQLContext : DbContext
 
     public virtual DbSet<Establishment> Establishments { get; set; }
 
+    public virtual DbSet<EstablishmentType> EstablishmentTypes { get; set; }
+
     public virtual DbSet<Gender> Genders { get; set; }
 
     public virtual DbSet<JwtBlacklist> JwtBlacklists { get; set; }
@@ -461,6 +463,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
+            entity.Property(e => e.EstablishmentTypeId).HasColumnName("establishment_type_id");
             entity.Property(e => e.Main).HasColumnName("main");
             entity.Property(e => e.Name)
                 .HasMaxLength(150)
@@ -480,10 +483,44 @@ public partial class PostgreSQLContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("establishments_company_id_fkey");
 
+            entity.HasOne(d => d.EstablishmentType).WithMany(p => p.Establishments)
+                .HasForeignKey(d => d.EstablishmentTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("establishments_establishment_type_id_fkey");
+
             entity.HasOne(d => d.User).WithMany(p => p.Establishments)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("establishments_user_id_fkey");
+        });
+
+        modelBuilder.Entity<EstablishmentType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("establishment_types_pkey");
+
+            entity.ToTable("establishment_types");
+
+            entity.HasIndex(e => e.Code, "establishment_type_code_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasIdentityOptions(null, null, null, null, true, null)
+                .HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Code)
+                .HasMaxLength(20)
+                .HasColumnName("code");
+            entity.Property(e => e.CreationDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("creation_date");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.UpdateDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Gender>(entity =>
