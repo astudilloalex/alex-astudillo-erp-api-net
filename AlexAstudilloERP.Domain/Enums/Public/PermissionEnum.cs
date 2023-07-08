@@ -11,4 +11,8 @@ public enum PermissionEnum : short
     RoleUpdate = 7,
     RoleGet = 8,
     RoleList = 9,
+    CustomerCreate = 10,
+    CustomerUpdate = 11,
+    CustomerList = 12,
+    CustomerGet = 13,
 }

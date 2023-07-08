@@ -20,4 +20,11 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
             .Include(c => c.Person)
             .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard));
     }
+
+    public Task<Customer?> FindByIdCardAndCompanyId(int companyId, string idCard)
+    {
+        return _context.Customers.AsNoTracking()
+            .Include(c => c.Person)
+            .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard) && c.Companies.Select(com => com.Id).Contains(companyId));
+    }
 }

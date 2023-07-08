@@ -79,6 +79,7 @@ builder.Services.AddScoped<IJwtBlacklistService, JwtBlacklistService>();
 // Public schema
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IEstablishmentService, EstablishmentService>();
 builder.Services.AddScoped<IEstablishmentTypeService, EstablishmentTypeService>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();
