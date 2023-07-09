@@ -1,4 +1,5 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Common;
+using AlexAstudilloERP.Domain.Entities.Json;
 using AlexAstudilloERP.Domain.Entities.Public;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -14,6 +15,8 @@ public partial class PostgreSQLContext : DbContext
     public PostgreSQLContext(DbContextOptions<PostgreSQLContext> options) : base(options) { }
 
     public virtual DbSet<Address> Addresses { get; set; }
+
+    public virtual DbSet<AuditDatum> AuditData { get; set; }
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -163,6 +166,41 @@ public partial class PostgreSQLContext : DbContext
                 .HasForeignKey(d => d.PoliticalDivisionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("addresses_political_division_id_fkey");
+        });
+
+        modelBuilder.Entity<AuditDatum>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("audit_data_pkey");
+
+            entity.ToTable("audit_data", "json");
+
+            entity.Property(e => e.Id)
+                .HasIdentityOptions(null, null, null, null, true, null)
+                .HasColumnName("id");
+            entity.Property(e => e.LastModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("last_modified_date");
+            entity.Property(e => e.NewData)
+                .HasColumnType("jsonb")
+                .HasColumnName("new_data");
+            entity.Property(e => e.OldData)
+                .HasColumnType("jsonb")
+                .HasColumnName("old_data");
+            entity.Property(e => e.Operation)
+                .HasMaxLength(1)
+                .HasColumnName("operation");
+            entity.Property(e => e.TableId).HasColumnName("table_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Table).WithMany(p => p.AuditData)
+                .HasForeignKey(d => d.TableId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_audit_data__table_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.AuditData)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_audit_data__user_id");
         });
 
         modelBuilder.Entity<Company>(entity =>

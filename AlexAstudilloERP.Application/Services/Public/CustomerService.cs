@@ -5,6 +5,7 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using System.ComponentModel.Design;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -19,6 +20,14 @@ public class CustomerService : ICustomerService
         _repository = repository;
         _permissionRepository = permissionRepository;
         _tokenService = tokenService;
+    }
+
+    public async Task<Customer> Add(Customer customer, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        bool permited = await _permissionRepository.HasPermission(userId, customer.Companies.First().Id, PermissionEnum.CustomerGet);
+        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        throw new NotImplementedException();
     }
 
     public Task<Customer?> GetByIdCard(string idCard, string token)

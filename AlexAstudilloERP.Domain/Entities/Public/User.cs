@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using AlexAstudilloERP.Domain.Entities.Json;
+using System.Text.Json.Serialization;
 
 namespace AlexAstudilloERP.Domain.Entities.Public;
 
@@ -25,6 +26,9 @@ public partial class User
     public DateTime CreationDate { get; set; }
 
     public DateTime UpdateDate { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<AuditDatum> AuditData { get; set; } = new List<AuditDatum>();
 
     [JsonIgnore]
     public virtual ICollection<Company> Companies { get; set; } = new List<Company>();

@@ -14,6 +14,11 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
         _context = context;
     }
 
+    public new ValueTask<Customer> SaveAsync(Customer entity)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Customer?> FindByIdCard(string idCard)
     {
         return _context.Customers.AsNoTracking()
