@@ -30,6 +30,8 @@ public partial class Company
 
     public long UserId { get; set; }
 
+    public virtual ICollection<CompanyCustomer> CompanyCustomers { get; set; } = new List<CompanyCustomer>();
+
     [JsonIgnore]
     public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
@@ -45,9 +47,6 @@ public partial class Company
 
     [JsonIgnore]
     public virtual User? User { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     [JsonIgnore]
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();

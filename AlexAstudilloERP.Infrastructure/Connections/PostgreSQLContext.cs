@@ -20,6 +20,8 @@ public partial class PostgreSQLContext : DbContext
 
     public virtual DbSet<Company> Companies { get; set; }
 
+    public virtual DbSet<CompanyCustomer> CompanyCustomers { get; set; }
+
     public virtual DbSet<Country> Countries { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
@@ -255,25 +257,6 @@ public partial class PostgreSQLContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("companies_user_id_fkey");
 
-            entity.HasMany(d => d.Customers).WithMany(p => p.Companies)
-                .UsingEntity<Dictionary<string, object>>(
-                    "CompanyCustomer",
-                    r => r.HasOne<Customer>().WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("company_customers_customer_id_fkey"),
-                    l => l.HasOne<Company>().WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("company_customers_company_id_fkey"),
-                    j =>
-                    {
-                        j.HasKey("CompanyId", "CustomerId").HasName("company_customers_pkey");
-                        j.ToTable("company_customers");
-                        j.IndexerProperty<int>("CompanyId").HasColumnName("company_id");
-                        j.IndexerProperty<long>("CustomerId").HasColumnName("customer_id");
-                    });
-
             entity.HasMany(d => d.Employees).WithMany(p => p.Companies)
                 .UsingEntity<Dictionary<string, object>>(
                     "CompanyEmployee",
@@ -311,6 +294,33 @@ public partial class PostgreSQLContext : DbContext
                         j.IndexerProperty<int>("CompanyId").HasColumnName("company_id");
                         j.IndexerProperty<long>("SupplierId").HasColumnName("supplier_id");
                     });
+        });
+
+        modelBuilder.Entity<CompanyCustomer>(entity =>
+        {
+            entity.HasKey(e => new { e.CompanyId, e.CustomerId }).HasName("company_customers_pkey");
+
+            entity.ToTable("company_customers");
+
+            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.CreationDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("creation_date");
+            entity.Property(e => e.UpdateDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("update_date");
+
+            entity.HasOne(d => d.Company).WithMany(p => p.CompanyCustomers)
+                .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("company_customers_company_id_fkey");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.CompanyCustomers)
+                .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("company_customers_customer_id_fkey");
         });
 
         modelBuilder.Entity<Country>(entity =>

@@ -37,9 +37,9 @@ public static class DTOToEntity
         // Return a customer entity.
         return new()
         {
-            Companies = new List<Company>()
+            CompanyCustomers = new List<CompanyCustomer>()
             {
-                new() { Id=dto.CompanyId }
+                new() { CompanyId = dto.CompanyId }
             },
             Person = new()
             {

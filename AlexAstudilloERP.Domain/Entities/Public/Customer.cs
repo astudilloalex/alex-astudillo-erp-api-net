@@ -12,7 +12,7 @@ public partial class Customer
 
     public string? Code { get; set; }
 
-    public virtual Person? Person { get; set; }
+    public virtual ICollection<CompanyCustomer> CompanyCustomers { get; set; } = new List<CompanyCustomer>();
 
-    public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
+    public virtual Person? Person { get; set; }
 }
