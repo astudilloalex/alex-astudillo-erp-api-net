@@ -1,6 +1,7 @@
 ﻿using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using EFCommonCRUD.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,20 @@ public class CompanyController : CommonController
     public async Task<IActionResult> Add([FromBody] Company company)
     {
         return Ok(ResponseHandler.Ok(await _service.AddAsync(company, Token)));
+    }
+
+    [HttpGet]
+    [Route("all")]
+    public async Task<IActionResult> All([FromQuery] int page, [FromQuery] int size)
+    {
+        return Ok(ResponseHandler.Ok(await _service.GetAllAllowed(PageRequest.Of(page - 1, size), Token)));
+    }
+
+    [HttpGet]
+    [Route("get/{code}")]
+    public async Task<IActionResult> GetByCode(string code)
+    {
+        return Ok(ResponseHandler.Ok(await _service.GetByCode(code, Token)));
     }
 
     [HttpPut]

@@ -5,6 +5,7 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using EFCommonCRUD.Interfaces;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -55,8 +56,16 @@ public class CompanyService : ICompanyService
     public async Task<Company?> GetByCode(string code, string token)
     {
         Company? finded = await _repository.FindByCode(code);
-        long userId = _tokenService.GetUserId(token);
+        if (finded == null) return finded;
+        bool existsCompany = await _repository.ExistsByCompanyIdAndUserId(finded.Id, _tokenService.GetUserId(token));
+        if (!existsCompany) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return finded;
+    }
+
+    public Task<IPage<Company>> GetAllAllowed(IPageable pageable, string token)
+    {
+        long userId = _tokenService.GetUserId(token);
+        return _repository.FindByUserId(pageable, userId);
     }
 
     public async Task<Company> Update(Company company, string token)
