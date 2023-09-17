@@ -2,13 +2,13 @@
 
 namespace AlexAstudilloERP.Domain.Entities.Public;
 
-public partial class Address
+public partial class Location
 {
     public int Id { get; set; }
 
     public int PoliticalDivisionId { get; set; }
 
-    public string? Code { get; set; }
+    public string Code { get; set; } = null!;
 
     public string MainStreet { get; set; } = null!;
 
@@ -22,11 +22,16 @@ public partial class Address
 
     public double? Longitude { get; set; }
 
+    public bool Active { get; set; }
+
+    public DateTime CreationDate { get; set; }
+
+    public DateTime UpdateDate { get; set; }
+
+    public string UserCode { get; set; } = null!;
+
     [JsonIgnore]
     public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
 
-    public virtual PoliticalDivision? PoliticalDivision { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<Person> People { get; set; } = new List<Person>();
+    public virtual PoliticalDivision PoliticalDivision { get; set; } = null!;
 }

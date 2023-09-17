@@ -2,13 +2,11 @@
 
 namespace AlexAstudilloERP.Domain.Entities.Public;
 
-public partial class Permission
+public partial class Region
 {
     public short Id { get; set; }
 
     public string Code { get; set; } = null!;
-
-    public string Action { get; set; } = null!;
 
     public string Name { get; set; } = null!;
 
@@ -16,6 +14,10 @@ public partial class Permission
 
     public bool Active { get; set; }
 
+    public DateTime CreationDate { get; set; }
+
+    public DateTime UpdateDate { get; set; }
+
     [JsonIgnore]
-    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
 }

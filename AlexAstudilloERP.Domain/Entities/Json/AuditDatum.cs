@@ -1,11 +1,10 @@
-﻿using AlexAstudilloERP.Domain.Entities.Common;
-using AlexAstudilloERP.Domain.Entities.Public;
-
-namespace AlexAstudilloERP.Domain.Entities.Json;
+﻿namespace AlexAstudilloERP.Domain.Entities.Json;
 
 public partial class AuditDatum
 {
     public long Id { get; set; }
+
+    public string Code { get; set; } = null!;
 
     public short TableId { get; set; }
 
@@ -15,11 +14,11 @@ public partial class AuditDatum
 
     public string NewData { get; set; } = null!;
 
+    public char Origin { get; set; }
+
     public DateTime LastModifiedDate { get; set; }
 
-    public long UserId { get; set; }
+    public string UserCode { get; set; } = null!;
 
-    public virtual DatabaseTable? Table { get; set; }
-
-    public virtual User? User { get; set; }
+    public virtual Table Table { get; set; } = null!;
 }

@@ -8,15 +8,15 @@ public partial class Establishment
 
     public int CompanyId { get; set; }
 
-    public int AddressId { get; set; }
+    public int LocationId { get; set; }
 
-    public string? Code { get; set; }
+    public short EstablishmentTypeId { get; set; }
+
+    public string Code { get; set; } = null!;
 
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
-
-    public bool Main { get; set; }
 
     public bool Active { get; set; }
 
@@ -24,19 +24,14 @@ public partial class Establishment
 
     public DateTime UpdateDate { get; set; }
 
-    public long UserId { get; set; }
+    public string UserCode { get; set; } = null!;
 
-    public short EstablishmentTypeId { get; set; }
-
-    public virtual Address? Address { get; set; }
-
-    public virtual Company? Company { get; set; }
-
-    public virtual EstablishmentType? EstablishmentType { get; set; }
+    public virtual Company Company { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual User? User { get; set; }
+    public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
 
-    [JsonIgnore]
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public virtual EstablishmentType EstablishmentType { get; set; } = null!;
+
+    public virtual Location Location { get; set; } = null!;
 }

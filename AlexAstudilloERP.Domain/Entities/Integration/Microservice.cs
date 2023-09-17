@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AlexAstudilloERP.Domain.Entities.Public;
+namespace AlexAstudilloERP.Domain.Entities.Integration;
 
-public partial class PoliticalDivisionType
+public partial class Microservice
 {
     public short Id { get; set; }
 
@@ -19,5 +19,5 @@ public partial class PoliticalDivisionType
     public DateTime UpdateDate { get; set; }
 
     [JsonIgnore]
-    public virtual ICollection<PoliticalDivision> PoliticalDivisions { get; set; } = new List<PoliticalDivision>();
+    public virtual ICollection<EquivalenceTable> EquivalenceTables { get; set; } = new List<EquivalenceTable>();
 }

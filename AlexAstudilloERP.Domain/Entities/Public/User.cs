@@ -1,49 +1,45 @@
-﻿using AlexAstudilloERP.Domain.Entities.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class User
 {
-    public long PersonId { get; set; }
+    public int Id { get; set; }
 
-    public int EmailId { get; set; }
+    public int? PersonId { get; set; }
 
-    public string? Code { get; set; }
+    public string Code { get; set; } = null!;
 
-    public string Username { get; set; } = null!;
+    public string? Username { get; set; }
 
-    public string Password { get; set; } = null!;
+    public string? Password { get; set; }
 
-    public bool AccountNonExpired { get; set; }
+    public string? Email { get; set; }
 
-    public bool AccountNonLocked { get; set; }
+    public string? DisplayName { get; set; }
 
-    public bool CredentialsNonExpired { get; set; }
+    public string? PhotoUrl { get; set; }
 
-    public bool Enabled { get; set; }
+    public string? PhoneNumber { get; set; }
 
-    public DateTime CreationDate { get; set; }
+    public string? TenantId { get; set; }
 
-    public DateTime UpdateDate { get; set; }
+    public string? CustomClaims { get; set; }
 
-    [JsonIgnore]
-    public virtual ICollection<AuditDatum> AuditData { get; set; } = new List<AuditDatum>();
+    public bool EmailVerified { get; set; }
 
-    [JsonIgnore]
-    public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
-
-    public virtual Email? Email { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<Establishment> Establishments { get; set; } = new List<Establishment>();
+    public bool Disabled { get; set; }
 
     public virtual Person? Person { get; set; }
 
+    public virtual UserMetadatum? UserMetadatum { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<AuthProvider> AuthProviders { get; set; } = new List<AuthProvider>();
+
+    [JsonIgnore]
+    public virtual ICollection<Organization> Organizations { get; set; } = new List<Organization>();
+
     [JsonIgnore]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
-
-    public virtual ICollection<Establishment> EstablishmentsNavigation { get; set; } = new List<Establishment>();
-
-    public virtual ICollection<Role> RolesNavigation { get; set; } = new List<Role>();
 }

@@ -4,11 +4,13 @@ namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Person
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
-    public short DocumentTypeId { get; set; }
+    public short PersonDocumentTypeId { get; set; }
 
     public short? GenderId { get; set; }
+
+    public string Code { get; set; } = null!;
 
     public string IdCard { get; set; } = null!;
 
@@ -22,31 +24,17 @@ public partial class Person
 
     public bool JuridicalPerson { get; set; }
 
-    [JsonIgnore]
-    public virtual Company? Company { get; set; }
+    public bool IdCardVerified { get; set; }
 
     [JsonIgnore]
-    public virtual Customer? Customer { get; set; }
-
-    public virtual PersonDocumentType? DocumentType { get; set; }
+    public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     [JsonIgnore]
-    public virtual Employee? Employee { get; set; }
+    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
     public virtual Gender? Gender { get; set; }
 
-    [JsonIgnore]
-    public virtual Supplier? Supplier { get; set; }
+    public virtual PersonDocumentType PersonDocumentType { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual User? User { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
-
-    [JsonIgnore]
-    public virtual ICollection<Email> Emails { get; set; } = new List<Email>();
-
-    [JsonIgnore]
-    public virtual ICollection<Phone> Phones { get; set; } = new List<Phone>();
 }
