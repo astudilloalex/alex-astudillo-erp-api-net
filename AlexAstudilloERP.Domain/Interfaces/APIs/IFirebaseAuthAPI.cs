@@ -7,7 +7,7 @@ public interface IFirebaseAuthAPI
 {
     public Task<UserRecord> CreateAsync(UserRecordArgs args);
 
-    public Task<string> CreateCustomTokenAsync(string uid);    
+    public Task<string> CreateCustomTokenAsync(string uid);
 
     public Task<DeleteUsersResult> DeleteAllAsync(List<string> uids);
 
@@ -18,4 +18,6 @@ public interface IFirebaseAuthAPI
     public Task<UserRecord> GetByUidAsync(string uid);
 
     public Task<FirebaseSignInResponse> SignInWithEmail(string email, string password);
+
+    public Task<FirebaseToken> VerifyTokenAsync(string token);
 }

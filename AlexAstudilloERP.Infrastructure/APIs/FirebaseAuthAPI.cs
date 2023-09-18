@@ -80,4 +80,9 @@ public class FirebaseAuthAPI : IFirebaseAuthAPI
         }
         return JsonSerializer.Deserialize<FirebaseSignInResponse?>(await responseMessage.Content.ReadAsStringAsync(), _serializerOptions)!;
     }
+
+    public Task<FirebaseToken> VerifyTokenAsync(string token)
+    {
+        return _auth.VerifyIdTokenAsync(token);
+    }
 }
