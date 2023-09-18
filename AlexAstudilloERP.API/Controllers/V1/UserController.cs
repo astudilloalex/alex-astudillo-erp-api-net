@@ -22,7 +22,7 @@ public class UserController : CommonController
     [Route("current")]
     public async Task<IActionResult> GetCurrent()
     {
-        return Ok(ResponseHandler.Ok(await _service.GetByToken(Token)));
+        return Ok(ResponseHandler.Ok(await _service.GetByCodeAsync(UserCode)));
     }
 
     [HttpPost]

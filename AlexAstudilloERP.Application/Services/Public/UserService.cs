@@ -35,10 +35,9 @@ public class UserService : IUserService
         _util = util;
     }
 
-    public Task<User?> GetByToken(string token)
+    public Task<User?> GetByCodeAsync(string code)
     {
-        throw new NotImplementedException();
-        //return await _repository.FindByIdAsync(_tokenService.GetUserId(token));
+        return _repository.FindByCodeAsync(code);
     }
 
     public Task<FirebaseSignInResponse> SignIn(string email, string password)

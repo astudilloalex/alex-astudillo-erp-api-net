@@ -14,4 +14,12 @@ public class CommonController : ControllerBase
             return Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         }
     }
+
+    protected string UserCode
+    {
+        get
+        {
+            return Request.Headers["X-User-Code"].ToString();
+        }
+    }
 }

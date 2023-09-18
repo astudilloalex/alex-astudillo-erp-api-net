@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class User
 {
@@ -34,12 +32,9 @@ public partial class User
 
     public virtual UserMetadatum? UserMetadatum { get; set; }
 
-    [JsonIgnore]
     public virtual ICollection<AuthProvider> AuthProviders { get; set; } = new List<AuthProvider>();
 
-    [JsonIgnore]
     public virtual ICollection<Organization> Organizations { get; set; } = new List<Organization>();
 
-    [JsonIgnore]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 }

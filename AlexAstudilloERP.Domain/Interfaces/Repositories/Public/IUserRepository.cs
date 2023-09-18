@@ -1,5 +1,4 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
-using EFCommonCRUD.Interfaces;
 
 namespace AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 
@@ -11,7 +10,7 @@ public interface IUserRepository
 
     public Task<bool> ExistsUsername(string username);
 
-    public Task<User?> FindByCode(string code);
+    public Task<User?> FindByCodeAsync(string code, bool multithread = false);
 
     public Task<User?> FindByIdCard(string idCard);
 

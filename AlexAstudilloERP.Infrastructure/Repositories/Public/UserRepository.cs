@@ -31,6 +31,26 @@ public class UserRepository : IUserRepository
         return _context.Users.AsNoTracking().AnyAsync(u => u.Username != null && u.Username.Equals(username));
     }
 
+    public async Task<User?> FindByCodeAsync(string code, bool multithread = false)
+    {
+        if (multithread)
+        {
+            using PostgreSQLContext context = new(_contextOptions);
+            return await context.Users.AsNoTracking()
+                .Include(u => u.UserMetadatum)
+                .Include(u => u.Roles)
+                .Include(u => u.AuthProviders)
+                .Include(u => u.Organizations)
+                .FirstOrDefaultAsync(u => u.Code.Equals(code));
+        }
+        return await _context.Users.AsNoTracking()
+            .Include(u => u.UserMetadatum)
+            .Include(u => u.Roles)
+            .Include(u => u.AuthProviders)
+            .Include(u => u.Organizations)
+            .FirstOrDefaultAsync(u => u.Code.Equals(code));
+    }
+
     public Task<User?> FindByIdAsync(int id)
     {
         return _context.Users.AsNoTracking()
