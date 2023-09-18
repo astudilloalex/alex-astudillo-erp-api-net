@@ -42,8 +42,8 @@ public class RoleService : IRoleService
             userId: userId,
             permissionIds: role.Permissions.Select(p => p.Id).ToList()
         );
-        await _validateData.ValidateRole(role: role, update: false);
-        role.UserId = userId;
+        //await _validateData.ValidateRole(role: role, update: false);
+        //role.UserId = userId;
         return await _repository.SaveAsync(role);
     }
 
@@ -79,8 +79,8 @@ public class RoleService : IRoleService
             userId: userId,
             permissionIds: role.Permissions.Select(p => p.Id).ToList()
         );
-        await _validateData.ValidateRole(role: role, update: true);
-        role.UserId = userId;
+        //await _validateData.ValidateRole(role: role, update: true);
+        //role.UserId = userId;
         return await _repository.UpdateAsync(role);
     }
 }

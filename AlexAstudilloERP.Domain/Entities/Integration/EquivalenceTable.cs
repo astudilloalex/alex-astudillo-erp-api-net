@@ -1,4 +1,5 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Common;
+using AlexAstudilloERP.Domain.Entities.Public;
 
 namespace AlexAstudilloERP.Domain.Entities.Integration;
 

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using AlexAstudilloERP.Domain.Entities.Integration;
+using System.Text.Json.Serialization;
 
 namespace AlexAstudilloERP.Domain.Entities.Common;
 

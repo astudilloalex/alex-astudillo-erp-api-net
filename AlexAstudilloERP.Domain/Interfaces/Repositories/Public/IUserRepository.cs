@@ -3,7 +3,7 @@ using EFCommonCRUD.Interfaces;
 
 namespace AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 
-public interface IUserRepository : INPRepository<User, long>
+public interface IUserRepository
 {
     public Task<bool> ExistsByEmail(string mail);
 
@@ -13,5 +13,7 @@ public interface IUserRepository : INPRepository<User, long>
 
     public Task<User?> FindByIdCard(string idCard);
 
-    public Task<User?> FindByUsernameOrEmail(string value);
+    public Task<User?> FindByEmailAsync(string email);
+
+    public Task<User> SaveAsync(User entity, bool multithread = false);
 }

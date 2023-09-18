@@ -1,4 +1,5 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
+using AlexAstudilloERP.Domain.Models.FirebaseAuth;
 
 namespace AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
@@ -6,7 +7,7 @@ public interface IUserService
 {
     public Task<User?> GetByToken(string token);
 
-    public Task<string> SignIn(string username, string password);
+    public Task<FirebaseSignInResponse> SignIn(string email, string password);
 
-    public Task<User> SignUp(User user);
+    public Task<User> SignUp(string email, string password);
 }

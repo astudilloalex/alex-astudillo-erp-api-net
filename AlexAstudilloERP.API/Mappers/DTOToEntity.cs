@@ -7,50 +7,50 @@ public static class DTOToEntity
 {
     public static Customer CustomerRequestDTOToCustomer(CustomerRequestDTO dto)
     {
-        List<Address> addresses = new();
-        List<Phone> phones = new();
+        //List<Address> addresses = new();
+        //List<Phone> phones = new();
         List<Email> emails = new();
         if (dto.Email != null) emails.Add(new() { Mail = dto.Email });
         // Check if exists address.
         if (dto.Address != null)
         {
-            addresses.Add(new()
-            {
-                PoliticalDivisionId = dto.Address.PoliticalDivisionId,
-                MainStreet = dto.Address.MainStreet,
-                SecondaryStreet = dto.Address.SecondaryStreet,
-                HouseNumber = dto.Address.HouseNumber,
-                PostalCode = dto.Address.PostalCode,
-                Latitude = dto.Address.Latitude,
-                Longitude = dto.Address.Longitude,
-            });
+            //addresses.Add(new()
+            //{
+            //    PoliticalDivisionId = dto.Address.PoliticalDivisionId,
+            //    MainStreet = dto.Address.MainStreet,
+            //    SecondaryStreet = dto.Address.SecondaryStreet,
+            //    HouseNumber = dto.Address.HouseNumber,
+            //    PostalCode = dto.Address.PostalCode,
+            //    Latitude = dto.Address.Latitude,
+            //    Longitude = dto.Address.Longitude,
+            //});
         }
         // Check if exists phone
-        if (dto.Phone != null)
-        {
-            phones.Add(new()
-            {
-                DialInCodeId = dto.Phone.DialInCodeId,
-                PhoneNumber = dto.Phone.PhoneNumber,
-            });
-        }
+        //if (dto.Phone != null)
+        //{
+        //    phones.Add(new()
+        //    {
+        //        DialInCodeId = dto.Phone.DialInCodeId,
+        //        PhoneNumber = dto.Phone.PhoneNumber,
+        //    });
+        //}
         // Return a customer entity.
         return new()
         {
-            CompanyCustomers = new List<CompanyCustomer>()
-            {
-                new() { CompanyId = dto.CompanyId }
-            },
+            //CompanyCustomers = new List<CompanyCustomer>()
+            //{
+            //    new() { CompanyId = dto.CompanyId }
+            //},
             Person = new()
             {
-                Addresses = addresses,
-                DocumentTypeId = dto.Person.DocumentTypeId,
-                Emails = emails,
+                //Addresses = addresses,
+                //DocumentTypeId = dto.Person.DocumentTypeId,
+                //Emails = emails,
                 GenderId = dto.Person.GenderId,
                 IdCard = dto.Person.IdCard,
                 FirstName = dto.Person.FirstName,
                 LastName = dto.Person.LastName,
-                Phones = phones,
+                //Phones = phones,
                 SocialReason = dto.Person.SocialReason,
                 Birthdate = dto.Person.Birthdate,
                 JuridicalPerson = dto.Person.JuridicalPerson,

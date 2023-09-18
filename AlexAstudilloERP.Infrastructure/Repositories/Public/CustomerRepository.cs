@@ -26,7 +26,7 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
                 Person? person = await _context.People.FirstOrDefaultAsync(p => p.IdCard.Equals(entity.Person!.IdCard));
                 if (person != null)
                 {
-                    person.DocumentTypeId = entity.Person!.DocumentTypeId;
+                    //person.DocumentTypeId = entity.Person!.DocumentTypeId;
                     person.Birthdate = entity.Person!.Birthdate;
                     person.FirstName = entity.Person!.FirstName;
                     person.LastName = entity.Person!.LastName;
@@ -62,8 +62,9 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
 
     public Task<Customer?> FindByIdCardAndCompanyId(int companyId, string idCard)
     {
-        return _context.Customers.AsNoTracking()
-            .Include(c => c.Person)
-            .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard) && c.CompanyCustomers.Select(cc => cc.CompanyId).Contains(companyId));
+        //return _context.Customers.AsNoTracking()
+        //    .Include(c => c.Person)
+        //    .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard) && c.CompanyCustomers.Select(cc => cc.CompanyId).Contains(companyId));
+        throw new NotImplementedException();
     }
 }

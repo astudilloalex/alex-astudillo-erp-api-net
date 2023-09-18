@@ -1,4 +1,6 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Json;
+﻿using AlexAstudilloERP.Domain.Entities.Common;
+
+namespace AlexAstudilloERP.Domain.Entities.Json;
 
 public partial class AuditDatum
 {

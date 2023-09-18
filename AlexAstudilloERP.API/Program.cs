@@ -3,25 +3,33 @@ using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Application.Services.Common;
 using AlexAstudilloERP.Application.Services.Custom;
 using AlexAstudilloERP.Application.Services.Public;
+using AlexAstudilloERP.Domain.Interfaces.APIs;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Common;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Common;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using AlexAstudilloERP.Infrastructure.APIs;
 using AlexAstudilloERP.Infrastructure.Connections;
 using AlexAstudilloERP.Infrastructure.Repositories.Common;
 using AlexAstudilloERP.Infrastructure.Repositories.Public;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using NLog;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 string _swaggerDocName = "v1.0";
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"alex-astudillo-firebase-adminsdk.json");
 
 //Configure log.
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
@@ -43,6 +51,19 @@ builder.Services.AddDbContext<PostgreSQLContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
 });
+
+// Firebase instance to configure in all project.
+builder.Services.AddTransient<FirebaseHttpHandler>(sp => new(builder.Configuration["Firebase:APIKey"]!));
+builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
+{
+    Credential = GoogleCredential.GetApplicationDefault(),
+}));
+
+builder.Services.AddHttpClient<IFirebaseAuthAPI, FirebaseAuthAPI>(httpClient =>
+{
+    httpClient.BaseAddress = new Uri(builder.Configuration["Firebase:BaseURL"]!);
+    httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+}).AddHttpMessageHandler<FirebaseHttpHandler>();
 
 #region Declare all repositories
 // Common schema
@@ -66,9 +87,14 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 #region Declare all services
 // Singleton services.
+builder.Services.AddSingleton(new JsonSerializerOptions()
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+});
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 builder.Services.AddSingleton<ISetData, SetData>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddSingleton<IUtil, Util>();
 
 // Custom services.
 builder.Services.AddScoped<IValidateData, ValidateData>();

@@ -55,3 +55,13 @@ D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\De
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.pdb
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\AlexAstudilloERP.API.genruntimeconfig.cache
 D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\obj\Debug\net7.0\ref\AlexAstudilloERP.API.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\alex-astudillo-firebase-adminsdk.json
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\FirebaseAdmin.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Google.Api.Gax.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Google.Api.Gax.Rest.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Google.Apis.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Google.Apis.Auth.PlatformServices.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Google.Apis.Auth.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Google.Apis.Core.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Users\Alex\Documents\NetProjects\AlexAstudilloERP\AlexAstudilloERP.API\bin\Debug\net7.0\Newtonsoft.Json.dll

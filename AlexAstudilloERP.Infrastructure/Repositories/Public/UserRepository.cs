@@ -5,45 +5,70 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class UserRepository : NPPostgreSQLRepository<User, long>, IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly PostgreSQLContext _context;
+    private readonly DbContextOptions<PostgreSQLContext> _contextOptions;
 
-    public UserRepository(PostgreSQLContext context) : base(context)
+    public UserRepository(PostgreSQLContext context, DbContextOptions<PostgreSQLContext> contextOptions)
     {
         _context = context;
+        _contextOptions = contextOptions;
     }
 
     public Task<bool> ExistsByEmail(string mail)
     {
-        return _context.Users.AsNoTracking().AnyAsync(u => u.Email!.Mail.Equals(mail));
+        return _context.Users.AsNoTracking().AnyAsync(u => u.Email != null && u.Email.Equals(mail));
     }
 
     public Task<bool> ExistsByIdCard(string idCard)
     {
-        return _context.Users.AsNoTracking().AnyAsync(u => u.Person!.IdCard.Equals(idCard));
+        return _context.Users.AsNoTracking().AnyAsync(u => u.Person != null && u.Person.IdCard.Equals(idCard));
     }
 
     public Task<bool> ExistsUsername(string username)
     {
-        return _context.Users.AsNoTracking().AnyAsync(u => u.Username.Equals(username));
+        return _context.Users.AsNoTracking().AnyAsync(u => u.Username != null && u.Username.Equals(username));
     }
 
-    public new async ValueTask<User?> FindByIdAsync(long id)
+    public Task<User?> FindByIdAsync(int id)
     {
-        return await _context.Users.AsNoTracking()
+        return _context.Users.AsNoTracking()
             .Include(u => u.Person)
             .Include(u => u.Email)
-            .FirstOrDefaultAsync(u => u.PersonId == id);
+            .FirstOrDefaultAsync(u => u.Id == id);
     }
 
     public Task<User?> FindByIdCard(string idCard)
     {
-        return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Person!.IdCard.Equals(idCard));
+        return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Person != null && u.Person.IdCard.Equals(idCard));
     }
 
-    public Task<User?> FindByUsernameOrEmail(string value)
+    public Task<User?> FindByEmailAsync(string email)
     {
-        return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username.Equals(value) || u.Email!.Mail.Equals(value));
+        return _context.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email != null && u.Email.Equals(email));
+    }
+
+    public async Task<User> SaveAsync(User entity, bool multithread = false)
+    {
+        if (multithread)
+        {
+            using PostgreSQLContext context = new(_contextOptions);
+            foreach (AuthProvider provider in entity.AuthProviders) context.AuthProviders.Attach(provider);
+            entity.AuthProviders = context.AuthProviders.Local
+                .Where(p => entity.AuthProviders.Select(ap => ap.Id).Contains(p.Id)).ToList();
+            await context.Users.AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
+        else
+        {
+            foreach (AuthProvider provider in entity.AuthProviders) _context.AuthProviders.Attach(provider);
+            entity.AuthProviders = _context.AuthProviders.Local
+                .Where(p => entity.AuthProviders.Select(ap => ap.Id).Contains(p.Id)).ToList();
+            await _context.Users.AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+        return entity;
     }
 }

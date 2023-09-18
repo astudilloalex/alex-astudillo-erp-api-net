@@ -31,16 +31,16 @@ public class EstablishmentService : IEstablishmentService
     public async Task<Establishment> Add(Establishment establishment, string token)
     {
         long userId = _tokenService.GetUserId(token);
-        establishment.UserId = userId;
-        bool permitted = await _permissionRepository.HasPermission(userId, establishment.CompanyId, PermissionEnum.EstablishmentCreate);
-        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        _setData.SetEstablishmentData(establishment);
-        await _validateData.ValidateEstablishment(establishment: establishment, update: false);
-        if (establishment.Address != null)
-        {
-            _setData.SetAddressData(establishment.Address);
-            await _validateData.ValidateAddress(address: establishment.Address, update: false);
-        }
+        //establishment.UserId = userId;
+        //bool permitted = await _permissionRepository.HasPermission(userId, establishment.CompanyId, PermissionEnum.EstablishmentCreate);
+        //if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //_setData.SetEstablishmentData(establishment);
+        //await _validateData.ValidateEstablishment(establishment: establishment, update: false);
+        //if (establishment.Address != null)
+        //{
+        //    _setData.SetAddressData(establishment.Address);
+        //    await _validateData.ValidateAddress(address: establishment.Address, update: false);
+        //}
         return await _repository.SaveAsync(establishment);
     }
 
@@ -73,11 +73,11 @@ public class EstablishmentService : IEstablishmentService
     public async Task<Establishment> Update(Establishment establishment, string token)
     {
         long userId = _tokenService.GetUserId(token);
-        establishment.UserId = userId;
+        //establishment.UserId = userId;
         bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, establishment.Id, PermissionEnum.EstablishmentUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         _setData.SetEstablishmentData(establishment, update: true);
-        await _validateData.ValidateEstablishment(establishment: establishment, update: true);
+        //await _validateData.ValidateEstablishment(establishment: establishment, update: true);
         return await _repository.UpdateAsync(establishment);
     }
 }

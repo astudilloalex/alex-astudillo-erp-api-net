@@ -1,10 +1,14 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Enums.Custom;
+using AlexAstudilloERP.Domain.Enums.Public;
 using AlexAstudilloERP.Domain.Exceptions.Conflict;
 using AlexAstudilloERP.Domain.Exceptions.Unauthorized;
+using AlexAstudilloERP.Domain.Interfaces.APIs;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using AlexAstudilloERP.Domain.Models.FirebaseAuth;
+using FirebaseAdmin.Auth;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -16,8 +20,10 @@ public class UserService : IUserService
     private readonly ISetData _setData;
     private readonly ITokenService _tokenService;
     private readonly IValidateData _validateData;
+    private readonly IFirebaseAuthAPI _firebaseAuthAPI;
+    private readonly IUtil _util;
 
-    public UserService(IEmailRepository emailRepository, IPersonRepository personRepository, IUserRepository repository, ISetData setData, ITokenService tokenService, IValidateData validateData)
+    public UserService(IEmailRepository emailRepository, IPersonRepository personRepository, IUserRepository repository, ISetData setData, ITokenService tokenService, IValidateData validateData, IFirebaseAuthAPI firebaseAuthAPI, IUtil util)
     {
         _emailRepository = emailRepository;
         _personRepository = personRepository;
@@ -25,61 +31,59 @@ public class UserService : IUserService
         _setData = setData;
         _tokenService = tokenService;
         _validateData = validateData;
+        _firebaseAuthAPI = firebaseAuthAPI;
+        _util = util;
     }
 
-    public async Task<User?> GetByToken(string token)
+    public Task<User?> GetByToken(string token)
     {
-        return await _repository.FindByIdAsync(_tokenService.GetUserId(token));
+        throw new NotImplementedException();
+        //return await _repository.FindByIdAsync(_tokenService.GetUserId(token));
     }
 
-    public async Task<string> SignIn(string username, string password)
+    public Task<FirebaseSignInResponse> SignIn(string email, string password)
     {
-        User? user = await _repository.FindByUsernameOrEmail(username.Trim()) ?? throw new BadCredentialException(ExceptionEnum.UserNotFound);
-        if (!BCrypt.BCrypt.CheckPassword(password, user.Password)) throw new BadCredentialException(ExceptionEnum.WrongPassword);
-        if (!user.AccountNonExpired) throw new AccountException(ExceptionEnum.ExpiredAccount);
-        if (!user.AccountNonLocked) throw new AccountException(ExceptionEnum.LockedAccount);
-        if (!user.CredentialsNonExpired) throw new AccountException(ExceptionEnum.ExpiredCredential);
-        if (!user.Enabled) throw new AccountException(ExceptionEnum.UserDisabled);
-        return _tokenService.GenerateToken(user);
+        return _firebaseAuthAPI.SignInWithEmail(email, password);
     }
 
-    public async Task<User> SignUp(User user)
+    public async Task<User> SignUp(string email, string password)
     {
-        _setData.SetUserData(user, update: false);
-        _validateData.ValidatePassword(user.Password);
-        await _validateData.ValidateUser(user);
-        // Validate person.
-        if (user.Person != null)
+        _validateData.ValidateMail(email);
+        _validateData.ValidatePassword(password);
+        // Verify if exists email.
+        if (await _repository.ExistsByEmail(email)) throw new UniqueKeyException(ExceptionEnum.EmailAlreadyInUse);
+        // Save the user on Firebase
+        UserRecord userRecord = await _firebaseAuthAPI.CreateAsync(new()
         {
-            _setData.SetPersonData(user.Person);
-            if (await _repository.ExistsByIdCard(user.Person.IdCard)) throw new ConflictException(ExceptionEnum.UserIdCardAlreadyExists);
-            Person? person = await _personRepository.FindByIdCard(user.Person.IdCard);
-            if (person == null)
-            {
-                await _validateData.ValidatePerson(user.Person, update: false);
-            }
-            else
-            {
-                user.Person = null;
-                user.PersonId = person.Id;
-            }
-        }
-        // Validate email.
-        if (user.Email != null)
+            Disabled = false,
+            Email = email,
+            EmailVerified = false,
+            Password = password,
+        });
+        // Set data to the user.
+        User saved = new()
         {
-            _setData.SetEmailData(email: user.Email, update: false);
-            if (await _repository.ExistsByEmail(user.Email.Mail)) throw new ConflictException(ExceptionEnum.EmailAlreadyInUse);
-            Email? email = await _emailRepository.FindByMail(user.Email.Mail);
-            if (email == null)
+            AuthProviders = new List<AuthProvider>
             {
-                _validateData.ValidateMail(user.Email.Mail);
-            }
-            else
-            {
-                user.Email = null;
-                user.EmailId = email.Id;
-            }
+                new()
+                {
+                    Id = (short)AuthProviderEnum.Password,
+                }
+            },
+            Code = userRecord.Uid,
+            EmailVerified = false,
+            Email = email,
+            Password = BCrypt.BCrypt.HashPassword(password, BCrypt.BCrypt.GenSalt()),
+        };
+        try
+        {
+            saved = await _repository.SaveAsync(saved);
         }
-        return await _repository.SaveAsync(user);
+        catch
+        {
+            await _firebaseAuthAPI.DeleteAsync(userRecord.Uid);
+            throw;
+        }
+        return saved;
     }
 }

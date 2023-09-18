@@ -38,6 +38,8 @@ public partial class Company
 
     public virtual Organization Organization { get; set; } = null!;
 
+    public virtual Person Person { get; set; } = null!;
+
     [JsonIgnore]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 }

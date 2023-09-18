@@ -4,9 +4,9 @@ using AlexAstudilloERP.Infrastructure.Connections;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Common;
 
-public class DatabaseTableRepository : NPPostgreSQLRepository<DatabaseTable, short>, IDatabaseTableRepository
+public class DatabaseTableRepository : IDatabaseTableRepository
 {
-    public DatabaseTableRepository(PostgreSQLContext context) : base(context)
+    public DatabaseTableRepository(PostgreSQLContext context)
     {
     }
 }

@@ -19,9 +19,11 @@ public class EstablishmentRepository : NPPostgreSQLRepository<Establishment, int
 
     public Task<Establishment?> FindByCode(string code)
     {
-        return _context.Establishments.AsNoTracking()
-            .Include(e => e.Address!.PoliticalDivision!.Country)
-            .FirstOrDefaultAsync(e => e.Code!.Equals(code));
+        //return _context.Establishments.AsNoTracking()
+        //    .Include(e => e.Address!.PoliticalDivision!.Country)
+        //    .FirstOrDefaultAsync(e => e.Code!.Equals(code));
+
+        throw new NotImplementedException();
     }
 
     public async Task<IPage<Establishment>> FindByCompanyId(IPageable pageable, int companyId)
@@ -38,8 +40,9 @@ public class EstablishmentRepository : NPPostgreSQLRepository<Establishment, int
 
     public Task<Establishment?> FindMainByCompanyId(int companyId)
     {
-        return _context.Establishments.AsNoTracking()
-            .FirstOrDefaultAsync(e => e.Main && e.CompanyId == companyId);
+        //return _context.Establishments.AsNoTracking()
+        //    .FirstOrDefaultAsync(e => e.Main && e.CompanyId == companyId);
+        throw new NotImplementedException();
     }
 
     public async Task<Establishment> SetMain(int id, long userId)
@@ -50,10 +53,10 @@ public class EstablishmentRepository : NPPostgreSQLRepository<Establishment, int
             try
             {
                 int companyId = await _context.Establishments.AsNoTracking().Where(e => e.Id == id).Select(e => e.CompanyId).FirstOrDefaultAsync();
-                await _context.Establishments.Where(e => e.CompanyId == companyId).ExecuteUpdateAsync(e => e.SetProperty(p => p.Main, p => false));
+                //await _context.Establishments.Where(e => e.CompanyId == companyId).ExecuteUpdateAsync(e => e.SetProperty(p => p.Main, p => false));
                 finded = await _context.Establishments.FirstOrDefaultAsync(e => e.Id == id) ?? throw new ArgumentNullException(nameof(id));
-                finded.Main = true;
-                finded.UserId = userId;
+                //finded.Main = true;
+                //finded.UserId = userId;
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
@@ -72,7 +75,7 @@ public class EstablishmentRepository : NPPostgreSQLRepository<Establishment, int
         finded.Name = establishment.Name;
         finded.Active = establishment.Active;
         finded.Description = establishment.Description;
-        finded.UserId = establishment.UserId;
+        //finded.UserId = establishment.UserId;
         await _context.SaveChangesAsync();
         return finded;
     }

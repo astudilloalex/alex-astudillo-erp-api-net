@@ -26,6 +26,8 @@ public partial class Person
 
     public bool IdCardVerified { get; set; }
 
+    public virtual Company? Company { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 

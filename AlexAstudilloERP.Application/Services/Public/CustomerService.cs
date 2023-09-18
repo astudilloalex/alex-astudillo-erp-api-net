@@ -25,8 +25,8 @@ public class CustomerService : ICustomerService
     public async Task<Customer> Add(Customer customer, string token)
     {
         long userId = _tokenService.GetUserId(token);
-        bool permited = await _permissionRepository.HasPermission(userId, customer.CompanyCustomers.First().CompanyId, PermissionEnum.CustomerGet);
-        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //bool permited = await _permissionRepository.HasPermission(userId, customer.CompanyCustomers.First().CompanyId, PermissionEnum.CustomerGet);
+        //if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
         throw new NotImplementedException();
     }
 

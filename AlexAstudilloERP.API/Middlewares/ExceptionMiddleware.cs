@@ -1,6 +1,7 @@
 ﻿using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Domain.Exceptions.BadRequest;
 using AlexAstudilloERP.Domain.Exceptions.Conflict;
+using AlexAstudilloERP.Domain.Exceptions.Firebase;
 using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Exceptions.Unauthorized;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
@@ -51,6 +52,11 @@ public class ExceptionMiddleware
             _logger.LogError($"Unauthorized exception: {e}");
             await HandleExceptionAsync(context, e);
         }
+        catch (FirebaseException e)
+        {
+            _logger.LogError($"Firebase exception: {e}");
+            await HandleExceptionAsync(context, e);
+        }
         catch (DbUpdateException e)
         {
             _logger.LogError($"Database Update Exception: {e}");
@@ -72,6 +78,7 @@ public class ExceptionMiddleware
             UnauthorizedException => UnauthorizedExceptionData((UnauthorizedException)exception),
             BadRequestException => BadRequestExceptionData((BadRequestException)exception),
             ConflictException => ConflictExceptionData((ConflictException)exception),
+            FirebaseException => FirebaseExceptionData((FirebaseException)exception),
             _ => ResponseHandler.Error(500, exception.Message),
         };
         ;
@@ -120,6 +127,16 @@ public class ExceptionMiddleware
         return exception switch
         {
             _ => ResponseHandler.Conflict(exception.Code),
+        };
+    }
+
+    private static Dictionary<string, object> FirebaseExceptionData(FirebaseException exception)
+    {
+        return exception.Code switch
+        {
+            "wrong-password" => ResponseHandler.Unauthorized(exception.Code),
+            "user-disabled" => ResponseHandler.Unauthorized(exception.Code),
+            _ => ResponseHandler.BadRequest(exception.Code),
         };
     }
 }

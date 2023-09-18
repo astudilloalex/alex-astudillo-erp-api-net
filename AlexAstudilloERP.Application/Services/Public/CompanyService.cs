@@ -32,24 +32,24 @@ public class CompanyService : ICompanyService
 
     public async Task<Company> AddAsync(Company company, string token)
     {
-        company.UserId = _tokenService.GetUserId(token);
-        _setData.SetCompanyData(company);
-        await _validateData.ValidateCompany(company: company, update: false);
-        // Validate if person exists.
-        if (company.Person != null)
-        {
-            _setData.SetPersonData(person: company.Person);
-            Person? person = await _personRepository.FindByIdCard(company.Person.IdCard);
-            if (person == null)
-            {
-                await _validateData.ValidatePerson(company.Person, update: false);
-            }
-            else
-            {
-                company.Person = null;
-                company.PersonId = person.Id;
-            }
-        }
+        //company.UserId = _tokenService.GetUserId(token);
+        //_setData.SetCompanyData(company);
+        //await _validateData.ValidateCompany(company: company, update: false);
+        //// Validate if person exists.
+        //if (company.Person != null)
+        //{
+        //    _setData.SetPersonData(person: company.Person);
+        //    Person? person = await _personRepository.FindByIdCard(company.Person.IdCard);
+        //    if (person == null)
+        //    {
+        //        await _validateData.ValidatePerson(company.Person, update: false);
+        //    }
+        //    else
+        //    {
+        //        company.Person = null;
+        //        company.PersonId = person.Id;
+        //    }
+        //}
         return await _repository.SaveAsync(company);
     }
 
@@ -73,14 +73,14 @@ public class CompanyService : ICompanyService
         long userId = _tokenService.GetUserId(token);
         bool permitted = await _permissionRepository.HasPermission(userId, company.Id, PermissionEnum.CompanyUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        company.UserId = userId;
+        //company.UserId = userId;
         company.Active = true;
         _setData.SetCompanyData(company, update: true);
-        await _validateData.ValidateCompany(company: company, update: true);
+        //await _validateData.ValidateCompany(company: company, update: true);
         if (company.Person != null)
         {
             _setData.SetPersonData(company.Person, update: true);
-            await _validateData.ValidatePerson(company.Person, update: true);
+            //await _validateData.ValidatePerson(company.Person, update: true);
 
         }
         return await _repository.UpdateAsync(company);

@@ -1,7 +1,6 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Common;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Common;
 using AlexAstudilloERP.Infrastructure.Connections;
-using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Common;
 
@@ -16,11 +15,12 @@ public class JwtBlacklistRepository : NPPostgreSQLRepository<JwtBlacklist, int>,
 
     public Task<int> DeleteExpired()
     {
-        return _context.JwtBlacklists.AsNoTracking().Where(x => x.ExpiresAt < DateTime.Now).ExecuteDeleteAsync();
+        //return _context.JwtBlacklists.AsNoTracking().Where(x => x.ExpiresAt < DateTime.Now).ExecuteDeleteAsync();
+        throw new NotImplementedException();
     }
 
     public Task<bool> ExistsByJWTAsync(string token)
     {
-        return _context.JwtBlacklists.AsNoTracking().AnyAsync(x => x.Token.Equals(token));
+        throw new NotImplementedException();
     }
 }
