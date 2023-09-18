@@ -8,4 +8,5 @@ public class FirebaseSignInResponse
     public string Token { get; set; } = null!;
     public string RefreshToken { get; set; } = null!;
     public string ExpiresIn { get; set; } = "3600";
+    public string LocalId { get; set; } = null!;
 }

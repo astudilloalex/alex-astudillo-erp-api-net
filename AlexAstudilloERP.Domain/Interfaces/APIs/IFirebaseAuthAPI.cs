@@ -19,5 +19,7 @@ public interface IFirebaseAuthAPI
 
     public Task<FirebaseSignInResponse> SignInWithEmail(string email, string password);
 
+    public Task<FirebaseSignInResponse> SignUpWithEmailAsync(string email, string password);
+
     public Task<FirebaseToken> VerifyTokenAsync(string token);
 }

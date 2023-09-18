@@ -9,5 +9,5 @@ public interface IUserService
 
     public Task<FirebaseSignInResponse> SignIn(string email, string password);
 
-    public Task<User> SignUp(string email, string password);
+    public Task<FirebaseSignInResponse> SignUp(string email, string password);
 }

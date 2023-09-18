@@ -81,6 +81,30 @@ public class FirebaseAuthAPI : IFirebaseAuthAPI
         return JsonSerializer.Deserialize<FirebaseSignInResponse?>(await responseMessage.Content.ReadAsStringAsync(), _serializerOptions)!;
     }
 
+    public async Task<FirebaseSignInResponse> SignUpWithEmailAsync(string email, string password)
+    {
+        using HttpRequestMessage requestMessage = new(HttpMethod.Post, "/v1/accounts:signUp")
+        {
+            Content = new StringContent(JsonSerializer.Serialize(new Dictionary<string, object>()
+                {
+                    {"email", email },
+                    {"password" , password},
+                    {"returnSecureToken", true},
+                }, _serializerOptions)
+            ),
+        };
+        using HttpResponseMessage responseMessage = await _client.SendAsync(requestMessage);
+        if (responseMessage.StatusCode != HttpStatusCode.OK)
+        {
+            JsonObject jsonObject = JsonSerializer.Deserialize<JsonObject>(await responseMessage.Content.ReadAsStringAsync())!;
+            JsonNode? messageNode = (jsonObject.FirstOrDefault(j => j.Key.Equals("error")).Value?
+                .AsObject()?
+                .FirstOrDefault(j => j.Key.Equals("message")).Value) ?? throw new FirebaseException("firebase-exception");
+            throw new FirebaseException(messageNode.Deserialize<string>(_serializerOptions)!);
+        }
+        return JsonSerializer.Deserialize<FirebaseSignInResponse?>(await responseMessage.Content.ReadAsStringAsync(), _serializerOptions)!;
+    }
+
     public Task<FirebaseToken> VerifyTokenAsync(string token)
     {
         return _auth.VerifyIdTokenAsync(token);

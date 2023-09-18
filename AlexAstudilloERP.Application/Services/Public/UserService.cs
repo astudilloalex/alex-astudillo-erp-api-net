@@ -1,14 +1,10 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
-using AlexAstudilloERP.Domain.Enums.Custom;
 using AlexAstudilloERP.Domain.Enums.Public;
-using AlexAstudilloERP.Domain.Exceptions.Conflict;
-using AlexAstudilloERP.Domain.Exceptions.Unauthorized;
 using AlexAstudilloERP.Domain.Interfaces.APIs;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using AlexAstudilloERP.Domain.Models.FirebaseAuth;
-using FirebaseAdmin.Auth;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -45,44 +41,33 @@ public class UserService : IUserService
         return _firebaseAuthAPI.SignInWithEmail(email, password);
     }
 
-    public async Task<User> SignUp(string email, string password)
+    public async Task<FirebaseSignInResponse> SignUp(string email, string password)
     {
         _validateData.ValidateMail(email);
         _validateData.ValidatePassword(password);
-        // Verify if exists email.
-        if (await _repository.ExistsByEmail(email)) throw new UniqueKeyException(ExceptionEnum.EmailAlreadyInUse);
-        // Save the user on Firebase
-        UserRecord userRecord = await _firebaseAuthAPI.CreateAsync(new()
-        {
-            Disabled = false,
-            Email = email,
-            EmailVerified = false,
-            Password = password,
-        });
-        // Set data to the user.
-        User saved = new()
-        {
-            AuthProviders = new List<AuthProvider>
-            {
-                new()
-                {
-                    Id = (short)AuthProviderEnum.Password,
-                }
-            },
-            Code = userRecord.Uid,
-            EmailVerified = false,
-            Email = email,
-            Password = BCrypt.BCrypt.HashPassword(password, BCrypt.BCrypt.GenSalt()),
-        };
+        FirebaseSignInResponse firebaseResponse = await _firebaseAuthAPI.SignUpWithEmailAsync(email, password);
         try
         {
-            saved = await _repository.SaveAsync(saved);
+            User saved = await _repository.SaveAsync(new()
+            {
+                AuthProviders = new List<AuthProvider>
+                {
+                    new()
+                    {
+                        Id = (short)AuthProviderEnum.Password,
+                    }
+                },
+                Code = firebaseResponse.LocalId,
+                EmailVerified = false,
+                Email = email,
+                Password = BCrypt.BCrypt.HashPassword(password, BCrypt.BCrypt.GenSalt(12)),
+            });
         }
         catch
         {
-            await _firebaseAuthAPI.DeleteAsync(userRecord.Uid);
+            await _firebaseAuthAPI.DeleteAsync(firebaseResponse.LocalId);
             throw;
         }
-        return saved;
+        return firebaseResponse;
     }
 }
