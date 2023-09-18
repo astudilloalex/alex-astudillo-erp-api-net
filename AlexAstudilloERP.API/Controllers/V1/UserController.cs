@@ -1,4 +1,5 @@
-﻿using AlexAstudilloERP.API.DTOs.Requests;
+﻿using AlexAstudilloERP.API.Attributes;
+using AlexAstudilloERP.API.DTOs.Requests;
 using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,6 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/user")]
 [ApiController]
-[Authorize]
 public class UserController : CommonController
 {
     private readonly IUserService _service;
@@ -27,7 +27,7 @@ public class UserController : CommonController
 
     [HttpPost]
     [Route("sign-in")]
-    [AllowAnonymous]
+    [SkipTokenValidation]
     public async Task<IActionResult> SignIn([FromBody] SignInDTORequest request)
     {
         return Ok(ResponseHandler.Ok(await _service.SignIn(request.Email, request.Password)));
@@ -35,7 +35,7 @@ public class UserController : CommonController
 
     [HttpPost]
     [Route("sign-up")]
-    [AllowAnonymous]
+    [SkipTokenValidation]
     public async Task<IActionResult> SignUp([FromBody] SignInDTORequest request)
     {
         return Ok(ResponseHandler.Ok(await _service.SignUp(request.Email, request.Password)));

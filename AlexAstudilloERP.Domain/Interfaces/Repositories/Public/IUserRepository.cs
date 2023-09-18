@@ -11,6 +11,8 @@ public interface IUserRepository
 
     public Task<bool> ExistsUsername(string username);
 
+    public Task<User?> FindByCode(string code);
+
     public Task<User?> FindByIdCard(string idCard);
 
     public Task<User?> FindByEmailAsync(string email);

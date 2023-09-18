@@ -1,5 +1,6 @@
 using AlexAstudilloERP.API.Extensions;
 using AlexAstudilloERP.API.Handlers;
+using AlexAstudilloERP.API.Middlewares;
 using AlexAstudilloERP.Application.Services.Common;
 using AlexAstudilloERP.Application.Services.Custom;
 using AlexAstudilloERP.Application.Services.Public;
@@ -132,23 +133,23 @@ builder.Services.AddCors(options =>
 });
 
 // Enable JWT.
-builder.Services.AddHttpContextAccessor()
-    .AddAuthorization()
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            ValidAudience = builder.Configuration["JWT:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"] ?? "")),
-        };
-        options.Events = new AuthorizeHandler();
-    });
+//builder.Services.AddHttpContextAccessor()
+//    .AddAuthorization()
+//    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidateAudience = true,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
+//            ValidIssuer = builder.Configuration["JWT:Issuer"],
+//            ValidAudience = builder.Configuration["JWT:Audience"],
+//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"] ?? "")),
+//        };
+//        options.Events = new AuthorizeHandler();
+//    });
 
 var app = builder.Build();
 
@@ -166,10 +167,11 @@ app.UseCors("EnableCORS");
 
 app.UseStaticFiles();
 
-app.UseAuthentication();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 app.ConfigureExceptionMiddleware();
+app.UseMiddleware<TokenValidationMiddleware>();
 
 app.MapControllers();
 
