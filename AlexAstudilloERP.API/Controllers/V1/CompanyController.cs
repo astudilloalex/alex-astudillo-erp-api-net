@@ -23,21 +23,21 @@ public class CompanyController : CommonController
     [Route("add")]
     public async Task<IActionResult> Add([FromBody] Company company)
     {
-        return Ok(ResponseHandler.Ok(await _service.AddAsync(company, Token)));
+        return Ok(ResponseHandler.Ok(await _service.AddAsync(company, UserCode)));
     }
 
     [HttpGet]
     [Route("all")]
     public async Task<IActionResult> All([FromQuery] int page, [FromQuery] int size)
     {
-        return Ok(ResponseHandler.Ok(await _service.GetAllAllowed(PageRequest.Of(page - 1, size), Token)));
+        return Ok(ResponseHandler.Ok(await _service.GetAllAllowed(PageRequest.Of(page - 1, size), UserCode)));
     }
 
     [HttpGet]
     [Route("get/{code}")]
     public async Task<IActionResult> GetByCode(string code)
     {
-        return Ok(ResponseHandler.Ok(await _service.GetByCode(code, Token)));
+        return Ok(ResponseHandler.Ok(await _service.GetByCode(code, UserCode)));
     }
 
     [HttpPut]
@@ -45,6 +45,6 @@ public class CompanyController : CommonController
     public async Task<IActionResult> Update([FromBody] Company company, int id)
     {
         company.Id = id;
-        return Ok(ResponseHandler.Ok(await _service.Update(company, Token)));
+        return Ok(ResponseHandler.Ok(await _service.Update(company, UserCode)));
     }
 }

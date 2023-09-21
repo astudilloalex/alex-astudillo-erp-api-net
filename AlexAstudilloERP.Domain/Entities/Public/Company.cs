@@ -6,7 +6,7 @@ public partial class Company
 {
     public int Id { get; set; }
 
-    public short OrganizationId { get; set; }
+    public short? OrganizationId { get; set; }
 
     public int PersonId { get; set; }
 
@@ -36,7 +36,7 @@ public partial class Company
     [JsonIgnore]
     public virtual ICollection<Job> Jobs { get; set; } = new List<Job>();
 
-    public virtual Organization Organization { get; set; } = null!;
+    public virtual Organization? Organization { get; set; }
 
     public virtual Person Person { get; set; } = null!;
 

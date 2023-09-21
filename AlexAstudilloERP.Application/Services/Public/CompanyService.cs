@@ -30,8 +30,9 @@ public class CompanyService : ICompanyService
         _permissionRepository = permissionRepository;
     }
 
-    public async Task<Company> AddAsync(Company company, string token)
+    public async Task<Company> AddAsync(Company company, string userCode)
     {
+        company.UserCode = userCode;
         //company.UserId = _tokenService.GetUserId(token);
         //_setData.SetCompanyData(company);
         //await _validateData.ValidateCompany(company: company, update: false);
@@ -53,11 +54,11 @@ public class CompanyService : ICompanyService
         return await _repository.SaveAsync(company);
     }
 
-    public async Task<Company?> GetByCode(string code, string token)
+    public async Task<Company?> GetByCode(string code, string userCode)
     {
         Company? finded = await _repository.FindByCode(code);
         if (finded == null) return finded;
-        bool existsCompany = await _repository.ExistsByCompanyIdAndUserId(finded.Id, _tokenService.GetUserId(token));
+        bool existsCompany = await _repository.ExistsByCompanyIdAndUserId(finded.Id, _tokenService.GetUserId(userCode));
         if (!existsCompany) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return finded;
     }
@@ -68,9 +69,9 @@ public class CompanyService : ICompanyService
         return _repository.FindByUserId(pageable, userId);
     }
 
-    public async Task<Company> Update(Company company, string token)
+    public async Task<Company> Update(Company company, string userCode)
     {
-        long userId = _tokenService.GetUserId(token);
+        long userId = _tokenService.GetUserId(userCode);
         bool permitted = await _permissionRepository.HasPermission(userId, company.Id, PermissionEnum.CompanyUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         //company.UserId = userId;
