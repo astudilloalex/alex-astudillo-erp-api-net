@@ -47,6 +47,8 @@ public partial class PostgreSQLContext : DbContext
 
     public virtual DbSet<Location> Locations { get; set; }
 
+    public virtual DbSet<Membership> Memberships { get; set; }
+
     public virtual DbSet<Microservice> Microservices { get; set; }
 
     public virtual DbSet<Organization> Organizations { get; set; }
@@ -68,6 +70,8 @@ public partial class PostgreSQLContext : DbContext
     public virtual DbSet<Table> Tables { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserMembership> UserMemberships { get; set; }
 
     public virtual DbSet<UserMetadatum> UserMetadata { get; set; }
 
@@ -255,7 +259,6 @@ public partial class PostgreSQLContext : DbContext
 
             entity.HasOne(d => d.Organization).WithMany(p => p.Companies)
                 .HasForeignKey(d => d.OrganizationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_companies__organization_id");
 
             entity.HasOne(d => d.Person).WithOne(p => p.Company)
@@ -822,6 +825,38 @@ public partial class PostgreSQLContext : DbContext
                 .HasConstraintName("fk_locations__political_division_id");
         });
 
+        modelBuilder.Entity<Membership>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("memberships_pkey");
+
+            entity.ToTable("memberships");
+
+            entity.HasIndex(e => e.Code, "memberships_code_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Code)
+                .HasMaxLength(20)
+                .HasColumnName("code");
+            entity.Property(e => e.CreationDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("creation_date");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.Price)
+                .HasPrecision(19, 5)
+                .HasColumnName("price");
+            entity.Property(e => e.UpdateDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("update_date");
+        });
+
         modelBuilder.Entity<Microservice>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("microservices_pkey");
@@ -897,7 +932,7 @@ public partial class PostgreSQLContext : DbContext
                     {
                         j.HasKey("OrganizationId", "UserId").HasName("organization_users_pkey");
                         j.ToTable("organization_users");
-                        j.IndexerProperty<short>("OrganizationId").HasColumnName("organization_id");
+                        j.IndexerProperty<int>("OrganizationId").HasColumnName("organization_id");
                         j.IndexerProperty<int>("UserId").HasColumnName("user_id");
                     });
         });
@@ -1305,6 +1340,32 @@ public partial class PostgreSQLContext : DbContext
                         j.IndexerProperty<int>("UserId").HasColumnName("user_id");
                         j.IndexerProperty<int>("RoleId").HasColumnName("role_id");
                     });
+        });
+
+        modelBuilder.Entity<UserMembership>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.MembershipId }).HasName("user_memberships_pkey");
+
+            entity.ToTable("user_memberships");
+
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.MembershipId).HasColumnName("membership_id");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("end_date");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("start_date");
+
+            entity.HasOne(d => d.Membership).WithMany(p => p.UserMemberships)
+                .HasForeignKey(d => d.MembershipId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_user_memberships__membership_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserMemberships)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_user_memberships__user_id");
         });
 
         modelBuilder.Entity<UserMetadatum>(entity =>

@@ -30,6 +30,8 @@ public partial class User
 
     public virtual Person? Person { get; set; }
 
+    public virtual ICollection<UserMembership> UserMemberships { get; set; } = new List<UserMembership>();
+
     public virtual UserMetadatum? UserMetadatum { get; set; }
 
     public virtual ICollection<AuthProvider> AuthProviders { get; set; } = new List<AuthProvider>();
