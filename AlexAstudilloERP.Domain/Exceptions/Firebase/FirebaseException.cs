@@ -17,6 +17,7 @@ public class FirebaseException : Exception
             return _message switch
             {
                 "EMAIL_EXISTS" => "email-already-in-use",
+                "ExpiredIdToken" => "expired-token",
                 "EXPIRED_OOB_CODE" => "expired-obb-code",
                 "INVALID_OOB_CODE" => "invalid-obb-code",
                 "OPERATION_NOT_ALLOWED" => "operation-not-allowed",

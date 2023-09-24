@@ -6,7 +6,7 @@ public partial class Company
 {
     public int Id { get; set; }
 
-    public short? OrganizationId { get; set; }
+    public int? OrganizationId { get; set; }
 
     public int PersonId { get; set; }
 

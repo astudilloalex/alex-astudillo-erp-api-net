@@ -834,7 +834,7 @@ public partial class PostgreSQLContext : DbContext
             entity.HasIndex(e => e.Code, "memberships_code_key").IsUnique();
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .HasIdentityOptions(null, null, null, null, true, null)
                 .HasColumnName("id");
             entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.Code)

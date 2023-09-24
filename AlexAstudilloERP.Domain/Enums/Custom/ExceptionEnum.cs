@@ -83,6 +83,10 @@ public enum ExceptionEnum : short
     /// </summary>
     InvalidSocialReason,
     /// <summary>
+    /// Thrown if the token is invalid.
+    /// </summary>
+    InvalidToken,
+    /// <summary>
     /// Thrown if verification code of the credential is not valid.
     /// </summary>
     InvalidVerificationCode,

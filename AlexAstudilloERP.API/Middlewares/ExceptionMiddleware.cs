@@ -136,6 +136,7 @@ public class ExceptionMiddleware
         {
             "wrong-password" => ResponseHandler.Unauthorized(exception.Code),
             "user-disabled" => ResponseHandler.Unauthorized(exception.Code),
+            "expired-token" => ResponseHandler.Unauthorized(exception.Code),
             _ => ResponseHandler.BadRequest(exception.Code),
         };
     }

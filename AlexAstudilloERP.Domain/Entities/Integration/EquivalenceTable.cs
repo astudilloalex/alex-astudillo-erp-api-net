@@ -10,7 +10,7 @@ public partial class EquivalenceTable
 {
     public string LocalValue { get; set; } = null!;
 
-    public short OrganizationId { get; set; }
+    public int OrganizationId { get; set; }
 
     public short MicroserviceId { get; set; }
 

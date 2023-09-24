@@ -5,7 +5,7 @@ namespace AlexAstudilloERP.Domain.Entities.Public;
 
 public partial class Organization
 {
-    public short Id { get; set; }
+    public int Id { get; set; }
 
     public string Code { get; set; } = null!;
 

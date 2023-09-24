@@ -37,6 +37,7 @@ public class CustomException : Exception
                 ExceptionEnum.InvalidPersonNames => "invalid-person-names",
                 ExceptionEnum.InvalidPoliticalDivisionType => "invalid-political-division-type",
                 ExceptionEnum.InvalidSocialReason => "invalid-social-reason",
+                ExceptionEnum.InvalidToken => "invalid-token",
                 ExceptionEnum.InvalidVerificationCode => "invalid-verification-code",
                 ExceptionEnum.InvalidVerificationId => "invalid-verification-id",
                 ExceptionEnum.LockedAccount => "locked-account",

@@ -12,5 +12,5 @@ public partial class UserMembership
 
     public virtual Membership Membership { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual User User { get; set; } = null!; 
 }

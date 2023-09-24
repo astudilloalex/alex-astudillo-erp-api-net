@@ -1,4 +1,7 @@
 ﻿using AlexAstudilloERP.API.Attributes;
+using AlexAstudilloERP.Domain.Enums.Custom;
+using AlexAstudilloERP.Domain.Exceptions.Firebase;
+using AlexAstudilloERP.Domain.Exceptions.Unauthorized;
 using AlexAstudilloERP.Domain.Interfaces.APIs;
 using FirebaseAdmin.Auth;
 
@@ -23,8 +26,19 @@ public class TokenValidationMiddleware
             await _requestDelegate(context);
             return;
         }
-        FirebaseToken token = await _authAPI.VerifyTokenAsync(context.Request.Headers["Authorization"].ToString().Replace("Bearer ", ""));
-        context.Request.Headers.Add("X-User-Code", token.Uid);
-        await _requestDelegate(context);
+        try
+        {
+            FirebaseToken token = await _authAPI.VerifyTokenAsync(context.Request.Headers["Authorization"].ToString().Replace("Bearer ", ""));
+            context.Request.Headers.Add("X-User-Code", token.Uid);
+            await _requestDelegate(context);
+        }
+        catch (FirebaseAuthException e)
+        {
+            throw new FirebaseException(e.AuthErrorCode?.ToString() ?? "expired-token");
+        }
+        catch
+        {
+            throw new UnauthorizedException(ExceptionEnum.InvalidToken);
+        }
     }
 }
