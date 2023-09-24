@@ -1,29 +1,31 @@
-﻿using AlexAstudilloERP.API.Handlers;
+﻿using AlexAstudilloERP.API.DTOs;
+using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using AutoMapper;
 using EFCommonCRUD.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/company")]
 [ApiController]
-[Authorize]
 public class CompanyController : CommonController
 {
     private readonly ICompanyService _service;
+    private readonly IMapper _mapper;
 
-    public CompanyController(ICompanyService service)
+    public CompanyController(ICompanyService service, IMapper mapper)
     {
         _service = service;
+        _mapper = mapper;
     }
 
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> Add([FromBody] Company company)
+    public async Task<IActionResult> Add([FromBody] CompanyDTO company)
     {
-        return Ok(ResponseHandler.Ok(await _service.AddAsync(company, UserCode)));
+        return Ok(ResponseHandler.Ok(await _service.AddAsync(_mapper.Map<Company>(company), UserCode)));
     }
 
     [HttpGet]

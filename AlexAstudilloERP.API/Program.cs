@@ -1,5 +1,6 @@
 using AlexAstudilloERP.API.Extensions;
 using AlexAstudilloERP.API.Handlers;
+using AlexAstudilloERP.API.Mappers;
 using AlexAstudilloERP.API.Middlewares;
 using AlexAstudilloERP.Application.Services.Common;
 using AlexAstudilloERP.Application.Services.Custom;
@@ -14,6 +15,7 @@ using AlexAstudilloERP.Infrastructure.APIs;
 using AlexAstudilloERP.Infrastructure.Connections;
 using AlexAstudilloERP.Infrastructure.Repositories.Common;
 using AlexAstudilloERP.Infrastructure.Repositories.Public;
+using AutoMapper;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -96,6 +98,12 @@ builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 builder.Services.AddSingleton<ISetData, SetData>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddSingleton<IUtil, Util>();
+// Configure mapper.
+MapperConfiguration mapper = new(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+builder.Services.AddSingleton(mapper.CreateMapper());
 
 // Custom services.
 builder.Services.AddScoped<IValidateData, ValidateData>();

@@ -29,8 +29,7 @@ public class TokenValidationMiddleware
         try
         {
             FirebaseToken token = await _authAPI.VerifyTokenAsync(context.Request.Headers["Authorization"].ToString().Replace("Bearer ", ""));
-            context.Request.Headers.Add("X-User-Code", token.Uid);
-            await _requestDelegate(context);
+            context.Request.Headers.Add("X-User-Code", token.Uid);            
         }
         catch (FirebaseAuthException e)
         {
@@ -40,5 +39,6 @@ public class TokenValidationMiddleware
         {
             throw new UnauthorizedException(ExceptionEnum.InvalidToken);
         }
+        await _requestDelegate(context);
     }
 }
