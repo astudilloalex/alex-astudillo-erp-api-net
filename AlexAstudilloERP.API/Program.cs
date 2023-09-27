@@ -85,6 +85,7 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPoliticalDivisionRepository, PoliticalDivisionRepository>();
 builder.Services.AddScoped<IPoliticalDivisionTypeRepository, PoliticalDivisionTypeRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IUserMembershipRepository, UserMembershipRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 
