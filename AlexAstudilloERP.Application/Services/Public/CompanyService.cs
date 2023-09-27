@@ -14,19 +14,16 @@ public class CompanyService : ICompanyService
     private readonly ICompanyRepository _repository;
     private readonly IPermissionRepository _permissionRepository;
     private readonly IPersonRepository _personRepository;
-    private readonly ITokenService _tokenService;
     private readonly ISetData _setData;
     private readonly IValidateData _validateData;
 
     public CompanyService(ICompanyRepository repository, IPersonRepository personRepository,
-        ITokenService tokenService, ISetData setData,
-        IValidateData validateData, IPermissionRepository permissionRepository)
+        ISetData setData, IValidateData validateData, IPermissionRepository permissionRepository)
     {
         _repository = repository;
         _validateData = validateData;
         _setData = setData;
         _personRepository = personRepository;
-        _tokenService = tokenService;
         _permissionRepository = permissionRepository;
     }
 

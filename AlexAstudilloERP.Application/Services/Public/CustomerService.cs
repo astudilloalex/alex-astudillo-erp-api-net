@@ -13,18 +13,15 @@ public class CustomerService : ICustomerService
 {
     private readonly ICustomerRepository _repository;
     private readonly IPermissionRepository _permissionRepository;
-    private readonly ITokenService _tokenService;
 
-    public CustomerService(ICustomerRepository repository, IPermissionRepository permissionRepository, ITokenService tokenService)
+    public CustomerService(ICustomerRepository repository, IPermissionRepository permissionRepository)
     {
         _repository = repository;
         _permissionRepository = permissionRepository;
-        _tokenService = tokenService;
     }
 
     public async Task<Customer> Add(Customer customer, string token)
     {
-        long userId = _tokenService.GetUserId(token);
         //bool permited = await _permissionRepository.HasPermission(userId, customer.CompanyCustomers.First().CompanyId, PermissionEnum.CustomerGet);
         //if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
         throw new NotImplementedException();

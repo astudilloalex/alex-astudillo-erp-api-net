@@ -96,7 +96,6 @@ builder.Services.AddSingleton(new JsonSerializerOptions()
 });
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 builder.Services.AddSingleton<ISetData, SetData>();
-builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddSingleton<IUtil, Util>();
 // Configure mapper.
 MapperConfiguration mapper = new(mc =>
