@@ -70,6 +70,13 @@ public class RoleRepository : NPPostgreSQLRepository<Role, int>, IRoleRepository
         return _context.Roles.AsNoTracking().FirstOrDefaultAsync(r => r.Name.Equals(name) && r.CompanyId == companyId);
     }
 
+    public Task<List<Role>> FindOwnerByUserCode(string userCode)
+    {
+        return _context.Roles.AsNoTracking()
+            .Where(r => r.Name.Equals("OWNER") && r.Users.Select(u => u.Code).Contains(userCode))
+            .ToListAsync();
+    }
+
     public Task<bool> IsEditable(int id, int companyId)
     {
         return _context.Roles.AsNoTracking()

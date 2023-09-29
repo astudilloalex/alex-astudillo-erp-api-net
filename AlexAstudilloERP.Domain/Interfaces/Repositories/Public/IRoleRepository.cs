@@ -45,6 +45,9 @@ public interface IRoleRepository : INPRepository<Role, int>
     /// <param name="name">The name of the role.</param>
     /// <returns>A <see cref="Role"/> if exists, otherwise null.</returns>
     public Task<Role?> FindByNameAndCompanyId(int companyId, string name);
+
+    public Task<List<Role>> FindOwnerByUserCode(string userCode);
+
     /// <summary>
     /// Check if the role is editable.
     /// </summary>

@@ -59,6 +59,14 @@ public enum ExceptionEnum : short
     /// </summary>
     InvalidFirstName,
     /// <summary>
+    /// Thrown if id card is invalid.
+    /// </summary>
+    InvalidIdCard,
+    /// <summary>
+    /// Thrown if id card length is invalid.
+    /// </summary>
+    InvalidIdCardLength,
+    /// <summary>
     /// Thrown if person last name is invalid.
     /// </summary>
     InvalidLastName,
@@ -79,6 +87,10 @@ public enum ExceptionEnum : short
     /// </summary>
     InvalidPoliticalDivisionType,
     /// <summary>
+    /// Thrown if invalid province code.
+    /// </summary>
+    InvalidProvinceCode,
+    /// <summary>
     /// Thrown if the person social reason is invalid.
     /// </summary>
     InvalidSocialReason,
@@ -90,6 +102,10 @@ public enum ExceptionEnum : short
     /// Thrown if verification code of the credential is not valid.
     /// </summary>
     InvalidVerificationCode,
+    /// <summary>
+    /// Thrown if verification digit is invalid.
+    /// </summary>
+    InvalidVerificationDigit,
     /// <summary>
     /// Thrown if verification ID of the credential is not valid.
     /// </summary>
@@ -106,6 +122,10 @@ public enum ExceptionEnum : short
     /// Thrown if company does not contains a main establishment.
     /// </summary>
     MainEstablishmentIsRequired,
+    /// <summary>
+    /// Thrown if membership does not allow create a new company.
+    /// </summary>
+    MembershipDoesNotAllowCreateCompany,
     /// <summary>
     /// Thrown if operation is not allowed.
     /// </summary>
