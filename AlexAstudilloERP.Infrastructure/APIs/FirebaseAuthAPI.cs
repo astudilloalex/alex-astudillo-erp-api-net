@@ -1,5 +1,4 @@
-﻿using AlexAstudilloERP.Domain.Entities.Public;
-using AlexAstudilloERP.Domain.Exceptions.Firebase;
+﻿using AlexAstudilloERP.Domain.Exceptions.Firebase;
 using AlexAstudilloERP.Domain.Interfaces.APIs;
 using AlexAstudilloERP.Domain.Models.FirebaseAuth;
 using FirebaseAdmin.Auth;
