@@ -1,6 +1,7 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Enums.Custom;
 using AlexAstudilloERP.Domain.Exceptions.BadRequest;
+using System;
 using System.Text.RegularExpressions;
 
 namespace AlexAstudilloERP.Domain.Interfaces.Services.Custom;
@@ -42,6 +43,14 @@ public interface IValidateData
     {
         if (company.Tradename.Length < 3) throw new InvalidFieldException(ExceptionEnum.InvalidCompanyName);
         if (company.Person != null) ValidatePerson(company.Person);
+    }
+
+    public void ValidateCustomer(Customer customer)
+    {
+        if (customer.JuridicalPerson && (customer.SocialReason == null || customer.SocialReason.Length < 3)) throw new InvalidFieldException(ExceptionEnum.InvalidSocialReason);
+        if (!customer.JuridicalPerson && (customer.FirstName == null || customer.FirstName.Length < 3)) throw new InvalidFieldException(ExceptionEnum.InvalidFirstName);
+        if (!customer.JuridicalPerson && (customer.LastName == null || customer.LastName.Length < 3)) throw new InvalidFieldException(ExceptionEnum.InvalidLastName);
+        if (customer.Birthdate != null && customer.Birthdate > DateTime.UtcNow.AddYears(-15)) throw new InvalidFieldException(ExceptionEnum.InvalidBirthdate);
     }
 
     public void ValidatePerson(Person person)

@@ -1,14 +1,16 @@
-﻿namespace AlexAstudilloERP.Domain.Entities.Public;
+﻿namespace AlexAstudilloERP.API.DTOs;
 
-public partial class Customer
+public class CustomerDTO
 {
     public int Id { get; set; }
 
-    public int PersonId { get; set; }
-
     public int CompanyId { get; set; }
 
-    public string Code { get; set; } = null!;
+    public string Code { get; set; } = "";
+
+    public short PersonDocumentTypeId { get; set; }
+
+    public string IdCard { get; set; } = null!;
 
     public string? FirstName { get; set; }
 
@@ -18,17 +20,11 @@ public partial class Customer
 
     public DateTime? Birthdate { get; set; }
 
+    public bool JuridicalPerson { get; set; }
+
     public bool Active { get; set; }
 
     public DateTime CreationDate { get; set; }
 
     public DateTime UpdateDate { get; set; }
-
-    public string UserCode { get; set; } = null!;
-
-    public bool JuridicalPerson { get; set; }
-
-    public virtual Company Company { get; set; } = null!;
-
-    public virtual Person? Person { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using AlexAstudilloERP.API.DTOs.Requests;
+﻿using AlexAstudilloERP.API.DTOs;
+using AlexAstudilloERP.API.DTOs.Requests;
 using AlexAstudilloERP.Domain.Entities.Public;
 
 namespace AlexAstudilloERP.API.Mappers;
@@ -69,6 +70,29 @@ public static class DTOToEntity
             Description = dto.Description,
             Permissions = permissions,
             Active = dto.Active,
+        };
+    }
+
+    public static Customer CustomerDTOToCustomer(CustomerDTO dto)
+    {
+        return new()
+        {
+            Birthdate = dto.Birthdate,
+            CompanyId = dto.CompanyId,
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            JuridicalPerson = dto.JuridicalPerson,
+            Person = new()
+            {
+                Birthdate = dto.Birthdate,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                IdCard = dto.IdCard,
+                JuridicalPerson = dto.JuridicalPerson,
+                PersonDocumentTypeId = dto.PersonDocumentTypeId,
+                SocialReason = dto.SocialReason,
+            },
+            SocialReason = dto.SocialReason,            
         };
     }
 }

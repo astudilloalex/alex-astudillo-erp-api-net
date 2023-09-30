@@ -1,4 +1,5 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
+using System;
 
 namespace AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 
@@ -15,6 +16,15 @@ public interface ISetData
         company.Tradename = company.Tradename.Trim().ToUpperInvariant();
         company.Description = company.Description?.Trim().ToUpperInvariant();
         if (company.Person != null) SetPersonData(company.Person, update);
+    }
+
+    public void SetCustomerData(Customer customer, bool update = false)
+    {
+        customer.Birthdate = customer.Birthdate?.ToUniversalTime();
+        customer.FirstName = customer.JuridicalPerson ? null : customer.FirstName?.Trim().ToUpperInvariant();
+        customer.LastName = customer.JuridicalPerson ? null : customer.LastName?.Trim().ToUpperInvariant();
+        customer.SocialReason = customer.JuridicalPerson ? customer.SocialReason?.Trim().ToUpperInvariant() : null;
+        if (customer.Person != null) SetPersonData(customer.Person, update);
     }
 
     public void SetEstablishmentData(Establishment establishment, bool update = false)

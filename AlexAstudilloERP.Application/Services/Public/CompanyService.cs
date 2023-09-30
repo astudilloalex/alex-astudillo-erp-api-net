@@ -41,6 +41,9 @@ public class CompanyService : ICompanyService
         await CanCreateCompany(userCode);
         _setData.SetCompanyData(company);
         await ValidateData(company);
+        Person person = await _personRepository.SaveOrUpdate(company.Person!);
+        company.Person = null;
+        company.PersonId = person.Id;
         company.UserCode = userCode;
         return await _repository.SaveAsync(company);
     }
@@ -63,8 +66,10 @@ public class CompanyService : ICompanyService
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         _setData.SetCompanyData(company);
         await ValidateData(company);
+        Person person = await _personRepository.SaveOrUpdate(company.Person!);
+        company.Person = null;
+        company.PersonId = person.Id;
         company.UserCode = userCode;
-        company.Active = true;
         return await _repository.UpdateAsync(company);
     }
 

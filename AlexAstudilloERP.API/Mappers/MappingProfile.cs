@@ -10,5 +10,6 @@ public class MappingProfile : Profile
     {
         CreateMap<CompanyDTO, Company>();
         CreateMap<PersonDTO, Person>();
+        CreateMap<CustomerDTO, Customer>();
     }
 }

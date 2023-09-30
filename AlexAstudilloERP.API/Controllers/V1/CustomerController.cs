@@ -1,16 +1,14 @@
-﻿using AlexAstudilloERP.API.DTOs.Requests;
+﻿using AlexAstudilloERP.API.DTOs;
 using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.API.Mappers;
-using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
-using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/customer")]
 [ApiController]
-[Authorize]
 public class CustomerController : CommonController
 {
     private readonly ICustomerService _service;
@@ -29,9 +27,8 @@ public class CustomerController : CommonController
 
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> Add([FromBody] CustomerRequestDTO customerRequestDTO)
+    public async Task<IActionResult> Add([FromBody] CustomerDTO request)
     {
-        Customer customer = DTOToEntity.CustomerRequestDTOToCustomer(customerRequestDTO);
-        return Ok(ResponseHandler.Ok(await _service.Add(customer, Token)));
+        return Ok(ResponseHandler.Ok(await _service.Add(DTOToEntity.CustomerDTOToCustomer(request), UserCode)));
     }
 }

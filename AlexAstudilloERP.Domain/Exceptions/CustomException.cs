@@ -19,6 +19,7 @@ public class CustomException : Exception
             {
                 ExceptionEnum.AccountExistsWithDifferentCredential => "account-exists-with-different-credential",
                 ExceptionEnum.AlreadyExistsCompanyWithThatIdCard => "already-exists-company-with-that-id-card",
+                ExceptionEnum.CustomerAlreadyExists => "customer-already-exists",
                 ExceptionEnum.EmailAlreadyInUse => "email-already-in-use",
                 ExceptionEnum.EstablishmentAddressIsRequired => "establishment-address-is-required",
                 ExceptionEnum.ExpiredAccount => "expired-account",
@@ -26,6 +27,7 @@ public class CustomException : Exception
                 ExceptionEnum.ExpiredCredential => "expired-credential",
                 ExceptionEnum.Forbidden => "forbidden",
                 ExceptionEnum.IdCardAlreadyExists => "id-card-already-exists",
+                ExceptionEnum.InvalidBirthdate => "invalid-birthdate",
                 ExceptionEnum.InvalidCompanyName => "invalid-company-name",
                 ExceptionEnum.InvalidCredential => "invalid-credential",
                 ExceptionEnum.InvalidEmail => "invalid-email",

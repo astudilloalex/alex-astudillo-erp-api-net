@@ -320,6 +320,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.FirstName)
                 .HasMaxLength(200)
                 .HasColumnName("first_name");
+            entity.Property(e => e.JuridicalPerson).HasColumnName("juridical_person");
             entity.Property(e => e.LastName)
                 .HasMaxLength(200)
                 .HasColumnName("last_name");

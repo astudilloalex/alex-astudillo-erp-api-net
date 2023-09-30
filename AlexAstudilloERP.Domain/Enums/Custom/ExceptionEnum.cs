@@ -11,6 +11,10 @@ public enum ExceptionEnum : short
     /// </summary>
     AlreadyExistsCompanyWithThatIdCard,
     /// <summary>
+    /// Thrown if customer already exist.
+    /// </summary>
+    CustomerAlreadyExists,
+    /// <summary>
     /// Thrown if there already exists an account with the given email address.
     /// </summary>
     EmailAlreadyInUse,
@@ -38,6 +42,10 @@ public enum ExceptionEnum : short
     /// Thrown if the id card already exists.
     /// </summary>
     IdCardAlreadyExists,
+    /// <summary>
+    /// Thrown if the birthdate is invalid.
+    /// </summary>
+    InvalidBirthdate,
     /// <summary>
     /// Thrown if the company name is invalid.
     /// </summary>
