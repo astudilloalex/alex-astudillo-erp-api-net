@@ -61,15 +61,16 @@ public class PermissionRepository : NPPostgreSQLRepository<Permission, short>, I
             .AnyAsync();
     }
 
-    public Task<bool> HasPermission(long userId, int companyId, PermissionEnum permission)
+    public Task<bool> HasPermission(string userCode, int companyId, PermissionEnum permission)
     {
         short permissionId = (short)permission;
         string query = "SELECT p.* FROM permissions p " +
             "INNER JOIN role_permissions rp ON rp.permission_id = p.id " +
             "INNER JOIN roles r ON r.id = rp.role_id " +
             "INNER JOIN user_roles ur ON ur.role_id = r.id " +
-            "WHERE ur.user_id = {0} AND r.company_id = {1} AND p.id = {2}";
-        return _context.Permissions.FromSqlRaw(query, new object[] { userId, companyId, permissionId }).AsNoTracking()
+            "INNER JOIN users u ON u.id = ur.user_id " +
+            "WHERE u.code = {0} AND r.company_id = {1} AND p.id = {2}";
+        return _context.Permissions.FromSqlRaw(query, new object[] { userCode, companyId, permissionId }).AsNoTracking()
             .AnyAsync();
     }
 }

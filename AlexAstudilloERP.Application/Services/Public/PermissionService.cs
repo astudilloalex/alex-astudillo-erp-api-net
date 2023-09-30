@@ -8,18 +8,15 @@ namespace AlexAstudilloERP.Application.Services.Public;
 
 public class PermissionService : IPermissionService
 {
-    private readonly ITokenService _tokenService;
     private readonly IPermissionRepository _repository;
 
-    public PermissionService(ITokenService tokenService, IPermissionRepository repository)
+    public PermissionService( IPermissionRepository repository)
     {
-        _tokenService = tokenService;
         _repository = repository;
     }
 
     public Task<IPage<Permission>> GetAll(IPageable pageable, int companyId, string token)
     {
-        long userId = _tokenService.GetUserId(token);
-        return _repository.FindAllAsync(pageable, companyId, userId);
+        return _repository.FindAllAsync(pageable, companyId, 1);
     }
 }

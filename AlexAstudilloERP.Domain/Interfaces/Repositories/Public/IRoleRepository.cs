@@ -8,6 +8,8 @@ namespace AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 /// </summary>
 public interface IRoleRepository : INPRepository<Role, int>
 {
+    public Task<int> CountOwnerByUserCode(string userCode);
+
     /// <summary>
     /// Check if exists a role by id and company id.
     /// </summary>

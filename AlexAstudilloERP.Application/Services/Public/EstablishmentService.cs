@@ -11,18 +11,16 @@ namespace AlexAstudilloERP.Application.Services.Public;
 
 public class EstablishmentService : IEstablishmentService
 {
-    private readonly ITokenService _tokenService;
     private readonly IEstablishmentRepository _repository;
     private readonly IPermissionRepository _permissionRepository;
     private readonly ISetData _setData;
     private readonly IValidateData _validateData;
 
-    public EstablishmentService(ITokenService tokenService, IEstablishmentRepository repository,
+    public EstablishmentService(IEstablishmentRepository repository,
         IPermissionRepository permissionRepository, ISetData setData,
         IValidateData validateData)
     {
         _repository = repository;
-        _tokenService = tokenService;
         _permissionRepository = permissionRepository;
         _setData = setData;
         _validateData = validateData;
@@ -30,7 +28,7 @@ public class EstablishmentService : IEstablishmentService
 
     public async Task<Establishment> Add(Establishment establishment, string token)
     {
-        long userId = _tokenService.GetUserId(token);
+        //long userId = _tokenService.GetUserId(token);
         //establishment.UserId = userId;
         //bool permitted = await _permissionRepository.HasPermission(userId, establishment.CompanyId, PermissionEnum.EstablishmentCreate);
         //if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
@@ -46,35 +44,35 @@ public class EstablishmentService : IEstablishmentService
 
     public async Task<IPage<Establishment>> FindByCompanyId(IPageable pageable, int companyId, string token)
     {
-        long userId = _tokenService.GetUserId(token);
-        bool permitted = await _permissionRepository.HasPermission(userId, companyId, PermissionEnum.EstablishmentList);
+        //long userId = _tokenService.GetUserId(token);
+        bool permitted = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.EstablishmentList);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return await _repository.FindByCompanyId(pageable, companyId);
     }
 
     public async Task<Establishment?> GetByCode(string code, string token)
     {
-        long userId = _tokenService.GetUserId(token);
+        //long userId = _tokenService.GetUserId(token);
         Establishment? establishment = await _repository.FindByCode(code);
         if (establishment == null) return null;
-        bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, establishment.Id, PermissionEnum.EstablishmentGet);
+        bool permitted = await _permissionRepository.HasEstablishmentPermission(1L, establishment.Id, PermissionEnum.EstablishmentGet);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return establishment;
     }
 
     public async Task<Establishment> SetMain(int id, string token)
     {
-        long userId = _tokenService.GetUserId(token);
-        bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, id, PermissionEnum.EstablishmentUpdate);
+        //long userId = _tokenService.GetUserId(token);
+        bool permitted = await _permissionRepository.HasEstablishmentPermission(1, id, PermissionEnum.EstablishmentUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        return await _repository.SetMain(id, userId);
+        return await _repository.SetMain(id, 1);
     }
 
     public async Task<Establishment> Update(Establishment establishment, string token)
     {
-        long userId = _tokenService.GetUserId(token);
+        //long userId = _tokenService.GetUserId(token);
         //establishment.UserId = userId;
-        bool permitted = await _permissionRepository.HasEstablishmentPermission(userId, establishment.Id, PermissionEnum.EstablishmentUpdate);
+        bool permitted = await _permissionRepository.HasEstablishmentPermission(1, establishment.Id, PermissionEnum.EstablishmentUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         _setData.SetEstablishmentData(establishment, update: true);
         //await _validateData.ValidateEstablishment(establishment: establishment, update: true);

@@ -47,6 +47,7 @@ public class CustomException : Exception
                 ExceptionEnum.LockedAccount => "locked-account",
                 ExceptionEnum.MainEstablishmentAlreadyExists => "main-establishment-already-exists",
                 ExceptionEnum.MainEstablishmentIsRequired => "main-establishment-is-required",
+                ExceptionEnum.MembershipDoesNotAllowCreateCompany => "membership-does-not-allow-create-company",
                 ExceptionEnum.OperationNotAllowed => "operation-not-allowed",
                 ExceptionEnum.PermissionsAreRequired => "permissions-are-required",
                 ExceptionEnum.RoleNameAlreadyExists => "role-name-already-exists",

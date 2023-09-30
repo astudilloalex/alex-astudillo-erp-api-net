@@ -17,7 +17,7 @@ public class UserMembershipRepository : IUserMembershipRepository
     public Task<List<UserMembership>> FindByUserCode(string userCode)
     {
         return _context.UserMemberships.AsNoTracking()
-            .Where(um => um.User.Code.Equals(userCode) && um.EndDate < DateTime.UtcNow)
+            .Where(um => um.User.Code.Equals(userCode) && um.EndDate > DateTime.UtcNow)
             .ToListAsync();
     }
 }

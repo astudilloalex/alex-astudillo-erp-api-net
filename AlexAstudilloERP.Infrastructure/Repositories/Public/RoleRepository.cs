@@ -20,6 +20,12 @@ public class RoleRepository : NPPostgreSQLRepository<Role, int>, IRoleRepository
         _context = context;
     }
 
+    public Task<int> CountOwnerByUserCode(string userCode)
+    {
+        return _context.Roles.AsNoTracking()
+            .CountAsync(r => r.Name.Equals("OWNER") && r.Users.Select(u => u.Code).Contains(userCode));
+    }
+
     public Task<bool> ExistsByIdAndCompanyId(int id, int companyId)
     {
         return _context.Roles.AsNoTracking().AnyAsync(r => r.Id == id && r.CompanyId == companyId);

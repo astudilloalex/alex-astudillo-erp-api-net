@@ -12,8 +12,9 @@ public interface ISetData
 
     public void SetCompanyData(Company company, bool update = false)
     {
-        //company.Parent = null;
         company.Tradename = company.Tradename.Trim().ToUpperInvariant();
+        company.Description = company.Description?.Trim().ToUpperInvariant();
+        if (company.Person != null) SetPersonData(company.Person, update);
     }
 
     public void SetEstablishmentData(Establishment establishment, bool update = false)
@@ -34,11 +35,6 @@ public interface ISetData
         person.FirstName = person.JuridicalPerson ? null : person.FirstName?.Trim().ToUpperInvariant();
         person.LastName = person.JuridicalPerson ? null : person.LastName?.Trim().ToUpperInvariant();
         person.SocialReason = person.JuridicalPerson ? person.SocialReason?.Trim().ToUpperInvariant() : null;
-        //person.Addresses = new List<Address>();
-        //person.Emails = new List<Email>();
-        //person.Phones = new List<Phone>();
-        //person.DocumentType = null;
-        person.Gender = null;
     }
 
     public void SetRoleData(Role role, bool update = false)
@@ -49,7 +45,7 @@ public interface ISetData
 
     public void SetUserData(User user, bool update = false)
     {
-        user.Username = user.Username.Trim();
+        //user.Username = user.Username.Trim();
         if (!update)
         {
             //user.Establishments = new List<Establishment>();

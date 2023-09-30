@@ -23,4 +23,12 @@ public class PersonRepository : NPPostgreSQLRepository<Person, long>, IPersonRep
     {
         return _context.People.AsNoTracking().FirstOrDefaultAsync(p => p.IdCard.Equals(idCard));
     }
+
+    public Task<string?> FindCodeByIdCard(string idCard)
+    {
+        return _context.People.AsNoTracking()
+            .Where(p => p.IdCard.Equals(idCard))
+            .Select(p => p.Code)
+            .FirstOrDefaultAsync();
+    }
 }

@@ -18,4 +18,12 @@ public class CountryRepository : NPPostgreSQLRepository<Country, short>, ICountr
     {
         return _context.Countries.AsNoTracking().FirstOrDefaultAsync(c => c.Code.Equals(code));
     }
+
+    public Task<string?> FindCodeByPersonDocumentTypeId(short documentTypeId)
+    {
+        return _context.Countries.AsNoTracking()
+            .Where(c => c.PersonDocumentTypes.Select(pdt => pdt.Id).Contains(documentTypeId))
+            .Select(c => c.Code)
+            .FirstOrDefaultAsync();
+    }
 }

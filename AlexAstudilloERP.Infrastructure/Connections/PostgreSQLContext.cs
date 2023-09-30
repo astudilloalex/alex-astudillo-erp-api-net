@@ -15,6 +15,7 @@ public partial class PostgreSQLContext : DbContext
 
     public PostgreSQLContext(DbContextOptions<PostgreSQLContext> options) : base(options) { }
 
+
     public virtual DbSet<AuditDatum> AuditData { get; set; }
 
     public virtual DbSet<AuthProvider> AuthProviders { get; set; }
@@ -1350,12 +1351,8 @@ public partial class PostgreSQLContext : DbContext
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.MembershipId).HasColumnName("membership_id");
-            entity.Property(e => e.EndDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("end_date");
-            entity.Property(e => e.StartDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("start_date");
+            entity.Property(e => e.EndDate).HasColumnName("end_date");
+            entity.Property(e => e.StartDate).HasColumnName("start_date");
 
             entity.HasOne(d => d.Membership).WithMany(p => p.UserMemberships)
                 .HasForeignKey(d => d.MembershipId)

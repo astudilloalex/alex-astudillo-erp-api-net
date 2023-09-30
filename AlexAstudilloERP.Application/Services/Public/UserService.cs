@@ -14,18 +14,16 @@ public class UserService : IUserService
     private readonly IPersonRepository _personRepository;
     private readonly IUserRepository _repository;
     private readonly ISetData _setData;
-    private readonly ITokenService _tokenService;
     private readonly IValidateData _validateData;
     private readonly IFirebaseAuthAPI _firebaseAuthAPI;
     private readonly IUtil _util;
 
-    public UserService(IEmailRepository emailRepository, IPersonRepository personRepository, IUserRepository repository, ISetData setData, ITokenService tokenService, IValidateData validateData, IFirebaseAuthAPI firebaseAuthAPI, IUtil util)
+    public UserService(IEmailRepository emailRepository, IPersonRepository personRepository, IUserRepository repository, ISetData setData, IValidateData validateData, IFirebaseAuthAPI firebaseAuthAPI, IUtil util)
     {
         _emailRepository = emailRepository;
         _personRepository = personRepository;
         _repository = repository;
         _setData = setData;
-        _tokenService = tokenService;
         _validateData = validateData;
         _firebaseAuthAPI = firebaseAuthAPI;
         _util = util;
