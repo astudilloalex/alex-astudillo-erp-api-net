@@ -6,6 +6,7 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -64,7 +65,8 @@ public class CustomerService : ICustomerService
             _validateData.ValidateIdCard(
                await _countryRepository.FindCodeByPersonDocumentTypeId(customer.Person.PersonDocumentTypeId) ?? "",
                customer.Person.IdCard,
-               customer.Person.JuridicalPerson
+               customer.Person.JuridicalPerson,
+               (PersonDocumentTypeEnum)customer.Person.PersonDocumentTypeId
            );
         }
         _validateData.ValidateCustomer(customer);

@@ -90,7 +90,8 @@ public class CompanyService : ICompanyService
             _validateData.ValidateIdCard(
                 await _countryRepository.FindCodeByPersonDocumentTypeId(company.Person.PersonDocumentTypeId) ?? "",
                 company.Person.IdCard,
-                company.Person.JuridicalPerson
+                company.Person.JuridicalPerson,
+                (PersonDocumentTypeEnum)company.Person.PersonDocumentTypeId
             );
         }
         _validateData.ValidateCompany(company);

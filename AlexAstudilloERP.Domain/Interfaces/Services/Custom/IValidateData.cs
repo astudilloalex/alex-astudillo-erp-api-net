@@ -1,5 +1,6 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Public;
 using AlexAstudilloERP.Domain.Enums.Custom;
+using AlexAstudilloERP.Domain.Enums.Public;
 using AlexAstudilloERP.Domain.Exceptions.BadRequest;
 using System;
 using System.Text.RegularExpressions;
@@ -27,12 +28,17 @@ public interface IValidateData
         if (!reg.IsMatch(password)) throw new InvalidFieldException(ExceptionEnum.WeakPassword);
     }
 
-    public void ValidateIdCard(string countryCode, string idCard, bool juridicalPerson)
+    public void ValidateIdCard(
+        string countryCode,
+        string idCard,
+        bool juridicalPerson,
+        PersonDocumentTypeEnum documentType
+    )
     {
         switch (countryCode)
         {
             case "EC":
-                ValidateEcuadorianIdCard(idCard, juridicalPerson);
+                ValidateEcuadorianIdCard(idCard, juridicalPerson, documentType);
                 break;
             default:
                 throw new InvalidFieldException(ExceptionEnum.InvalidIdCard);
@@ -66,9 +72,11 @@ public interface IValidateData
     /// <param name="idCard">The id card to validate.</param>
     /// <param name="juridicalPerson"></param>
     /// <exception cref="InvalidFieldException"></exception>
-    public void ValidateEcuadorianIdCard(string idCard, bool juridicalPerson)
+    public void ValidateEcuadorianIdCard(string idCard, bool juridicalPerson, PersonDocumentTypeEnum documentType)
     {
         if (idCard.Length != 10 && idCard.Length != 13) throw new InvalidFieldException(ExceptionEnum.InvalidIdCardLength);
+        if (documentType == PersonDocumentTypeEnum.EcuadorianIdCard && idCard.Length != 10) throw new InvalidFieldException(ExceptionEnum.InvalidIdCardLength);
+        if (documentType == PersonDocumentTypeEnum.EcuadorianRUC && idCard.Length != 13) throw new InvalidFieldException(ExceptionEnum.InvalidIdCardLength);
         char[] chars = idCard.ToCharArray();
         byte sum = 0;
         List<byte> coefficients = new();
