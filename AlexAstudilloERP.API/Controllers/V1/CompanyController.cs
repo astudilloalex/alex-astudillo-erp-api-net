@@ -43,10 +43,10 @@ public class CompanyController : CommonController
     }
 
     [HttpPut]
-    [Route("update/{id}")]
-    public async Task<IActionResult> Update([FromBody] Company company, int id)
+    [Route("update/{code}")]
+    public async Task<IActionResult> Update([FromBody] CompanyDTO company, string code)
     {
-        company.Id = id;
-        return Ok(ResponseHandler.Ok(await _service.Update(company, UserCode)));
+        company.Code = code;
+        return Ok(ResponseHandler.Ok(await _service.Update(_mapper.Map<Company>(company), UserCode)));
     }
 }

@@ -107,12 +107,12 @@ public partial class PostgreSQLContext : DbContext
         });
         foreach (EntityEntry entry in entries)
         {
-            if (entry.Entity.GetType().GetProperty("UpdateDate") != null) Entry(entry.Entity).Property("UpdateDate").CurrentValue = DateTime.Now;
+            if (entry.Entity.GetType().GetProperty("UpdateDate") != null) Entry(entry.Entity).Property("UpdateDate").CurrentValue = DateTime.UtcNow;
             if (entry.State == EntityState.Added)
             {
                 if (entry.Entity.GetType().GetProperty("Code") != null && entry.Entity is not User) Entry(entry.Entity).Property("Code").CurrentValue = GenerateCode();
                 if (entry.Entity.GetType().GetProperty("Active") != null) Entry(entry.Entity).Property("Active").CurrentValue = true;
-                if (entry.Entity.GetType().GetProperty("CreationDate") != null) Entry(entry.Entity).Property("CreationDate").CurrentValue = DateTime.Now;
+                if (entry.Entity.GetType().GetProperty("CreationDate") != null) Entry(entry.Entity).Property("CreationDate").CurrentValue = DateTime.UtcNow;
             }
             else if (entry.State == EntityState.Modified)
             {
@@ -241,7 +241,6 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
                 .HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
@@ -252,7 +251,6 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(75)
                 .HasColumnName("tradename");
             entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
                 .HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)

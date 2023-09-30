@@ -2,7 +2,7 @@
 
 public class CompanyDTO
 {
-    public PersonDTO Person { get; set; } = null!;
+    public PersonDTO? Person { get; set; }
 
     public string? Code { get; set; }
 

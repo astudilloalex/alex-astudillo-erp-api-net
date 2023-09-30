@@ -45,8 +45,8 @@ public class EstablishmentService : IEstablishmentService
     public async Task<IPage<Establishment>> FindByCompanyId(IPageable pageable, int companyId, string token)
     {
         //long userId = _tokenService.GetUserId(token);
-        bool permitted = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.EstablishmentList);
-        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //bool permitted = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.EstablishmentList);
+        //if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return await _repository.FindByCompanyId(pageable, companyId);
     }
 
@@ -55,8 +55,8 @@ public class EstablishmentService : IEstablishmentService
         //long userId = _tokenService.GetUserId(token);
         Establishment? establishment = await _repository.FindByCode(code);
         if (establishment == null) return null;
-        bool permitted = await _permissionRepository.HasEstablishmentPermission(1L, establishment.Id, PermissionEnum.EstablishmentGet);
-        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //bool permitted = await _permissionRepository.HasEstablishmentPermission(1L, establishment.Id, PermissionEnum.EstablishmentGet);
+        //if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return establishment;
     }
 

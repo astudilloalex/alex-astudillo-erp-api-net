@@ -60,18 +60,13 @@ public class CompanyService : ICompanyService
 
     public async Task<Company> Update(Company company, string userCode)
     {
-        bool permitted = await _permissionRepository.HasPermission(1L, company.Id, PermissionEnum.CompanyUpdate);
+        bool permitted = await _permissionRepository.HasPermission(userCode, company.Code, PermissionEnum.CompanyUpdate);
         if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        //company.UserId = userId;
+        company.Person = null;
+        _setData.SetCompanyData(company);
+        await ValidateData(company);
+        company.UserCode = userCode;
         company.Active = true;
-        _setData.SetCompanyData(company, update: true);
-        //await _validateData.ValidateCompany(company: company, update: true);
-        if (company.Person != null)
-        {
-            _setData.SetPersonData(company.Person, update: true);
-            //await _validateData.ValidatePerson(company.Person, update: true);
-
-        }
         return await _repository.UpdateAsync(company);
     }
 

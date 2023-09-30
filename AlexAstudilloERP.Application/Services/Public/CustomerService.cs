@@ -35,8 +35,8 @@ public class CustomerService : ICustomerService
     public async Task<Customer?> GetByIdCardAndCompanyId(int companyId, string idCard, string token)
     {
         //long userId = _tokenService.GetUserId(token);
-        bool permited = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.CustomerGet);
-        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //bool permited = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.CustomerGet);
+        //if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return await _repository.FindByIdCardAndCompanyId(companyId, idCard);
     }
 }

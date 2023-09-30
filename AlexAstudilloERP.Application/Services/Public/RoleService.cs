@@ -30,8 +30,8 @@ public class RoleService : IRoleService
     public async Task<Role> Add(Role role, string token)
     {
         // Verify permissions.
-        bool hasPermission = await _permissionRepository.HasPermission(1, role.CompanyId, PermissionEnum.RoleCreate);
-        if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //bool hasPermission = await _permissionRepository.HasPermission(1, role.CompanyId, PermissionEnum.RoleCreate);
+        //if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
         // Set data and validate common data.
         _setData.SetRoleData(role: role, update: false);
         role.Permissions = await _permissionRepository.FindByCompanyIdAndUserId(
@@ -46,8 +46,6 @@ public class RoleService : IRoleService
 
     public async Task<IPage<Role>> GetAll(IPageable pageable, int companyId, string token, bool? active = null)
     {
-        bool hasPermission = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.RoleList);
-        if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return await _repository.FindByCompanyId(pageable, companyId, active);
     }
 
@@ -55,17 +53,15 @@ public class RoleService : IRoleService
     {
         Role? finded = await _repository.FindByCode(code);
         if (finded == null) return null;
-        bool hasPermission = await _permissionRepository.HasPermission(1, finded.CompanyId, PermissionEnum.RoleGet);
-        if (!hasPermission) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return finded;
     }
 
     public async Task<Role> Update(Role role, string token)
     {
-        bool hasPermission = await _permissionRepository.HasPermission(1, role.CompanyId, PermissionEnum.RoleUpdate);
-        bool roleExist = await _repository.ExistsByIdAndCompanyId(role.Id, role.CompanyId);
-        bool isEditable = await _repository.IsEditable(role.Id, role.CompanyId);
-        if (!hasPermission || !roleExist || !isEditable) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        //bool hasPermission = await _permissionRepository.HasPermission(1, role.CompanyId, PermissionEnum.RoleUpdate);
+        //bool roleExist = await _repository.ExistsByIdAndCompanyId(role.Id, role.CompanyId);
+        //bool isEditable = await _repository.IsEditable(role.Id, role.CompanyId);
+        //if (!hasPermission || !roleExist || !isEditable) throw new ForbiddenException(ExceptionEnum.Forbidden);
         // Set data and validate common data.
         _setData.SetRoleData(role: role, update: true);
         role.Permissions = await _permissionRepository.FindByCompanyIdAndUserId(

@@ -64,27 +64,10 @@ public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyR
 
     public new async ValueTask<Company> UpdateAsync(Company entity)
     {
-        //Company? finded = await _context.Companies
-        //    .Include(c => c.Person)
-        //    .FirstOrDefaultAsync(c => c.Id == entity.Id) ?? throw new ArgumentNullException(nameof(entity));
-        //finded.Tradename = entity.Tradename;
-        //finded.KeepAccount = entity.KeepAccount;
-        //finded.SpecialTaxpayer = entity.SpecialTaxpayer;
-        //finded.SpecialTaxpayerNumber = entity.SpecialTaxpayerNumber;
-        //finded.Active = entity.Active;
-        //finded.UserId = entity.UserId;
-        //if (entity.Person != null && finded.Person != null)
-        //{
-        //    finded.Person.DocumentTypeId = entity.Person.DocumentTypeId;
-        //    finded.Person.GenderId = entity.Person.GenderId;
-        //    finded.Person.IdCard = entity.Person.IdCard;
-        //    finded.Person.FirstName = entity.Person.FirstName;
-        //    finded.Person.LastName = entity.Person.LastName;
-        //    finded.Person.SocialReason = entity.Person.SocialReason;
-        //    finded.Person.Birthdate = entity.Person.Birthdate;
-        //    finded.Person.JuridicalPerson = entity.Person.JuridicalPerson;
-        //}
+        Company finded = await _context.Companies.FirstAsync(c => c.Code.Equals(entity.Code));
+        finded.Tradename = entity.Tradename;
+        finded.Description = entity.Description;
         await _context.SaveChangesAsync();
-        return entity;
+        return finded;
     }
 }
