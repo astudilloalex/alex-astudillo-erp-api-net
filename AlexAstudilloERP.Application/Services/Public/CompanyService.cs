@@ -93,6 +93,8 @@ public class CompanyService : ICompanyService
         _validateData.ValidateCompany(company);
         if (update)
         {
+            Company? finded = await _repository.FindByIdCardAsync(company.Person?.IdCard ?? "");
+            if (finded != null && company.Person?.IdCard != finded.Person?.IdCard) throw new UniqueKeyException(ExceptionEnum.AlreadyExistsCompanyWithThatIdCard);
         }
         else
         {

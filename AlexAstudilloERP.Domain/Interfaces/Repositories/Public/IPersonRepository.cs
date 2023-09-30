@@ -10,4 +10,6 @@ public interface IPersonRepository : INPRepository<Person, long>
     public Task<Person?> FindByIdCard(string idCard);
 
     public Task<string?> FindCodeByIdCard(string idCard);
+
+    public Task<Person> SaveOrUpdate(Person person);
 }

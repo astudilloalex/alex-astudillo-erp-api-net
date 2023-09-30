@@ -31,4 +31,33 @@ public class PersonRepository : NPPostgreSQLRepository<Person, long>, IPersonRep
             .Select(p => p.Code)
             .FirstOrDefaultAsync();
     }
+
+    /// <summary>
+    /// Save or update a person
+    /// <para>If id card exist update the person, otherwise create a new person.</para>
+    /// </summary>
+    /// <param name="person">The person to add or update.</param>
+    /// <returns>The person updated.</returns>
+    public async Task<Person> SaveOrUpdate(Person person)
+    {
+        Person? finded = await _context.People.FirstOrDefaultAsync(p => p.IdCard.Equals(person.IdCard));
+        if (finded != null)
+        {
+            finded.Birthdate = person.Birthdate;
+            finded.FirstName = person.FirstName;
+            finded.LastName = person.LastName;
+            finded.GenderId = person.GenderId;
+            finded.JuridicalPerson = person.JuridicalPerson;
+            finded.PersonDocumentTypeId = person.PersonDocumentTypeId;
+            finded.SocialReason = person.SocialReason;
+            await _context.SaveChangesAsync();
+            return finded;
+        }
+        else
+        {
+            await _context.AddAsync(person);
+            await _context.SaveChangesAsync();
+            return person;
+        }
+    }
 }

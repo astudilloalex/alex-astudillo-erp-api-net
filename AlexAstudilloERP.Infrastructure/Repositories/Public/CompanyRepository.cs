@@ -38,7 +38,7 @@ public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyR
             .FirstOrDefaultAsync(c => c.Code!.Equals(code));
     }
 
-    public Task<Company?> FindByIdCard(string idCard)
+    public Task<Company?> FindByIdCardAsync(string idCard)
     {
         return _context.Companies.AsNoTracking()
             .Include(c => c.Person)
@@ -64,9 +64,20 @@ public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyR
 
     public new async ValueTask<Company> UpdateAsync(Company entity)
     {
-        Company finded = await _context.Companies.FirstAsync(c => c.Code.Equals(entity.Code));
+        Company finded = await _context.Companies.Include(c => c.Person).FirstAsync(c => c.Code.Equals(entity.Code));
         finded.Tradename = entity.Tradename;
         finded.Description = entity.Description;
+        if (entity.Person != null)
+        {
+            finded.Person!.Birthdate = entity.Person.Birthdate;
+            finded.Person.FirstName = entity.Person.FirstName;
+            finded.Person.GenderId = entity.Person.GenderId;
+            finded.Person.IdCard = entity.Person.IdCard;
+            finded.Person.JuridicalPerson = entity.Person.JuridicalPerson;
+            finded.Person.LastName = entity.Person.LastName;
+            finded.Person.PersonDocumentTypeId = entity.Person.PersonDocumentTypeId;
+            finded.Person.SocialReason = entity.Person.SocialReason;
+        }
         await _context.SaveChangesAsync();
         return finded;
     }
