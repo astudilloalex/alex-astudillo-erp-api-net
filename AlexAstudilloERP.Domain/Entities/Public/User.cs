@@ -34,6 +34,8 @@ public partial class User
 
     public virtual UserMetadatum? UserMetadatum { get; set; }
 
+    public virtual ICollection<UserRelationship> UserRelationships { get; set; } = new List<UserRelationship>();
+
     public virtual ICollection<AuthProvider> AuthProviders { get; set; } = new List<AuthProvider>();
 
     public virtual ICollection<Organization> Organizations { get; set; } = new List<Organization>();

@@ -7,6 +7,7 @@ using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using EFCommonCRUD.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -46,16 +47,14 @@ public class CompanyService : ICompanyService
 
     public async Task<Company?> GetByCode(string code, string userCode)
     {
-        Company? finded = await _repository.FindByCode(code);
-        if (finded == null) return finded;
-        bool existsCompany = await _repository.ExistsByCompanyIdAndUserId(finded.Id, 1L);
-        if (!existsCompany) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        return finded;
+        bool permitted = await _permissionRepository.HasPermission(userCode, code, PermissionEnum.CompanyList);
+        if (!permitted) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return await _repository.FindByCodeAsync(code);
     }
 
-    public Task<IPage<Company>> GetAllAllowed(IPageable pageable, string token)
+    public Task<IPage<Company>> GetAllAllowed(IPageable pageable, string userCode)
     {
-        return _repository.FindByUserId(pageable, 1L);
+        return _repository.FindByUserCodeAsync(pageable, userCode);
     }
 
     public async Task<Company> Update(Company company, string userCode)

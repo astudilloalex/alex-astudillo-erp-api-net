@@ -15,7 +15,6 @@ public partial class PostgreSQLContext : DbContext
 
     public PostgreSQLContext(DbContextOptions<PostgreSQLContext> options) : base(options) { }
 
-
     public virtual DbSet<AuditDatum> AuditData { get; set; }
 
     public virtual DbSet<AuthProvider> AuthProviders { get; set; }
@@ -75,6 +74,8 @@ public partial class PostgreSQLContext : DbContext
     public virtual DbSet<UserMembership> UserMemberships { get; set; }
 
     public virtual DbSet<UserMetadatum> UserMetadata { get; set; }
+
+    public virtual DbSet<UserRelationship> UserRelationships { get; set; }
 
     /// <summary>
     /// Generate a custom unique code.
@@ -166,9 +167,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.LastModifiedDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("last_modified_date");
+            entity.Property(e => e.LastModifiedDate).HasColumnName("last_modified_date");
             entity.Property(e => e.NewData)
                 .HasColumnType("jsonb")
                 .HasColumnName("new_data");
@@ -207,18 +206,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Company>(entity =>
@@ -240,8 +235,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -250,8 +244,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Tradename)
                 .HasMaxLength(75)
                 .HasColumnName("tradename");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -285,9 +278,7 @@ public partial class PostgreSQLContext : DbContext
                 .IsFixedLength()
                 .HasComment("ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1, part of the ISO 3166 standard[1] published by the International Organization for Standardization (ISO), to represent countries, dependent territories, and special areas of geographical interest.")
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -298,9 +289,7 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(75)
                 .HasColumnName("name");
             entity.Property(e => e.RegionId).HasColumnName("region_id");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
 
             entity.HasOne(d => d.Region).WithMany(p => p.Countries)
                 .HasForeignKey(d => d.RegionId)
@@ -322,16 +311,12 @@ public partial class PostgreSQLContext : DbContext
                 .HasIdentityOptions(null, null, null, null, true, null)
                 .HasColumnName("id");
             entity.Property(e => e.Active).HasColumnName("active");
-            entity.Property(e => e.Birthdate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("birthdate");
+            entity.Property(e => e.Birthdate).HasColumnName("birthdate");
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(200)
                 .HasColumnName("first_name");
@@ -342,9 +327,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.SocialReason)
                 .HasMaxLength(200)
                 .HasColumnName("social_reason");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -375,18 +358,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Department>(entity =>
@@ -408,9 +387,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -419,9 +396,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(150)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -453,30 +428,22 @@ public partial class PostgreSQLContext : DbContext
                 .HasIdentityOptions(null, null, null, null, true, null)
                 .HasColumnName("id");
             entity.Property(e => e.Active).HasColumnName("active");
-            entity.Property(e => e.Birthdate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("birthdate");
+            entity.Property(e => e.Birthdate).HasColumnName("birthdate");
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(200)
                 .HasColumnName("first_name");
-            entity.Property(e => e.HireDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("hire_date");
+            entity.Property(e => e.HireDate).HasColumnName("hire_date");
             entity.Property(e => e.JobId).HasColumnName("job_id");
             entity.Property(e => e.LastName)
                 .HasMaxLength(200)
                 .HasColumnName("last_name");
             entity.Property(e => e.PersonId).HasColumnName("person_id");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -565,9 +532,7 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -576,9 +541,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -614,18 +577,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<File>(entity =>
@@ -643,18 +602,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Extension)
                 .HasMaxLength(10)
                 .HasColumnName("extension");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.Url)
                 .HasMaxLength(255)
                 .HasColumnName("url");
@@ -680,18 +635,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(20)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Job>(entity =>
@@ -712,9 +663,7 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -727,9 +676,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -751,13 +698,9 @@ public partial class PostgreSQLContext : DbContext
             entity.HasIndex(e => e.JobId, "job_history_job_id_idx");
 
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
-            entity.Property(e => e.StartDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("start_date");
+            entity.Property(e => e.StartDate).HasColumnName("start_date");
             entity.Property(e => e.DepartmentId).HasColumnName("department_id");
-            entity.Property(e => e.EndDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("end_date");
+            entity.Property(e => e.EndDate).HasColumnName("end_date");
             entity.Property(e => e.JobId).HasColumnName("job_id");
 
             entity.HasOne(d => d.Department).WithMany(p => p.JobHistories)
@@ -793,9 +736,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.HouseNumber)
                 .HasMaxLength(15)
                 .HasColumnName("house_number");
@@ -811,9 +752,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.SecondaryStreet)
                 .HasMaxLength(200)
                 .HasColumnName("secondary_street");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -839,9 +778,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -851,9 +788,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Price)
                 .HasPrecision(19, 5)
                 .HasColumnName("price");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Microservice>(entity =>
@@ -871,18 +806,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Organization>(entity =>
@@ -900,18 +831,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(75)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -979,9 +906,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Id)
                 .HasIdentityOptions(null, null, null, null, true, null)
                 .HasColumnName("id");
-            entity.Property(e => e.Birthdate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("birthdate");
+            entity.Property(e => e.Birthdate).HasColumnName("birthdate");
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
@@ -1030,18 +955,14 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
 
             entity.HasOne(d => d.Country).WithMany(p => p.PersonDocumentTypes)
                 .HasForeignKey(d => d.CountryId)
@@ -1071,9 +992,7 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -1082,9 +1001,7 @@ public partial class PostgreSQLContext : DbContext
                 .HasColumnName("name");
             entity.Property(e => e.ParentId).HasColumnName("parent_id");
             entity.Property(e => e.PoliticalDivisionTypeId).HasColumnName("political_division_type_id");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
 
             entity.HasOne(d => d.Country).WithMany(p => p.PoliticalDivisions)
                 .HasForeignKey(d => d.CountryId)
@@ -1116,18 +1033,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Region>(entity =>
@@ -1145,18 +1058,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -1177,9 +1086,7 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("code");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -1187,9 +1094,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
             entity.Property(e => e.UserCode)
                 .HasMaxLength(128)
                 .HasColumnName("user_code");
@@ -1234,18 +1139,14 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(150)
                 .HasColumnName("name");
-            entity.Property(e => e.UpdateDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("update_date");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -1372,20 +1273,35 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.UserId)
                 .ValueGeneratedNever()
                 .HasColumnName("user_id");
-            entity.Property(e => e.CreationDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("creation_date");
-            entity.Property(e => e.LastRefreshDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("last_refresh_date");
-            entity.Property(e => e.LastSignInDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("last_sign_in_date");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+            entity.Property(e => e.LastRefreshDate).HasColumnName("last_refresh_date");
+            entity.Property(e => e.LastSignInDate).HasColumnName("last_sign_in_date");
 
             entity.HasOne(d => d.User).WithOne(p => p.UserMetadatum)
                 .HasForeignKey<UserMetadatum>(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_user_metadata__user_id");
+        });
+
+        modelBuilder.Entity<UserRelationship>(entity =>
+        {
+            entity.HasKey(e => new { e.ObjectId, e.TableId, e.UserId }).HasName("user_relationships_pkey");
+
+            entity.ToTable("user_relationships");
+
+            entity.Property(e => e.ObjectId).HasColumnName("object_id");
+            entity.Property(e => e.TableId).HasColumnName("table_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Table).WithMany(p => p.UserRelationships)
+                .HasForeignKey(d => d.TableId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_user_relationships__table_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserRelationships)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_user_relationships__user_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

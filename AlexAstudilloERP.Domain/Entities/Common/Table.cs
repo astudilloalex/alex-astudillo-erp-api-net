@@ -1,5 +1,6 @@
 ﻿using AlexAstudilloERP.Domain.Entities.Integration;
 using AlexAstudilloERP.Domain.Entities.Json;
+using AlexAstudilloERP.Domain.Entities.Public;
 using System.Text.Json.Serialization;
 
 namespace AlexAstudilloERP.Domain.Entities.Common;
@@ -28,4 +29,7 @@ public partial class Table
 
     [JsonIgnore]
     public virtual ICollection<EquivalenceTable> EquivalenceTables { get; set; } = new List<EquivalenceTable>();
+
+    [JsonIgnore]
+    public virtual ICollection<UserRelationship> UserRelationships { get; set; } = new List<UserRelationship>();
 }

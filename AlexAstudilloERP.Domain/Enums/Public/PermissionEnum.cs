@@ -20,4 +20,5 @@ public enum PermissionEnum : short
     CustomerList = 16,
     CustomerEnable = 17,
     CustomerDisable = 18,
+    CompanyList = 19,
 }
