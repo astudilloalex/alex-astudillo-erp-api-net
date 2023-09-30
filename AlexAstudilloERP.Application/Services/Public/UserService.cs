@@ -29,6 +29,11 @@ public class UserService : IUserService
         _util = util;
     }
 
+    public Task<FirebaseSignInResponse> ExchangeRefreshTokenForIdToken(string refreshToken)
+    {
+        return _firebaseAuthAPI.ExchangeRefreshTokenForIdToken(refreshToken);
+    }
+
     public Task<User?> GetByCodeAsync(string code)
     {
         return _repository.FindByCodeAsync(code);

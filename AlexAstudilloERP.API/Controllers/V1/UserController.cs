@@ -2,7 +2,6 @@
 using AlexAstudilloERP.API.DTOs.Requests;
 using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlexAstudilloERP.API.Controllers.V1;
@@ -16,6 +15,14 @@ public class UserController : CommonController
     public UserController(IUserService service)
     {
         _service = service;
+    }
+
+    [HttpPost]
+    [Route("exchange-refresh-token")]
+    [SkipTokenValidation]
+    public async Task<IActionResult> ExchangeRefreshToken([FromBody] ExchangeRefreshTokenRequest request)
+    {
+        return Ok(ResponseHandler.Ok(await _service.ExchangeRefreshTokenForIdToken(request.RefreshToken)));
     }
 
     [HttpGet]

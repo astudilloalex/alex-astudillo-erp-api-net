@@ -1,4 +1,5 @@
-﻿using AlexAstudilloERP.Domain.Exceptions.Firebase;
+﻿using AlexAstudilloERP.Domain.Entities.Public;
+using AlexAstudilloERP.Domain.Exceptions.Firebase;
 using AlexAstudilloERP.Domain.Interfaces.APIs;
 using AlexAstudilloERP.Domain.Models.FirebaseAuth;
 using FirebaseAdmin.Auth;
@@ -39,6 +40,36 @@ public class FirebaseAuthAPI : IFirebaseAuthAPI
     public Task DeleteAsync(string uid)
     {
         return _auth.DeleteUserAsync(uid);
+    }
+
+    public async Task<FirebaseSignInResponse> ExchangeRefreshTokenForIdToken(string refreshToken)
+    {
+        _client.BaseAddress = new Uri("https://securetoken.googleapis.com");
+        using HttpRequestMessage requestMessage = new(HttpMethod.Post, "/v1/token")
+        {
+            Content = new StringContent(JsonSerializer.Serialize(new Dictionary<string, object>()
+                {
+                    {"grant_type", "refresh_token" },
+                    {"refresh_token" , refreshToken},
+                }, _serializerOptions)
+            ),
+        };
+        using HttpResponseMessage responseMessage = await _client.SendAsync(requestMessage);
+        JsonObject jsonObject = JsonSerializer.Deserialize<JsonObject>(await responseMessage.Content.ReadAsStringAsync())!;
+        if (responseMessage.StatusCode != HttpStatusCode.OK)
+        {
+            JsonNode? messageNode = (jsonObject.FirstOrDefault(j => j.Key.Equals("error")).Value?
+                .AsObject()?
+                .FirstOrDefault(j => j.Key.Equals("message")).Value) ?? throw new FirebaseException("firebase-exception");
+            throw new FirebaseException(messageNode.Deserialize<string>(_serializerOptions)!);
+        }
+        return new()
+        {
+            ExpiresIn = jsonObject.FirstOrDefault(j => j.Key.Equals("expires_in")).Value?.ToString() ?? "",
+            LocalId = jsonObject.FirstOrDefault(j => j.Key.Equals("user_id")).Value?.ToString() ?? "",
+            RefreshToken = jsonObject.FirstOrDefault(j => j.Key.Equals("refresh_token")).Value?.ToString() ?? "",
+            Token = jsonObject.FirstOrDefault(j => j.Key.Equals("id_token")).Value?.ToString() ?? "",
+        };
     }
 
     public async Task<List<UserRecord>> GetAllAsync()

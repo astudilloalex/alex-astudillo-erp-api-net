@@ -13,6 +13,8 @@ public interface IFirebaseAuthAPI
 
     public Task DeleteAsync(string uid);
 
+    public Task<FirebaseSignInResponse> ExchangeRefreshTokenForIdToken(string refreshToken);
+
     public Task<List<UserRecord>> GetAllAsync();
 
     public Task<UserRecord> GetByUidAsync(string uid);
