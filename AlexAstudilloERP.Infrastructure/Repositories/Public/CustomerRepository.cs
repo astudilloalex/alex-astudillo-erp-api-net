@@ -35,6 +35,13 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
             .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard));
     }
 
+    public Task<Customer?> FindByCodeAsync(string code)
+    {
+        return _context.Customers.AsNoTracking()
+            .Include(c => c.Person)
+            .FirstOrDefaultAsync(c => c.Code.Equals(code));
+    }
+
     public Task<Customer?> FindByIdCardAndCompanyIdAsync(int companyId, string idCard)
     {
         //return _context.Customers.AsNoTracking()
@@ -43,5 +50,17 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
         throw new NotImplementedException();
     }
 
-
+    public new async ValueTask<Customer> UpdateAsync(Customer entity)
+    {
+        Customer finded = await _context.Customers.FirstAsync(c => c.Code.Equals(entity.Code));
+        finded.Birthdate = entity.Birthdate;
+        finded.FirstName = entity.FirstName;
+        finded.JuridicalPerson = entity.JuridicalPerson;
+        finded.LastName = entity.LastName;
+        finded.PersonId = entity.PersonId;
+        finded.SocialReason = entity.SocialReason;
+        finded.UserCode = entity.UserCode;
+        await _context.SaveChangesAsync();
+        return finded;
+    }
 }

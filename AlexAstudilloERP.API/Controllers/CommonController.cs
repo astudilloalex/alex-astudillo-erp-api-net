@@ -22,4 +22,12 @@ public class CommonController : ControllerBase
             return Request.Headers["X-User-Code"].ToString();
         }
     }
+
+    protected string CompanyCode
+    {
+        get
+        {
+            return Request.Headers["X-Company-Code"].ToString();
+        }
+    }
 }

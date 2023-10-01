@@ -78,6 +78,7 @@ public static class DTOToEntity
         return new()
         {
             Birthdate = dto.Birthdate,
+            Code = dto.Code,
             CompanyId = dto.CompanyId,
             FirstName = dto.FirstName,
             LastName = dto.LastName,
@@ -92,7 +93,7 @@ public static class DTOToEntity
                 PersonDocumentTypeId = dto.PersonDocumentTypeId,
                 SocialReason = dto.SocialReason,
             },
-            SocialReason = dto.SocialReason,            
+            SocialReason = dto.SocialReason,
         };
     }
 }

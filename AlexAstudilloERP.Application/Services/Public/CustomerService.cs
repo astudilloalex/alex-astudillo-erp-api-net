@@ -6,7 +6,6 @@ using AlexAstudilloERP.Domain.Exceptions.Forbidden;
 using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -32,9 +31,9 @@ public class CustomerService : ICustomerService
         _countryRepository = countryRepository;
     }
 
-    public async Task<Customer> Add(Customer customer, string userCode)
+    public async Task<Customer> Add(Customer customer, string userCode, string companyCode)
     {
-        bool permited = await _permissionRepository.HasPermission(userCode, await _companyRepository.FindCodeById(customer.CompanyId) ?? "", PermissionEnum.CustomerCreate);
+        bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerCreate);
         if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
         _setData.SetCustomerData(customer);
         await ValidateData(customer);
@@ -42,10 +41,21 @@ public class CustomerService : ICustomerService
         customer.Person = null;
         customer.PersonId = person.Id;
         customer.UserCode = userCode;
+        customer.CompanyId = await _companyRepository.FindIdByCodeAsync(companyCode);
         return await _repository.SaveAsync(customer);
     }
 
-    public Task<Customer?> GetByIdCard(string idCard, string token)
+    public async Task<Customer?> GetByCodeAsync(string code, string userCode, string companyCode)
+    {
+        bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerCreate);
+        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        Customer? finded = await _repository.FindByCodeAsync(code);
+        if (finded == null) return finded;
+        if (finded.CompanyId != await _companyRepository.FindIdByCodeAsync(companyCode)) return null;
+        return finded;
+    }
+
+    public Task<Customer?> GetByIdCard(string idCard, string userCode, string companyCode)
     {
         throw new NotImplementedException();
     }
@@ -56,6 +66,20 @@ public class CustomerService : ICustomerService
         //bool permited = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.CustomerGet);
         //if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
         return await _repository.FindByIdCardAndCompanyIdAsync(companyId, idCard);
+    }
+
+    public async Task<Customer> UpdateAsync(Customer customer, string userCode, string companyCode)
+    {
+        bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerUpdate);
+        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        _setData.SetCustomerData(customer);
+        await ValidateData(customer, true);
+        Person person = await _personRepository.FindByIdCard(customer.Person!.IdCard ?? "") ?? await _personRepository.SaveAsync(customer.Person!);
+        customer.Person = null;
+        customer.PersonId = person.Id;
+        customer.UserCode = userCode;
+        customer.CompanyId = await _companyRepository.FindIdByCodeAsync(companyCode);
+        return await _repository.UpdateAsync(customer);
     }
 
     public async Task ValidateData(Customer customer, bool update = false)

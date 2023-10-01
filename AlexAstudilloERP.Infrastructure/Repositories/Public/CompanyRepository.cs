@@ -72,12 +72,21 @@ public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyR
             .FirstOrDefaultAsync();
     }
 
+    public Task<int> FindIdByCodeAsync(string code)
+    {
+        return _context.Companies.AsNoTracking()
+            .Where(c => c.Code.Equals(code))
+            .Select(c => c.Id)
+            .FirstOrDefaultAsync();
+    }
+
     public new async ValueTask<Company> UpdateAsync(Company entity)
     {
         Company finded = await _context.Companies.FirstAsync(c => c.Code.Equals(entity.Code));
         finded.Tradename = entity.Tradename;
         finded.Description = entity.Description;
         finded.PersonId = entity.PersonId;
+        finded.UserCode = entity.UserCode;
         await _context.SaveChangesAsync();
         return finded;
     }

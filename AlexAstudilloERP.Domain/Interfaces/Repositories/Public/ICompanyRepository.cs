@@ -16,4 +16,6 @@ public interface ICompanyRepository : INPRepository<Company, int>
     public Task<IPage<Company>> FindByUserCodeAsync(IPageable pageable, string userCode);
 
     public Task<string?> FindCodeById(int id);
+
+    public Task<int> FindIdByCodeAsync(string code);
 }
