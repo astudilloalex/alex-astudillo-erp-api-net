@@ -15,6 +15,21 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
         _context = context;
     }
 
+    public async Task<Customer> ChangeStateAsync(Customer entity)
+    {
+        Customer finded = await _context.Customers.FirstAsync(c => c.Code.Equals(entity.Code));
+        finded.Active = entity.Active;
+        finded.UserCode = entity.UserCode;
+        await _context.SaveChangesAsync();
+        return finded;
+    }
+
+    public Task<bool> ExistsByCompanyCodeAndCode(string companyCode, string code)
+    {
+        return _context.Customers.AsNoTracking()
+            .AnyAsync(c => c.Company.Code.Equals(companyCode) && c.Code.Equals(code));
+    }
+
     public Task<bool> ExistsByCompanyIdAndIdCardAsync(int companyId, string idCard)
     {
         return _context.Customers.AsNoTracking()
@@ -42,12 +57,11 @@ public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICusto
             .FirstOrDefaultAsync(c => c.Code.Equals(code));
     }
 
-    public Task<Customer?> FindByIdCardAndCompanyIdAsync(int companyId, string idCard)
+    public Task<Customer?> FindByIdCardAndCompanyCodeAsync(string idCard, string companyCode)
     {
-        //return _context.Customers.AsNoTracking()
-        //    .Include(c => c.Person)
-        //    .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard) && c.CompanyCustomers.Select(cc => cc.CompanyId).Contains(companyId));
-        throw new NotImplementedException();
+        return _context.Customers.AsNoTracking()
+            .Include(c => c.Person)
+            .FirstOrDefaultAsync(c => c.Person!.IdCard.Equals(idCard) && c.Company.Code.Equals(companyCode));
     }
 
     public new async ValueTask<Customer> UpdateAsync(Customer entity)

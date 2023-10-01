@@ -6,6 +6,8 @@ public interface ICustomerService
 {
     public Task<Customer> Add(Customer customer, string userCode, string companyCode);
 
+    public Task<Customer> ChangeStateAsync(Customer customer, string userCode, string companyCode);
+
     public Task<Customer?> GetByCodeAsync(string code, string userCode, string companyCode);
 
     public Task<Customer?> GetByIdCard(string idCard, string userCode, string companyCode);

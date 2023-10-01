@@ -45,6 +45,15 @@ public class CustomerService : ICustomerService
         return await _repository.SaveAsync(customer);
     }
 
+    public async Task<Customer> ChangeStateAsync(Customer customer, string userCode, string companyCode)
+    {
+        bool permited = await _permissionRepository.HasPermission(userCode, companyCode, customer.Active ? PermissionEnum.CustomerEnable : PermissionEnum.CustomerDisable);
+        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        if (!await _repository.ExistsByCompanyCodeAndCode(companyCode, customer.Code)) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        customer.UserCode = userCode;
+        return await _repository.ChangeStateAsync(customer);
+    }
+
     public async Task<Customer?> GetByCodeAsync(string code, string userCode, string companyCode)
     {
         bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerCreate);
@@ -55,23 +64,27 @@ public class CustomerService : ICustomerService
         return finded;
     }
 
-    public Task<Customer?> GetByIdCard(string idCard, string userCode, string companyCode)
+    public async Task<Customer?> GetByIdCard(string idCard, string userCode, string companyCode)
     {
-        throw new NotImplementedException();
+        bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerList);
+        if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        return await _repository.FindByIdCardAndCompanyCodeAsync(idCard, companyCode);
     }
 
-    public async Task<Customer?> GetByIdCardAndCompanyId(int companyId, string idCard, string token)
+    public Task<Customer?> GetByIdCardAndCompanyId(int companyId, string idCard, string token)
     {
         //long userId = _tokenService.GetUserId(token);
         //bool permited = await _permissionRepository.HasPermission(1, companyId, PermissionEnum.CustomerGet);
         //if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
-        return await _repository.FindByIdCardAndCompanyIdAsync(companyId, idCard);
+        //return await _repository.FindByIdCardAndCompanyCodeAsync(companyId, idCard);
+        throw new NotImplementedException();
     }
 
     public async Task<Customer> UpdateAsync(Customer customer, string userCode, string companyCode)
     {
         bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerUpdate);
         if (!permited) throw new ForbiddenException(ExceptionEnum.Forbidden);
+        if (!await _repository.ExistsByCompanyCodeAndCode(companyCode, customer.Code)) throw new ForbiddenException(ExceptionEnum.Forbidden);
         _setData.SetCustomerData(customer);
         await ValidateData(customer, true);
         Person person = await _personRepository.FindByIdCard(customer.Person!.IdCard ?? "") ?? await _personRepository.SaveAsync(customer.Person!);

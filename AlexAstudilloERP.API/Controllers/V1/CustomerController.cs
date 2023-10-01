@@ -1,4 +1,5 @@
 ﻿using AlexAstudilloERP.API.DTOs;
+using AlexAstudilloERP.API.DTOs.Requests;
 using AlexAstudilloERP.API.Handlers;
 using AlexAstudilloERP.API.Mappers;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
@@ -29,7 +30,7 @@ public class CustomerController : CommonController
     [Route("get-by-id-card")]
     public async Task<IActionResult> All([FromQuery(Name = "id_card")] string idCard)
     {
-        return Ok(ResponseHandler.Ok(await _service.GetByIdCardAndCompanyId(companyId, idCard, Token)));
+        return Ok(ResponseHandler.Ok(await _service.GetByIdCard(idCard, UserCode, CompanyCode)));
     }
 
     [HttpPost]
@@ -45,5 +46,16 @@ public class CustomerController : CommonController
     {
         request.Code = code;
         return Ok(ResponseHandler.Ok(await _service.UpdateAsync(DTOToEntity.CustomerDTOToCustomer(request), UserCode, CompanyCode)));
+    }
+
+    [HttpPatch]
+    [Route("change-state/{code}")]
+    public async Task<IActionResult> ChangeState(string code, [FromBody] ChangeStateDTORequest request)
+    {
+        return Ok(ResponseHandler.Ok(await _service.ChangeStateAsync(new()
+        {
+            Code = code,
+            Active = request.Active,
+        }, UserCode, CompanyCode)));
     }
 }
