@@ -5,6 +5,14 @@ namespace AlexAstudilloERP.Domain.Interfaces.APIs;
 
 public interface IFirebaseAuthAPI
 {
+    /// <summary>
+    /// Change the user password.
+    /// </summary>
+    /// <param name="oobCode">The obb code to validate before change password.</param>
+    /// <param name="password">The new user password.</param>
+    /// <returns>A email of password changed.</returns>
+    public Task<string> ConfirmPasswordReset(string oobCode, string password);
+
     public Task<UserRecord> CreateAsync(UserRecordArgs args);
 
     public Task<string> CreateCustomTokenAsync(string uid);

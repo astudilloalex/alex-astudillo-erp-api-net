@@ -18,6 +18,14 @@ public class UserController : CommonController
     }
 
     [HttpPost]
+    [Route("confirm-password-reset")]
+    [SkipTokenValidation]
+    public async Task<IActionResult> ConfirmPasswordReset([FromBody] ConfirmPasswordResetDTO request)
+    {
+        return Ok(ResponseHandler.Ok(await _service.ConfirmPasswordResetAsync(request.OobCode, request.NewPassword)));
+    }
+
+    [HttpPost]
     [Route("exchange-refresh-token")]
     [SkipTokenValidation]
     public async Task<IActionResult> ExchangeRefreshToken([FromBody] ExchangeRefreshTokenRequest request)

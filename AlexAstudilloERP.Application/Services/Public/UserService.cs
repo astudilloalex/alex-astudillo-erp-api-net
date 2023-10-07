@@ -30,6 +30,17 @@ public class UserService : IUserService
         _util = util;
     }
 
+    public async Task<string> ConfirmPasswordResetAsync(string oobCode, string newPassword)
+    {
+        string email = await _firebaseAuthAPI.ConfirmPasswordReset(oobCode, newPassword);
+        _ = Task.Run(() => _repository.ChangePasswordAsync(new()
+        {
+            Email = email,
+            Password = BCrypt.BCrypt.HashPassword(newPassword, BCrypt.BCrypt.GenSalt(12))
+        }, multithread: true)).ConfigureAwait(false);
+        return email;
+    }
+
     public Task<FirebaseSignInResponse> ExchangeRefreshTokenForIdToken(string refreshToken)
     {
         return _firebaseAuthAPI.ExchangeRefreshTokenForIdToken(refreshToken);

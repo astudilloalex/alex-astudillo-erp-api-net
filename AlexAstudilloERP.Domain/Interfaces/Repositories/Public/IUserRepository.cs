@@ -4,6 +4,8 @@ namespace AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 
 public interface IUserRepository
 {
+    public Task<User> ChangePasswordAsync(User entity, bool multithread = false);
+
     public Task<bool> ExistsByEmail(string mail);
 
     public Task<bool> ExistsByIdCard(string idCard);

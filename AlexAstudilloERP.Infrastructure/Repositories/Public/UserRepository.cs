@@ -16,6 +16,31 @@ public class UserRepository : IUserRepository
         _contextOptions = contextOptions;
     }
 
+    public async Task<User> ChangePasswordAsync(User entity, bool multithread = false)
+    {
+        User? finded = null;
+        if (multithread)
+        {
+            using PostgreSQLContext context = new(_contextOptions);
+            finded = await context.Users.FirstOrDefaultAsync(u => u.Email != null && u.Email.Equals(entity.Email));
+            if (finded != null)
+            {
+                finded.Password = entity.Password;
+            }
+            await context.SaveChangesAsync();
+        }
+        else
+        {
+            finded = await _context.Users.FirstOrDefaultAsync(u => u.Email != null && u.Email.Equals(entity.Email));
+            if (finded != null)
+            {
+                finded.Password = entity.Password;
+            }
+            await _context.SaveChangesAsync();
+        }
+        return finded ?? entity;
+    }
+
     public Task<bool> ExistsByEmail(string mail)
     {
         return _context.Users.AsNoTracking().AnyAsync(u => u.Email != null && u.Email.Equals(mail));
@@ -90,5 +115,5 @@ public class UserRepository : IUserRepository
             await _context.SaveChangesAsync();
         }
         return entity;
-    }
+    }   
 }

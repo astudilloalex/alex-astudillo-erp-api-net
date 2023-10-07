@@ -5,6 +5,8 @@ namespace AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
 public interface IUserService
 {
+    public Task<string> ConfirmPasswordResetAsync(string oobCode, string newPassword);
+
     public Task<FirebaseSignInResponse> ExchangeRefreshTokenForIdToken(string refreshToken);
 
     public Task<User?> GetByCodeAsync(string code);
