@@ -40,6 +40,11 @@ public class UserService : IUserService
         return _repository.FindByCodeAsync(code);
     }
 
+    public Task<string> SendEmailVerificationAsync(string idToken)
+    {
+        return _firebaseAuthAPI.SendEmailVerification(idToken);
+    }
+
     public Task<string> SendPasswordResetEmailAsync(string email)
     {
         return _firebaseAuthAPI.SendPasswordResetEmail(email);

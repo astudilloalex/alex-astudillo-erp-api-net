@@ -1,4 +1,5 @@
-﻿using AlexAstudilloERP.Domain.Exceptions.Firebase;
+﻿using AlexAstudilloERP.Domain.Entities.Public;
+using AlexAstudilloERP.Domain.Exceptions.Firebase;
 using AlexAstudilloERP.Domain.Interfaces.APIs;
 using AlexAstudilloERP.Domain.Models.FirebaseAuth;
 using FirebaseAdmin.Auth;
@@ -86,6 +87,30 @@ public class FirebaseAuthAPI : IFirebaseAuthAPI
     public Task<UserRecord> GetByUidAsync(string uid)
     {
         return _auth.GetUserAsync(uid);
+    }
+
+    public async Task<string> SendEmailVerification(string idToken)
+    {
+        using HttpRequestMessage requestMessage = new(HttpMethod.Post, "/v1/accounts:sendOobCode")
+        {
+            Content = new StringContent(JsonSerializer.Serialize(new Dictionary<string, object>()
+                {
+                    { "requestType", "VERIFY_EMAIL" },
+                    { "idToken", idToken }
+                }, _serializerOptions)
+            ),
+        };
+        using HttpResponseMessage responseMessage = await _client.SendAsync(requestMessage);
+        JsonObject jsonObject = JsonSerializer.Deserialize<JsonObject>(await responseMessage.Content.ReadAsStringAsync())!;
+        if (responseMessage.StatusCode != HttpStatusCode.OK)
+        {
+            JsonNode? messageNode = (jsonObject.FirstOrDefault(j => j.Key.Equals("error")).Value?
+                .AsObject()?
+                .FirstOrDefault(j => j.Key.Equals("message")).Value) ?? throw new FirebaseException("firebase-exception");
+            throw new FirebaseException(messageNode.Deserialize<string>(_serializerOptions)!);
+        }
+        JsonNode? emailNode = (jsonObject.FirstOrDefault(j => j.Key.Equals("email")).Value) ?? throw new FirebaseException("firebase-exception");
+        return emailNode.Deserialize<string>()!;
     }
 
     public async Task<string> SendPasswordResetEmail(string email)
