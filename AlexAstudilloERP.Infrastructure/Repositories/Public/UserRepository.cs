@@ -115,5 +115,24 @@ public class UserRepository : IUserRepository
             await _context.SaveChangesAsync();
         }
         return entity;
-    }   
+    }
+
+    public async Task<User> VerifyEmailAsync(User entity, bool multithread = false)
+    {
+        User? finded = null;
+        if (multithread)
+        {
+            using PostgreSQLContext context = new(_contextOptions);
+            finded = await context.Users.FirstOrDefaultAsync(u => u.Code.Equals(entity.Code));
+            if (finded != null) finded.EmailVerified = true;
+            await context.SaveChangesAsync();
+        }
+        else
+        {
+            finded = await _context.Users.FirstOrDefaultAsync(u => u.Code.Equals(entity.Code));
+            if (finded != null) finded.EmailVerified = true;
+            await _context.SaveChangesAsync();
+        }
+        return finded ?? entity;
+    }
 }

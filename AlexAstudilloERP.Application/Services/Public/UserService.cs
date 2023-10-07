@@ -30,6 +30,15 @@ public class UserService : IUserService
         _util = util;
     }
 
+    public async Task<User> ConfirmEmailVerificationAsync(string oobCode)
+    {
+        string userCode = await _firebaseAuthAPI.ConfirmEmailVerification(oobCode);
+        return await _repository.VerifyEmailAsync(new()
+        {
+            Code = userCode,
+        });
+    }
+
     public async Task<string> ConfirmPasswordResetAsync(string oobCode, string newPassword)
     {
         string email = await _firebaseAuthAPI.ConfirmPasswordReset(oobCode, newPassword);

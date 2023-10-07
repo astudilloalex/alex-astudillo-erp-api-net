@@ -21,6 +21,29 @@ public class FirebaseAuthAPI : IFirebaseAuthAPI
         _serializerOptions = serializerOptions;
     }
 
+    public async Task<string> ConfirmEmailVerification(string oobCode)
+    {
+        using HttpRequestMessage requestMessage = new(HttpMethod.Post, "/v1/accounts:update")
+        {
+            Content = new StringContent(JsonSerializer.Serialize(new Dictionary<string, object>()
+                {
+                    { "oobCode", oobCode }
+                }, _serializerOptions)
+            ),
+        };
+        using HttpResponseMessage responseMessage = await _client.SendAsync(requestMessage);
+        JsonObject jsonObject = JsonSerializer.Deserialize<JsonObject>(await responseMessage.Content.ReadAsStringAsync())!;
+        if (responseMessage.StatusCode != HttpStatusCode.OK)
+        {
+            JsonNode? messageNode = (jsonObject.FirstOrDefault(j => j.Key.Equals("error")).Value?
+                .AsObject()?
+                .FirstOrDefault(j => j.Key.Equals("message")).Value) ?? throw new FirebaseException("firebase-exception");
+            throw new FirebaseException(messageNode.Deserialize<string>(_serializerOptions)!);
+        }
+        JsonNode? uidNode = (jsonObject.FirstOrDefault(j => j.Key.Equals("localId")).Value) ?? throw new FirebaseException("firebase-exception");
+        return uidNode.Deserialize<string>()!;
+    }
+
     public async Task<string> ConfirmPasswordReset(string oobCode, string password)
     {
         using HttpRequestMessage requestMessage = new(HttpMethod.Post, "/v1/accounts:resetPassword")

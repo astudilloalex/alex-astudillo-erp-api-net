@@ -19,4 +19,6 @@ public interface IUserRepository
     public Task<User?> FindByEmailAsync(string email);
 
     public Task<User> SaveAsync(User entity, bool multithread = false);
+
+    public Task<User> VerifyEmailAsync(User user, bool multithread = false);
 }

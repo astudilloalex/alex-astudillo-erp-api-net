@@ -18,6 +18,13 @@ public class UserController : CommonController
     }
 
     [HttpPost]
+    [Route("confirm-email-verification")]
+    public async Task<IActionResult> ConfirmEmailVerification([FromBody] ConfirmEmailVerificationRequestDTO request)
+    {
+        return Ok(ResponseHandler.Ok(await _service.ConfirmEmailVerificationAsync(request.OobCode)));
+    }
+
+    [HttpPost]
     [Route("confirm-password-reset")]
     [SkipTokenValidation]
     public async Task<IActionResult> ConfirmPasswordReset([FromBody] ConfirmPasswordResetDTO request)

@@ -6,6 +6,13 @@ namespace AlexAstudilloERP.Domain.Interfaces.APIs;
 public interface IFirebaseAuthAPI
 {
     /// <summary>
+    /// Confirm email verification based on oob code.
+    /// </summary>
+    /// <param name="oobCode">The oob code sent user email.</param>
+    /// <returns>A unique string user identifier.</returns>
+    public Task<string> ConfirmEmailVerification(string oobCode);
+
+    /// <summary>
     /// Change the user password.
     /// </summary>
     /// <param name="oobCode">The obb code to validate before change password.</param>
