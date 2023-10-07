@@ -1027,6 +1027,8 @@ public partial class PostgreSQLContext : DbContext
 
             entity.HasIndex(e => e.Code, "political_division_types_code_key").IsUnique();
 
+            entity.HasIndex(e => new { e.CountryId, e.Name }, "political_division_types_country_id_name_key").IsUnique();
+
             entity.Property(e => e.Id)
                 .HasIdentityOptions(null, null, null, null, true, null)
                 .HasColumnName("id");
@@ -1034,6 +1036,7 @@ public partial class PostgreSQLContext : DbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
                 .HasColumnName("code");
+            entity.Property(e => e.CountryId).HasColumnName("country_id");
             entity.Property(e => e.CreationDate).HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
@@ -1042,6 +1045,11 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("name");
             entity.Property(e => e.UpdateDate).HasColumnName("update_date");
+
+            entity.HasOne(d => d.Country).WithMany(p => p.PoliticalDivisionTypes)
+                .HasForeignKey(d => d.CountryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_political_division_types__country_id");
         });
 
         modelBuilder.Entity<Region>(entity =>

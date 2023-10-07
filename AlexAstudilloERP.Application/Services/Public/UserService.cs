@@ -5,6 +5,7 @@ using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using AlexAstudilloERP.Domain.Models.FirebaseAuth;
+using FirebaseAdmin.Auth;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
@@ -37,6 +38,11 @@ public class UserService : IUserService
     public Task<User?> GetByCodeAsync(string code)
     {
         return _repository.FindByCodeAsync(code);
+    }
+
+    public Task<string> SendPasswordResetEmailAsync(string email)
+    {
+        return _firebaseAuthAPI.SendPasswordResetEmail(email);
     }
 
     public Task<FirebaseSignInResponse> SignIn(string email, string password)

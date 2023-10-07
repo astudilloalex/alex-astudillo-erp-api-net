@@ -31,5 +31,8 @@ public partial class Country
     [JsonIgnore]
     public virtual ICollection<PoliticalDivision> PoliticalDivisions { get; set; } = new List<PoliticalDivision>();
 
+    [JsonIgnore]
+    public virtual ICollection<PoliticalDivisionType> PoliticalDivisionTypes { get; set; } = new List<PoliticalDivisionType>();
+
     public virtual Region Region { get; set; } = null!;
 }

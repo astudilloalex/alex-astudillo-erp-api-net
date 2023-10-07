@@ -47,4 +47,11 @@ public class UserController : CommonController
     {
         return Ok(ResponseHandler.Ok(await _service.SignUp(request.Email, request.Password)));
     }
+
+    [HttpPost]
+    [Route("send-password-reset-email")]
+    public async Task<IActionResult> SendPasswordResetEmail([FromBody] SendPasswordResetEmailRequestDTO request)
+    {
+        return Ok(ResponseHandler.Ok(await _service.SendPasswordResetEmailAsync(request.Email)));
+    }
 }

@@ -9,7 +9,6 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/permission")]
 [ApiController]
-[Authorize]
 public class PermissionController : CommonController
 {
     private readonly IPermissionService _service;

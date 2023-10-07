@@ -18,6 +18,10 @@ public partial class PoliticalDivisionType
 
     public DateTime UpdateDate { get; set; }
 
+    public short CountryId { get; set; }
+
+    public virtual Country Country { get; set; } = null!;
+
     [JsonIgnore]
     public virtual ICollection<PoliticalDivision> PoliticalDivisions { get; set; } = new List<PoliticalDivision>();
 }

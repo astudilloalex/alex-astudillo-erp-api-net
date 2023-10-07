@@ -19,6 +19,8 @@ public interface IFirebaseAuthAPI
 
     public Task<UserRecord> GetByUidAsync(string uid);
 
+    public Task<string> SendPasswordResetEmail(string email);
+
     public Task<FirebaseSignInResponse> SignInWithEmail(string email, string password);
 
     public Task<FirebaseSignInResponse> SignUpWithEmailAsync(string email, string password);
