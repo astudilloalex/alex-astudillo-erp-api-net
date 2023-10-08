@@ -18,8 +18,8 @@ public class FirebaseException : Exception
             {
                 "EMAIL_EXISTS" => "email-already-in-use",
                 "ExpiredIdToken" => "expired-token",
-                "EXPIRED_OOB_CODE" => "expired-obb-code",
-                "INVALID_OOB_CODE" => "invalid-obb-code",
+                "EXPIRED_OOB_CODE" => "expired-oob-code",
+                "INVALID_OOB_CODE" => "invalid-oob-code",
                 "OPERATION_NOT_ALLOWED" => "operation-not-allowed",
                 "TOO_MANY_ATTEMPTS_TRY_LATER" => "too-many-attemps-try-later",
                 "EMAIL_NOT_FOUND" => "email-not-found",

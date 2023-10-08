@@ -82,6 +82,7 @@ public class UserService : IUserService
         FirebaseSignInResponse firebaseResponse = await _firebaseAuthAPI.SignUpWithEmailAsync(email, password);
         try
         {
+            UserRecord userRecord = await _firebaseAuthAPI.GetByUidAsync(firebaseResponse.LocalId);
             User saved = await _repository.SaveAsync(new()
             {
                 AuthProviders = new List<AuthProvider>
@@ -95,7 +96,13 @@ public class UserService : IUserService
                 EmailVerified = false,
                 Email = email,
                 Password = BCrypt.BCrypt.HashPassword(password, BCrypt.BCrypt.GenSalt(12)),
-            });
+                UserMetadatum = new()
+                {
+                    CreationDate = userRecord.UserMetaData.CreationTimestamp ?? DateTime.Now,
+                    LastRefreshDate = userRecord.UserMetaData?.LastRefreshTimestamp,
+                    LastSignInDate = userRecord.UserMetaData?.LastSignInTimestamp,
+                }
+            }, multithread: true);
         }
         catch
         {

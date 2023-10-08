@@ -19,6 +19,7 @@ public class UserController : CommonController
 
     [HttpPost]
     [Route("confirm-email-verification")]
+    [SkipTokenValidation]
     public async Task<IActionResult> ConfirmEmailVerification([FromBody] ConfirmEmailVerificationRequestDTO request)
     {
         return Ok(ResponseHandler.Ok(await _service.ConfirmEmailVerificationAsync(request.OobCode)));
