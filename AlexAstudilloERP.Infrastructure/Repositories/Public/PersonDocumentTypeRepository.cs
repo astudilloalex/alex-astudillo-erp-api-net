@@ -14,6 +14,13 @@ public class PersonDocumentTypeRepository : NPPostgreSQLRepository<PersonDocumen
         _context = context;
     }
 
+    public Task<List<PersonDocumentType>> FindByCountryCodeAsync(string countryCode)
+    {
+        return _context.PersonDocumentTypes.AsNoTracking()
+            .Where(pdt => pdt.Country.Code.Equals(countryCode.ToUpper()))
+            .ToListAsync();
+    }
+
     public Task<bool> IsActive(short id)
     {
         return _context.PersonDocumentTypes.AsNoTracking().AnyAsync(p => p.Id == id && p.Active);

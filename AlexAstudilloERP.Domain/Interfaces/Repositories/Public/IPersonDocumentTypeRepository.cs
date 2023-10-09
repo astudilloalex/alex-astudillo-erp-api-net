@@ -5,5 +5,7 @@ namespace AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 
 public interface IPersonDocumentTypeRepository : INPRepository<PersonDocumentType, short>
 {
-    public Task<bool> IsActive(short id);
+    public Task<List<PersonDocumentType>> FindByCountryCodeAsync(string countryCode);
+
+    public Task<bool> IsActive(short id);   
 }

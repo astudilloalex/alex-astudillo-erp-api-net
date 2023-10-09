@@ -17,7 +17,15 @@ public class PersonDocumentTypeService : IPersonDocumentTypeService
     {
         IEnumerable<PersonDocumentType> data = await _repository.FindAllAsync();
         if (onlyActive == null) return data.ToList();
-        if (onlyActive.Value) return data.Where(p => p.Active).ToList();
-        return data.Where(p => !p.Active).ToList();
+        if (onlyActive.Value) return data.Where(pdt => pdt.Active).ToList();
+        return data.Where(pdt => !pdt.Active).ToList();
+    }
+
+    public async Task<List<PersonDocumentType>> GetByCountryCodeAsync(string countryCode, bool? onlyActive = null)
+    {
+        List<PersonDocumentType> data = await _repository.FindByCountryCodeAsync(countryCode);
+        if (onlyActive == null) return data;
+        if (onlyActive.Value) return data.Where(pdt => pdt.Active).ToList();
+        return data.Where(pdt => !pdt.Active).ToList();
     }
 }

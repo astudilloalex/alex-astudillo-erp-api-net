@@ -30,9 +30,9 @@ public class CompanyController : CommonController
 
     [HttpGet]
     [Route("all")]
-    public async Task<IActionResult> All([FromQuery] int page, [FromQuery] int size)
+    public async Task<IActionResult> All([FromQuery] int? page, [FromQuery] int? size)
     {
-        return Ok(ResponseHandler.Ok(await _service.GetAllAllowed(PageRequest.Of(page - 1, size), UserCode)));
+        return Ok(ResponseHandler.Ok(await _service.GetAllAllowed(PageRequest.Of((page ?? 1) - 1, size ?? 10), UserCode)));
     }
 
     [HttpGet]
