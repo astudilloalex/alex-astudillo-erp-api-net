@@ -49,6 +49,8 @@ public partial class PostgreSQLContext : DbContext
 
     public virtual DbSet<Membership> Memberships { get; set; }
 
+    public virtual DbSet<Menu> Menus { get; set; }
+
     public virtual DbSet<Microservice> Microservices { get; set; }
 
     public virtual DbSet<Organization> Organizations { get; set; }
@@ -790,6 +792,60 @@ public partial class PostgreSQLContext : DbContext
                 .HasPrecision(19, 5)
                 .HasColumnName("price");
             entity.Property(e => e.UpdateDate).HasColumnName("update_date");
+        });
+
+        modelBuilder.Entity<Menu>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("menus_pkey");
+
+            entity.ToTable("menus");
+
+            entity.HasIndex(e => e.Code, "menus_code_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasIdentityOptions(null, null, null, null, true, null)
+                .HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Code)
+                .HasMaxLength(20)
+                .HasColumnName("code");
+            entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.Icon)
+                .HasMaxLength(50)
+                .HasComment("Use Font Awesome Icons name on the latest version")
+                .HasColumnName("icon");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.Order).HasColumnName("order");
+            entity.Property(e => e.ParentId).HasColumnName("parent_id");
+            entity.Property(e => e.UpdateDate).HasColumnName("update_date");
+
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
+                .HasForeignKey(d => d.ParentId)
+                .HasConstraintName("fk_menus__parent_id");
+
+            entity.HasMany(d => d.Permissions).WithMany(p => p.Menus)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PermissionMenu",
+                    r => r.HasOne<Permission>().WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("fk_permission_menus__permission_id"),
+                    l => l.HasOne<Menu>().WithMany()
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("fk_permission_menus__menu_id"),
+                    j =>
+                    {
+                        j.HasKey("MenuId", "PermissionId").HasName("permission_menus_pkey");
+                        j.ToTable("permission_menus");
+                        j.IndexerProperty<short>("MenuId").HasColumnName("menu_id");
+                        j.IndexerProperty<short>("PermissionId").HasColumnName("permission_id");
+                    });
         });
 
         modelBuilder.Entity<Microservice>(entity =>

@@ -16,6 +16,8 @@ public partial class Permission
 
     public bool Active { get; set; }
 
+    public virtual ICollection<Menu> Menus { get; set; } = new List<Menu>();
+
     [JsonIgnore]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 }
