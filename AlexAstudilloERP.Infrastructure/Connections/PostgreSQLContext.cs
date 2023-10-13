@@ -817,11 +817,15 @@ public partial class PostgreSQLContext : DbContext
                 .HasMaxLength(50)
                 .HasComment("Use Font Awesome Icons name on the latest version")
                 .HasColumnName("icon");
+            entity.Property(e => e.IsPublic).HasColumnName("is_public");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
             entity.Property(e => e.Order).HasColumnName("order");
             entity.Property(e => e.ParentId).HasColumnName("parent_id");
+            entity.Property(e => e.Path)
+                .HasMaxLength(100)
+                .HasColumnName("path");
             entity.Property(e => e.UpdateDate).HasColumnName("update_date");
 
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)

@@ -25,6 +25,10 @@ public partial class Menu
     /// </summary>
     public string? Icon { get; set; }
 
+    public string Path { get; set; } = null!;
+
+    public bool IsPublic { get; set; }
+
     public virtual ICollection<Menu> InverseParent { get; set; } = new List<Menu>();
 
     public virtual Menu? Parent { get; set; }

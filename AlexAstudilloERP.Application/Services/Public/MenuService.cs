@@ -17,4 +17,13 @@ public class MenuService : IMenuService
     {
         return _repository.FindByUserCodeAndCompanyCodeAsync(userCode, companyCode);
     }
+
+    public Task<List<Menu>> GetParentsAsync(string userCode, string companyCode)
+    {
+        if (string.IsNullOrEmpty(companyCode))
+        {
+            return _repository.FindParentsAsync(userCode, companyCode, true);
+        }
+        return _repository.FindParentsAsync(userCode, companyCode);
+    }
 }

@@ -21,4 +21,11 @@ public class MenuController : CommonController
     {
         return Ok(ResponseHandler.Ok(await _service.GetByUserCodeAndCompanyCodeAsync(UserCode, CompanyCode)));
     }
+
+    [HttpGet]
+    [Route("parents")]
+    public async Task<IActionResult> GetParents()
+    {
+        return Ok(ResponseHandler.Ok(await _service.GetParentsAsync(UserCode, CompanyCode)));
+    }
 }
