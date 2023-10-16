@@ -14,6 +14,19 @@ public class MenuRepository : IMenuRepository
         _context = context;
     }
 
+    public Task<List<Menu>> FindByParentIdAsync(short parentId)
+    {
+        string query = @"WITH RECURSIVE menu_hierarchy AS (
+	SELECT * FROM menus WHERE parent_id = {0}
+	UNION ALL
+	SELECT m.* FROM menus m INNER JOIN menu_hierarchy mh
+	ON m.parent_id = mh.id
+) SELECT * FROM menu_hierarchy";
+        return _context.Menus.FromSqlRaw(query, parentId).AsNoTracking()
+            .ToListAsync();
+
+    }
+
     public Task<List<Menu>> FindByUserCodeAndCompanyCodeAsync(string userCode, string companyCode)
     {
         string query = @"SELECT m.*

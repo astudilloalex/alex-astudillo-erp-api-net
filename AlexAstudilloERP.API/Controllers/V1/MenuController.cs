@@ -23,7 +23,7 @@ public class MenuController : CommonController
     }
 
     [HttpGet]
-    [Route("parents")]
+    [Route("all/parents")]
     public async Task<IActionResult> GetParents()
     {
         return Ok(ResponseHandler.Ok(await _service.GetParentsAsync(UserCode, CompanyCode)));
