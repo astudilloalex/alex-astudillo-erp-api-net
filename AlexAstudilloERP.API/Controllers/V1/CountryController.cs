@@ -6,15 +6,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/country")]
 [ApiController]
-public class CountryController : CommonController
+public class CountryController(ICountryService _service) : CommonController
 {
-    private readonly ICountryService _service;
-
-    public CountryController(ICountryService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("all")]
     public async Task<IActionResult> All([FromQuery] bool? active)

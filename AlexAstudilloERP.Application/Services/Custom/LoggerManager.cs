@@ -5,7 +5,7 @@ namespace AlexAstudilloERP.Application.Services.Custom;
 
 public class LoggerManager : ILoggerManager
 {
-    private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+    private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
     public void LogDebug(string message) => _logger.Debug(message);
 

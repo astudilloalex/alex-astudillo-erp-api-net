@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class CountryRepository : NPPostgreSQLRepository<Country, short>, ICountryRepository
+public class CountryRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Country, short>(context), ICountryRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public CountryRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<Country?> FindByCode(string code)
     {

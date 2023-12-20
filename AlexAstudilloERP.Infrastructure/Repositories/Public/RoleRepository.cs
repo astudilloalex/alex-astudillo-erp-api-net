@@ -11,14 +11,9 @@ namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 /// <summary>
 /// Implements <see cref="IRoleRepository"/>.
 /// </summary>
-public class RoleRepository : NPPostgreSQLRepository<Role, int>, IRoleRepository
+public class RoleRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Role, int>(context), IRoleRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public RoleRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<int> CountOwnerByUserCode(string userCode)
     {
@@ -44,7 +39,7 @@ public class RoleRepository : NPPostgreSQLRepository<Role, int>, IRoleRepository
     public async Task<IPage<Role>> FindByCompanyId(IPageable pageable, int companyId, bool? active = null)
     {
         int offset = Convert.ToInt32(pageable.GetOffset());
-        List<Role> data = new();
+        List<Role> data = [];
         long count = 0;
         // Get all actives and inactives roles
         if (active == null)

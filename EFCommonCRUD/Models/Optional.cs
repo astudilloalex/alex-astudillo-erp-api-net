@@ -43,7 +43,7 @@ public sealed class Optional<T>
     /// <exception cref="ArgumentNullException"> When predicate is null.</exception>
     public Optional<T?> Filter(Predicate<T> predicate)
     {
-        if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+        ArgumentNullException.ThrowIfNull(predicate);
         if (!IsPresent()) return this;
         return predicate(_value!) ? this : Empty();
     }
@@ -88,7 +88,7 @@ public sealed class Optional<T>
     /// <exception cref="ArgumentNullException">If the mapping function is <c>null</c>.</exception>
     public Optional<U?> Map<U>(Func<T, U> mapper)
     {
-        if (mapper == null) throw new ArgumentNullException(nameof(mapper));
+        ArgumentNullException.ThrowIfNull(mapper);
         if (!IsPresent()) return Optional<U>.Empty();
         return Optional<U>.OfNullable(mapper(_value!));
     }

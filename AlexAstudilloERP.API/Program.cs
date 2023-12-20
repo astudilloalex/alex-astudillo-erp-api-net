@@ -35,7 +35,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"alex-astudillo-firebase-adminsdk.json");
 
 //Configure log.
-LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -133,7 +133,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("EnableCORS", policyBuilder =>
     {
         // Read cors from json file configuration.
-        List<string> cors = new();
+        List<string> cors = [];
         builder.Configuration.GetSection("Cors").Bind(cors);
         cors.ForEach(cor => policyBuilder.WithOrigins(cor).Build());
         policyBuilder.AllowAnyHeader();

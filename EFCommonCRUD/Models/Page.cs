@@ -1,10 +1,5 @@
 ﻿using EFCommonCRUD.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EFCommonCRUD.Models
 {
@@ -12,24 +7,15 @@ namespace EFCommonCRUD.Models
     /// Basic <see cref="IPage{T}"/> implementation.
     /// </summary>
     /// <typeparam name="T">The type of which the page consists.</typeparam>
-    public class Page<T> : Chunk<T>, IPage<T>, ISerializable where T : class
+    /// <remarks>
+    /// Constructor of <see cref="Page{T}"/>.
+    /// </remarks>
+    /// <param name="content">The content of this page, must not be <c>null</c>.</param>
+    /// <param name="pageable">The paging information, must not be <c>null</c>.</param>
+    /// <param name="total">The total amount of items available.</param>
+    public class Page<T>(List<T> content, IPageable pageable, long total) : Chunk<T>(content, pageable), IPage<T>, ISerializable where T : class
     {
-        private readonly long _total;
-
-        /// <summary>
-        /// Constructor of <see cref="Page{T}"/>.
-        /// </summary>
-        /// <param name="content">The content of this page, must not be <c>null</c>.</param>
-        /// <param name="pageable">The paging information, must not be <c>null</c>.</param>
-        /// <param name="total">The total amount of items available.</param>
-        public Page(List<T> content, IPageable pageable, long total) : base(content, pageable)
-        {
-            //_total = pageable.ToOptional().Filter(data => content.Count > 0)
-            //    .Filter(data => data!.GetOffset() + data.GetPageSize() > total)
-            //    .Map(data => data!.GetOffset() + content.Count)
-            //    .OrElse(total);
-            _total = total;
-        }
+        private readonly long _total = total;
 
         /// <summary>
         /// Creates a new <see cref="Page{T}"/> with the given content. This will result in the created <see cref="Page{T}"/> being identical

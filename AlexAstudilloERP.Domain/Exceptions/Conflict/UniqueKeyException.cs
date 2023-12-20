@@ -2,9 +2,6 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions.Conflict;
 
-public class UniqueKeyException : ConflictException
+public class UniqueKeyException(ExceptionEnum exceptionEnum) : ConflictException(exceptionEnum)
 {
-    public UniqueKeyException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
-    {
-    }
 }

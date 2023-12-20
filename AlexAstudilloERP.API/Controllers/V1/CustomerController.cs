@@ -9,15 +9,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/customer")]
 [ApiController]
-public class CustomerController : CommonController
+public class CustomerController(ICustomerService _service) : CommonController
 {
-    private readonly ICustomerService _service;
-
-    public CustomerController(ICustomerService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("get/{code}")]
     public async Task<IActionResult> GetByCode(string code)

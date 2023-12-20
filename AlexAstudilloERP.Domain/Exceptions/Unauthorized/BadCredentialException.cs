@@ -2,9 +2,6 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions.Unauthorized;
 
-public class BadCredentialException : UnauthorizedException
+public class BadCredentialException(ExceptionEnum exceptionEnum) : UnauthorizedException(exceptionEnum)
 {
-    public BadCredentialException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
-    {
-    }
 }

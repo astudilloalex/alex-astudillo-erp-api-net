@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class UserMembershipRepository : IUserMembershipRepository
+public class UserMembershipRepository(PostgreSQLContext context) : IUserMembershipRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public UserMembershipRepository(PostgreSQLContext context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<List<UserMembership>> FindByUserCode(string userCode)
     {

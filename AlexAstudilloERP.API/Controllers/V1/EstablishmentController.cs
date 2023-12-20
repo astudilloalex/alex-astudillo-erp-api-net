@@ -10,15 +10,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 [Route("api/v1/establishment")]
 [ApiController]
 [Authorize]
-public class EstablishmentController : CommonController
+public class EstablishmentController(IEstablishmentService _service) : CommonController
 {
-    private readonly IEstablishmentService _service;
-
-    public EstablishmentController(IEstablishmentService service)
-    {
-        _service = service;
-    }
-
     [HttpPost]
     [Route("add")]
     public async Task<IActionResult> Add([FromBody] Establishment establishment)

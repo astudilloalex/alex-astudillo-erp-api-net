@@ -6,14 +6,9 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class CustomerRepository : NPPostgreSQLRepository<Customer, long>, ICustomerRepository
+public class CustomerRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Customer, long>(context), ICustomerRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public CustomerRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public async Task<Customer> ChangeStateAsync(Customer entity)
     {

@@ -2,9 +2,6 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions.BadRequest;
 
-public class RequiredFieldException : BadRequestException
+public class RequiredFieldException(ExceptionEnum exceptionEnum) : BadRequestException(exceptionEnum)
 {
-    public RequiredFieldException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
-    {
-    }
 }

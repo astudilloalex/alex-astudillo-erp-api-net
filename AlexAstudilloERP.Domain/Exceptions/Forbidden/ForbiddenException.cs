@@ -2,9 +2,6 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions.Forbidden;
 
-public class ForbiddenException : CustomException
+public class ForbiddenException(ExceptionEnum exceptionEnum) : CustomException(exceptionEnum)
 {
-    public ForbiddenException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
-    {
-    }
 }

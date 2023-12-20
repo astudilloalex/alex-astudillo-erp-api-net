@@ -4,15 +4,8 @@ using AlexAstudilloERP.Domain.Interfaces.Services.Common;
 
 namespace AlexAstudilloERP.Application.Services.Common;
 
-public class JwtBlacklistService : IJwtBlacklistService
+public class JwtBlacklistService(IJwtBlacklistRepository _repository) : IJwtBlacklistService
 {
-    private readonly IJwtBlacklistRepository _repository;
-
-    public JwtBlacklistService(IJwtBlacklistRepository repository)
-    {
-        _repository = repository;
-    }
-
     public Task<int> DeleteExpired()
     {
         return _repository.DeleteExpired();

@@ -5,15 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class MenuRepository : IMenuRepository
+public class MenuRepository(PostgreSQLContext _context) : IMenuRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public MenuRepository(PostgreSQLContext context)
-    {
-        _context = context;
-    }
-
     public Task<List<Menu>> FindByParentIdAsync(short parentId)
     {
         string query = @"WITH RECURSIVE menu_hierarchy AS (
@@ -43,7 +36,7 @@ WHERE EXISTS (
     WHERE u.code = {0} AND c.code = {1}
     AND m.id = pm.menu_id
 ) ORDER BY m.order ASC";
-        return _context.Menus.FromSqlRaw(query, new object[] { userCode, companyCode }).AsNoTracking().ToListAsync();
+        return _context.Menus.FromSqlRaw(query, [userCode, companyCode]).AsNoTracking().ToListAsync();
     }
 
     public Task<List<Menu>> FindParentsAsync(string userCode, string companyCode, bool? isPublic = null)
@@ -65,7 +58,7 @@ WHERE EXISTS (
     WHERE u.code = {0} AND c.code = {1}
     AND m.id = pm.menu_id
 ) AND m.parent_id IS NULL ORDER BY m.order ASC";
-            return _context.Menus.FromSqlRaw(query, new object[] { userCode, companyCode }).AsNoTracking().ToListAsync();
+            return _context.Menus.FromSqlRaw(query, [userCode, companyCode]).AsNoTracking().ToListAsync();
         }
         else if (!isPublic.Value)
         {
@@ -83,7 +76,7 @@ WHERE EXISTS (
     WHERE u.code = {0} AND c.code = {1}
     AND m.id = pm.menu_id
 ) AND m.parent_id IS NULL AND m.is_public = {2} ORDER BY m.order ASC";
-            return _context.Menus.FromSqlRaw(query, new object[] { userCode, companyCode, isPublic }).AsNoTracking().ToListAsync();
+            return _context.Menus.FromSqlRaw(query, [userCode, companyCode, isPublic]).AsNoTracking().ToListAsync();
         }
         return _context.Menus.AsNoTracking()
             .Where(m => m.IsPublic == isPublic && m.ParentId == null)

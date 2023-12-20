@@ -11,7 +11,7 @@ public class CommonController : ControllerBase
     {
         get
         {
-            return Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            return Request.Headers.Authorization.ToString().Replace("Bearer ", "");
         }
     }
 

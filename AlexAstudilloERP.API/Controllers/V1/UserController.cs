@@ -8,15 +8,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/user")]
 [ApiController]
-public class UserController : CommonController
+public class UserController(IUserService _service) : CommonController
 {
-    private readonly IUserService _service;
-
-    public UserController(IUserService service)
-    {
-        _service = service;
-    }
-
     [HttpPost]
     [Route("confirm-email-verification")]
     [SkipTokenValidation]

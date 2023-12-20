@@ -9,28 +9,16 @@ using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class CustomerService : ICustomerService
+public class CustomerService(
+    ICustomerRepository _repository, 
+    IPermissionRepository _permissionRepository, 
+    ICompanyRepository _companyRepository,
+    IPersonRepository _personRepository, 
+    ISetData _setData, 
+    IValidateData _validateData, 
+    ICountryRepository _countryRepository
+) : ICustomerService
 {
-    private readonly ICustomerRepository _repository;
-    private readonly ISetData _setData;
-    private readonly IValidateData _validateData;
-    private readonly IPermissionRepository _permissionRepository;
-    private readonly ICompanyRepository _companyRepository;
-    private readonly IPersonRepository _personRepository;
-    private readonly ICountryRepository _countryRepository;
-
-    public CustomerService(ICustomerRepository repository, IPermissionRepository permissionRepository, ICompanyRepository companyRepository,
-        IPersonRepository personRepository, ISetData setData, IValidateData validateData, ICountryRepository countryRepository)
-    {
-        _repository = repository;
-        _permissionRepository = permissionRepository;
-        _companyRepository = companyRepository;
-        _personRepository = personRepository;
-        _setData = setData;
-        _validateData = validateData;
-        _countryRepository = countryRepository;
-    }
-
     public async Task<Customer> Add(Customer customer, string userCode, string companyCode)
     {
         bool permited = await _permissionRepository.HasPermission(userCode, companyCode, PermissionEnum.CustomerCreate);

@@ -9,27 +9,12 @@ using FirebaseAdmin.Auth;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class UserService : IUserService
+public class UserService(
+    IUserRepository _repository,
+    IValidateData _validateData, 
+    IFirebaseAuthAPI _firebaseAuthAPI
+) : IUserService
 {
-    private readonly IEmailRepository _emailRepository;
-    private readonly IPersonRepository _personRepository;
-    private readonly IUserRepository _repository;
-    private readonly ISetData _setData;
-    private readonly IValidateData _validateData;
-    private readonly IFirebaseAuthAPI _firebaseAuthAPI;
-    private readonly IUtil _util;
-
-    public UserService(IEmailRepository emailRepository, IPersonRepository personRepository, IUserRepository repository, ISetData setData, IValidateData validateData, IFirebaseAuthAPI firebaseAuthAPI, IUtil util)
-    {
-        _emailRepository = emailRepository;
-        _personRepository = personRepository;
-        _repository = repository;
-        _setData = setData;
-        _validateData = validateData;
-        _firebaseAuthAPI = firebaseAuthAPI;
-        _util = util;
-    }
-
     public async Task<User> ConfirmEmailVerificationAsync(string oobCode)
     {
         string userCode = await _firebaseAuthAPI.ConfirmEmailVerification(oobCode);

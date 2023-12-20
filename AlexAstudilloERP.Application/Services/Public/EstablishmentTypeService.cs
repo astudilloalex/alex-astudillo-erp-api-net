@@ -4,15 +4,8 @@ using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class EstablishmentTypeService : IEstablishmentTypeService
+public class EstablishmentTypeService(IEstablishmentTypeRepository _repository) : IEstablishmentTypeService
 {
-    private readonly IEstablishmentTypeRepository _repository;
-
-    public EstablishmentTypeService(IEstablishmentTypeRepository repository)
-    {
-        _repository = repository;
-    }
-
     public Task<List<EstablishmentType>> GetAll()
     {
         return _repository.FindAllActives();

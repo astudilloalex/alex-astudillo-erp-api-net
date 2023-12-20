@@ -5,15 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class EmailRepository : NPPostgreSQLRepository<Email, int>, IEmailRepository
+public class EmailRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Email, int>(context), IEmailRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public EmailRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
-
     public Task<bool> ExistsMail(string mail)
     {
         //return _context.Emails.AsNoTracking().AnyAsync(e => e.Mail.Equals(mail));

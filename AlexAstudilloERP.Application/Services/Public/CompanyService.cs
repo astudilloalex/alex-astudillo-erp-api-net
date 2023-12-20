@@ -7,35 +7,20 @@ using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
 using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 using EFCommonCRUD.Interfaces;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class CompanyService : ICompanyService
+public class CompanyService(
+    ICompanyRepository _repository, 
+    IPersonRepository _personRepository,
+    ISetData _setData, 
+    IValidateData _validateData, 
+    IPermissionRepository _permissionRepository,
+    IUserMembershipRepository _userMembershipRepository, 
+    IRoleRepository _roleRepository, 
+    ICountryRepository _countryRepository
+) : ICompanyService
 {
-    private readonly ICompanyRepository _repository;
-    private readonly ICountryRepository _countryRepository;
-    private readonly IPermissionRepository _permissionRepository;
-    private readonly IPersonRepository _personRepository;
-    private readonly IUserMembershipRepository _userMembershipRepository;
-    private readonly ISetData _setData;
-    private readonly IValidateData _validateData;
-    private readonly IRoleRepository _roleRepository;
-
-    public CompanyService(ICompanyRepository repository, IPersonRepository personRepository,
-        ISetData setData, IValidateData validateData, IPermissionRepository permissionRepository,
-        IUserMembershipRepository userMembershipRepository, IRoleRepository roleRepository, ICountryRepository countryRepository)
-    {
-        _repository = repository;
-        _validateData = validateData;
-        _setData = setData;
-        _personRepository = personRepository;
-        _permissionRepository = permissionRepository;
-        _userMembershipRepository = userMembershipRepository;
-        _roleRepository = roleRepository;
-        _countryRepository = countryRepository;
-    }
-
     public async Task<Company> AddAsync(Company company, string userCode)
     {
         await CanCreateCompany(userCode);

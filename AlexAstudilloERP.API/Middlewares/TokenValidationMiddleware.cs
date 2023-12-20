@@ -7,17 +7,8 @@ using FirebaseAdmin.Auth;
 
 namespace AlexAstudilloERP.API.Middlewares;
 
-public class TokenValidationMiddleware
+public class TokenValidationMiddleware(IFirebaseAuthAPI _authAPI, RequestDelegate _requestDelegate)
 {
-    private readonly RequestDelegate _requestDelegate;
-    private readonly IFirebaseAuthAPI _authAPI;
-
-    public TokenValidationMiddleware(IFirebaseAuthAPI authAPI, RequestDelegate requestDelegate)
-    {
-        _authAPI = authAPI;
-        _requestDelegate = requestDelegate;
-    }
-
     public async Task Invoke(HttpContext context)
     {
         // If endpoint contains [SkipTokenValidation] do not validate token.
@@ -28,8 +19,8 @@ public class TokenValidationMiddleware
         }
         try
         {
-            FirebaseToken token = await _authAPI.VerifyTokenAsync(context.Request.Headers["Authorization"].ToString().Replace("Bearer ", ""));
-            context.Request.Headers.Add("X-User-Code", token.Uid);            
+            FirebaseToken token = await _authAPI.VerifyTokenAsync(context.Request.Headers.Authorization.ToString().Replace("Bearer ", ""));
+            context.Request.Headers.Append("X-User-Code", token.Uid);
         }
         catch (FirebaseAuthException e)
         {

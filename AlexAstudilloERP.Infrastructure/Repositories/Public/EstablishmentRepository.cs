@@ -8,14 +8,9 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class EstablishmentRepository : NPPostgreSQLRepository<Establishment, int>, IEstablishmentRepository
+public class EstablishmentRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Establishment, int>(context), IEstablishmentRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public EstablishmentRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<Establishment?> FindByCode(string code)
     {

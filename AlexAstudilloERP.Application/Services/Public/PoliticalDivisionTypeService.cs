@@ -4,15 +4,8 @@ using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class PoliticalDivisionTypeService : IPoliticalDivisionTypeService
+public class PoliticalDivisionTypeService(IPoliticalDivisionTypeRepository _repository) : IPoliticalDivisionTypeService
 {
-    private readonly IPoliticalDivisionTypeRepository _repository;
-
-    public PoliticalDivisionTypeService(IPoliticalDivisionTypeRepository repository)
-    {
-        _repository = repository;
-    }
-
     public async Task<List<PoliticalDivisionType>> GetAll(bool? onlyActive = null)
     {
         IEnumerable<PoliticalDivisionType> data = await _repository.FindAllAsync();

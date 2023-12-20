@@ -9,7 +9,7 @@ namespace EFCommonCRUD.Models;
 /// <typeparam name="T">A class type.</typeparam>
 public abstract class Chunk<T> : ISlice<T>
 {
-    private readonly List<T> _content = new();
+    private readonly List<T> _content = [];
     private readonly IPageable _pageable;
 
     /// <summary>

@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class EstablishmentTypeRepository : NPPostgreSQLRepository<EstablishmentType, short>, IEstablishmentTypeRepository
+public class EstablishmentTypeRepository(PostgreSQLContext context) : NPPostgreSQLRepository<EstablishmentType, short>(context), IEstablishmentTypeRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public EstablishmentTypeRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<List<EstablishmentType>> FindAllActives()
     {

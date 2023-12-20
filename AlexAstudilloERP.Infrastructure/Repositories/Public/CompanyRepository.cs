@@ -8,14 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyRepository
+public class CompanyRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Company, int>(context), ICompanyRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public CompanyRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<bool> ExistsByCompanyIdAndUserId(int companyId, long userId)
     {
@@ -24,7 +19,7 @@ public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyR
 	        INNER JOIN user_establishments ue ON ue.establishment_id = est.id
 	        WHERE est.company_id = {0} AND ue.user_id = {1}
         )";
-        return _context.Companies.FromSqlRaw(query, new object[] { companyId, userId }).AsNoTracking().AnyAsync();
+        return _context.Companies.FromSqlRaw(query, [companyId, userId]).AsNoTracking().AnyAsync();
     }
 
     public Task<bool> ExistsByPersonIdCard(string idCard)
@@ -54,8 +49,8 @@ public class CompanyRepository : NPPostgreSQLRepository<Company, int>, ICompanyR
             "INNER JOIN role_permissions rp ON rp.role_id = r.id " +
             "INNER JOIN users u ON u.id = ur.user_id " +
             "WHERE r.company_id = c.id AND rp.permission_id = {0} AND u.code = {1})";
-        long count = await _context.Companies.FromSqlRaw(query, new object[] { permission, userCode }).AsNoTracking().LongCountAsync();
-        List<Company> data = await _context.Companies.FromSqlRaw(query, new object[] { permission, userCode }).AsNoTracking()
+        long count = await _context.Companies.FromSqlRaw(query, [permission, userCode]).AsNoTracking().LongCountAsync();
+        List<Company> data = await _context.Companies.FromSqlRaw(query, [permission, userCode]).AsNoTracking()
             .Include(c => c.Person)
             .OrderBy(c => c.Tradename)
             .Skip(Convert.ToInt32(pageable.GetOffset()))

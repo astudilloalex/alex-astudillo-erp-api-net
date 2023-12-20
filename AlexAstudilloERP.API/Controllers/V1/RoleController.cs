@@ -13,15 +13,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 [Route("api/v1/role")]
 [ApiController]
 [Authorize]
-public class RoleController : CommonController
+public class RoleController(IRoleService _service) : CommonController
 {
-    private readonly IRoleService _service;
-
-    public RoleController(IRoleService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("all/{companyId}")]
     public async Task<IActionResult> All(int companyId, [FromQuery] int page, [FromQuery] int size, [FromQuery] bool? active = null)

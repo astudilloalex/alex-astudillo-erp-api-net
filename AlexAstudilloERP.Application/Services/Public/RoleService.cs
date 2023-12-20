@@ -11,22 +11,12 @@ using System.Data;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class RoleService : IRoleService
+public class RoleService(
+    IPermissionRepository _permissionRepository,
+    IRoleRepository _repository,
+    ISetData _setData
+) : IRoleService
 {
-    private readonly IPermissionRepository _permissionRepository;
-    private readonly IRoleRepository _repository;
-    private readonly ISetData _setData;
-    private readonly IValidateData _validateData;
-
-    public RoleService(IPermissionRepository permissionRepository,
-        IRoleRepository repository, IValidateData validateData, ISetData setData)
-    {
-        _permissionRepository = permissionRepository;
-        _repository = repository;
-        _validateData = validateData;
-        _setData = setData;
-    }
-
     public async Task<Role> Add(Role role, string token)
     {
         // Verify permissions.

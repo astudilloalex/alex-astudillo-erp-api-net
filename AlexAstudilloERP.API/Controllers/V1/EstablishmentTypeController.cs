@@ -6,15 +6,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/establishment-type")]
 [ApiController]
-public class EstablishmentTypeController : CommonController
+public class EstablishmentTypeController(IEstablishmentTypeService _service) : CommonController
 {
-    private readonly IEstablishmentTypeService _service;
-
-    public EstablishmentTypeController(IEstablishmentTypeService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("all")]
     public async Task<IActionResult> All()

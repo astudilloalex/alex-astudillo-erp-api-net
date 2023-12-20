@@ -9,17 +9,9 @@ using System.Text.Json.Nodes;
 
 namespace AlexAstudilloERP.Infrastructure.APIs;
 
-public class FirebaseAuthAPI : IFirebaseAuthAPI
+public class FirebaseAuthAPI(HttpClient _client, JsonSerializerOptions _serializerOptions) : IFirebaseAuthAPI
 {
     private readonly FirebaseAuth _auth = FirebaseAuth.DefaultInstance;
-    private readonly HttpClient _client;
-    private readonly JsonSerializerOptions _serializerOptions;
-
-    public FirebaseAuthAPI(HttpClient client, JsonSerializerOptions serializerOptions)
-    {
-        _client = client;
-        _serializerOptions = serializerOptions;
-    }
 
     public async Task<string> ConfirmEmailVerification(string oobCode)
     {
@@ -120,7 +112,7 @@ public class FirebaseAuthAPI : IFirebaseAuthAPI
 
     public async Task<List<UserRecord>> GetAllAsync()
     {
-        List<UserRecord> records = new();
+        List<UserRecord> records = [];
         Page<ExportedUserRecord> data = await _auth.ListUsersAsync(new ListUsersOptions()
         {
             PageSize = 1000,

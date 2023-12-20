@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class PoliticalDivisionRepository : NPPostgreSQLRepository<PoliticalDivision, int>, IPoliticalDivisionRepository
+public class PoliticalDivisionRepository(PostgreSQLContext context) : NPPostgreSQLRepository<PoliticalDivision, int>(context), IPoliticalDivisionRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public PoliticalDivisionRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<List<PoliticalDivision>> FindByParentId(int parentId)
     {

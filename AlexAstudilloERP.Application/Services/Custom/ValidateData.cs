@@ -1,11 +1,4 @@
-﻿using AlexAstudilloERP.Domain.Entities.Public;
-using AlexAstudilloERP.Domain.Enums.Custom;
-using AlexAstudilloERP.Domain.Enums.Public;
-using AlexAstudilloERP.Domain.Exceptions.BadRequest;
-using AlexAstudilloERP.Domain.Exceptions.Conflict;
-using AlexAstudilloERP.Domain.Interfaces.Repositories.Public;
-using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
-using System.Text.RegularExpressions;
+﻿using AlexAstudilloERP.Domain.Interfaces.Services.Custom;
 
 namespace AlexAstudilloERP.Application.Services.Custom;
 

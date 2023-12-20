@@ -5,16 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class UserRepository : IUserRepository
+public class UserRepository(PostgreSQLContext context, DbContextOptions<PostgreSQLContext> contextOptions) : IUserRepository
 {
-    private readonly PostgreSQLContext _context;
-    private readonly DbContextOptions<PostgreSQLContext> _contextOptions;
-
-    public UserRepository(PostgreSQLContext context, DbContextOptions<PostgreSQLContext> contextOptions)
-    {
-        _context = context;
-        _contextOptions = contextOptions;
-    }
+    private readonly PostgreSQLContext _context = context;
+    private readonly DbContextOptions<PostgreSQLContext> _contextOptions = contextOptions;
 
     public async Task<User> ChangePasswordAsync(User entity, bool multithread = false)
     {

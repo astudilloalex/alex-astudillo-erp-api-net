@@ -10,17 +10,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/company")]
 [ApiController]
-public class CompanyController : CommonController
+public class CompanyController(ICompanyService _service, IMapper _mapper) : CommonController
 {
-    private readonly ICompanyService _service;
-    private readonly IMapper _mapper;
-
-    public CompanyController(ICompanyService service, IMapper mapper)
-    {
-        _service = service;
-        _mapper = mapper;
-    }
-
     [HttpPost]
     [Route("add")]
     public async Task<IActionResult> Add([FromBody] CompanyDTO company)

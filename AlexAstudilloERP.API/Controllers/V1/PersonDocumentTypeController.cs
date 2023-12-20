@@ -7,15 +7,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/person-document-type")]
 [ApiController]
-public class PersonDocumentTypeController : CommonController
+public class PersonDocumentTypeController(IPersonDocumentTypeService _service) : CommonController
 {
-    private readonly IPersonDocumentTypeService _service;
-
-    public PersonDocumentTypeController(IPersonDocumentTypeService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("all/{countryCode}")]
     public async Task<IActionResult> GetAll(string countryCode, [FromQuery] bool? active)

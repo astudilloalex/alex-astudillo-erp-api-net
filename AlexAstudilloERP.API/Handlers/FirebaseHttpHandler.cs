@@ -1,14 +1,7 @@
 ﻿namespace AlexAstudilloERP.API.Handlers;
 
-public class FirebaseHttpHandler : DelegatingHandler
+public class FirebaseHttpHandler(string apiKey) : DelegatingHandler
 {
-    private readonly string apiKey;
-
-    public FirebaseHttpHandler(string apiKey)
-    {
-        this.apiKey = apiKey;
-    }
-
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         UriBuilder uriBuilder = new(request.RequestUri!);

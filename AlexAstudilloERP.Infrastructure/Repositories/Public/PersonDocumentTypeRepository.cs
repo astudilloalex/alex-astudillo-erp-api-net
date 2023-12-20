@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class PersonDocumentTypeRepository : NPPostgreSQLRepository<PersonDocumentType, short>, IPersonDocumentTypeRepository
+public class PersonDocumentTypeRepository(PostgreSQLContext context) : NPPostgreSQLRepository<PersonDocumentType, short>(context), IPersonDocumentTypeRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public PersonDocumentTypeRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<List<PersonDocumentType>> FindByCountryCodeAsync(string countryCode)
     {

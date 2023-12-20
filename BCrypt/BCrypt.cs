@@ -298,7 +298,7 @@ public class BCrypt
         }
         rounds = int.Parse(salt.Substring(off, 2));
         realSalt = salt[(off + 3)..];
-        saltb = DecodeBase64(realSalt, Constants.SaltLength).ToArray();
+        saltb = [.. DecodeBase64(realSalt, Constants.SaltLength)];
         if (minor >= 'a')
         {
             byte[] tempPassword = new byte[passwordBytes.Length + 1];

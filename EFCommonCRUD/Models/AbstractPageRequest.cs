@@ -81,4 +81,6 @@ public abstract class AbstractPageRequest : IPageable, IEquatable<AbstractPageRe
     }
 
     public abstract IPageable WithPage(int pageNumber);
+
+    public override bool Equals(object? obj) => Equals(obj as AbstractPageRequest);
 }

@@ -2,9 +2,6 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions.BadRequest;
 
-public class EntityAlreadyExists : BadRequestException
+public class EntityAlreadyExists(ExceptionEnum exceptionEnum) : BadRequestException(exceptionEnum)
 {
-    public EntityAlreadyExists(ExceptionEnum exceptionEnum) : base(exceptionEnum)
-    {
-    }
 }

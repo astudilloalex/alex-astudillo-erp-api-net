@@ -4,9 +4,6 @@ using AlexAstudilloERP.Infrastructure.Connections;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class PoliticalDivisionTypeRepository : NPPostgreSQLRepository<PoliticalDivisionType, short>, IPoliticalDivisionTypeRepository
+public class PoliticalDivisionTypeRepository(PostgreSQLContext context) : NPPostgreSQLRepository<PoliticalDivisionType, short>(context), IPoliticalDivisionTypeRepository
 {
-    public PoliticalDivisionTypeRepository(PostgreSQLContext context) : base(context)
-    {
-    }
 }

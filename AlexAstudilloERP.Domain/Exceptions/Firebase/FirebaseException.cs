@@ -1,14 +1,7 @@
 ﻿namespace AlexAstudilloERP.Domain.Exceptions.Firebase;
 
-public class FirebaseException : Exception
+public class FirebaseException(string _message) : Exception
 {
-    private readonly string _message;
-
-    public FirebaseException(string message)
-    {
-        _message = message;
-    }
-
     public string Code
     {
         get

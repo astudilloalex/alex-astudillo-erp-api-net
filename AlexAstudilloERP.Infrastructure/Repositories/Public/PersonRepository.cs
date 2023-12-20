@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlexAstudilloERP.Infrastructure.Repositories.Public;
 
-public class PersonRepository : NPPostgreSQLRepository<Person, long>, IPersonRepository
+public class PersonRepository(PostgreSQLContext context) : NPPostgreSQLRepository<Person, long>(context), IPersonRepository
 {
-    private readonly PostgreSQLContext _context;
-
-    public PersonRepository(PostgreSQLContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly PostgreSQLContext _context = context;
 
     public Task<bool> ExistsIdCard(string idCard)
     {

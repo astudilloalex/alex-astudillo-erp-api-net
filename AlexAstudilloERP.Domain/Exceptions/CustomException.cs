@@ -2,15 +2,8 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions;
 
-public class CustomException : Exception
+public class CustomException(ExceptionEnum _exceptionEnum) : Exception
 {
-    private readonly ExceptionEnum _exceptionEnum;
-
-    public CustomException(ExceptionEnum exceptionEnum)
-    {
-        _exceptionEnum = exceptionEnum;
-    }
-
     public string Code
     {
         get

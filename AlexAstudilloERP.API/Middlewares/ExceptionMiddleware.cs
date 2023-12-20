@@ -12,17 +12,8 @@ using System.Text.Json;
 
 namespace AlexAstudilloERP.API.Middlewares;
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware(ILoggerManager _logger, RequestDelegate _requestDelegate)
 {
-    private readonly ILoggerManager _logger;
-    private readonly RequestDelegate _requestDelegate;
-
-    public ExceptionMiddleware(ILoggerManager logger, RequestDelegate requestDelegate)
-    {
-        _logger = logger;
-        _requestDelegate = requestDelegate;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         try

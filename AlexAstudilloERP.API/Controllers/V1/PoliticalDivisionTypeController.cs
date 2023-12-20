@@ -6,15 +6,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/political-division-type")]
 [ApiController]
-public class PoliticalDivisionTypeController : CommonController
+public class PoliticalDivisionTypeController(IPoliticalDivisionTypeService _service) : CommonController
 {
-    private readonly IPoliticalDivisionTypeService _service;
-
-    public PoliticalDivisionTypeController(IPoliticalDivisionTypeService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("all")]
     public async Task<IActionResult> GetAll([FromQuery] bool? active)

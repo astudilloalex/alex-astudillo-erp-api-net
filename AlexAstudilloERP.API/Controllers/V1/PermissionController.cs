@@ -9,15 +9,8 @@ namespace AlexAstudilloERP.API.Controllers.V1;
 
 [Route("api/v1/permission")]
 [ApiController]
-public class PermissionController : CommonController
+public class PermissionController(IPermissionService _service) : CommonController
 {
-    private readonly IPermissionService _service;
-
-    public PermissionController(IPermissionService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     [Route("all/{companyId}")]
     public async Task<IActionResult> All(int companyId, [FromQuery] int page = 1, [FromQuery] int size = 10)

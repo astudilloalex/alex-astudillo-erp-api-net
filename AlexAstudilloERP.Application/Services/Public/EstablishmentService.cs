@@ -9,23 +9,12 @@ using EFCommonCRUD.Interfaces;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class EstablishmentService : IEstablishmentService
+public class EstablishmentService(
+    IEstablishmentRepository _repository,
+    IPermissionRepository _permissionRepository, 
+    ISetData _setData
+) : IEstablishmentService
 {
-    private readonly IEstablishmentRepository _repository;
-    private readonly IPermissionRepository _permissionRepository;
-    private readonly ISetData _setData;
-    private readonly IValidateData _validateData;
-
-    public EstablishmentService(IEstablishmentRepository repository,
-        IPermissionRepository permissionRepository, ISetData setData,
-        IValidateData validateData)
-    {
-        _repository = repository;
-        _permissionRepository = permissionRepository;
-        _setData = setData;
-        _validateData = validateData;
-    }
-
     public async Task<Establishment> Add(Establishment establishment, string token)
     {
         //long userId = _tokenService.GetUserId(token);

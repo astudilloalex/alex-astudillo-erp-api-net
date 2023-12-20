@@ -5,15 +5,8 @@ using EFCommonCRUD.Interfaces;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class PermissionService : IPermissionService
+public class PermissionService(IPermissionRepository _repository) : IPermissionService
 {
-    private readonly IPermissionRepository _repository;
-
-    public PermissionService( IPermissionRepository repository)
-    {
-        _repository = repository;
-    }
-
     public Task<IPage<Permission>> GetAll(IPageable pageable, int companyId, string token)
     {
         return _repository.FindAllAsync(pageable, companyId, 2);

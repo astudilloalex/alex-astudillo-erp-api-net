@@ -6,7 +6,4 @@ namespace AlexAstudilloERP.Infrastructure.Repositories.Common;
 
 public class DatabaseTableRepository : IDatabaseTableRepository
 {
-    public DatabaseTableRepository(PostgreSQLContext context)
-    {
-    }
 }

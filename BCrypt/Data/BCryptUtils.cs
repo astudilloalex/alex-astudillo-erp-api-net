@@ -3,21 +3,15 @@
 /// <summary>
 /// BCrypt utils to hash passwords.
 /// </summary>
-internal class BCryptUtils
+/// <remarks>
+/// Define a BCryptUtils class.
+/// </remarks>
+/// <param name="pArray">Initial contents of key schedule.</param>
+/// <param name="sArray">Contain information subkeys to cipher.</param>
+internal class BCryptUtils(uint[] pArray, uint[] sArray)
 {
-    private readonly uint[] _pArray;
-    private readonly uint[] _sArray;
-
-    /// <summary>
-    /// Define a BCryptUtils class.
-    /// </summary>
-    /// <param name="pArray">Initial contents of key schedule.</param>
-    /// <param name="sArray">Contain information subkeys to cipher.</param>
-    public BCryptUtils(uint[] pArray, uint[] sArray)
-    {
-        _pArray = (uint[])pArray.Clone();
-        _sArray = (uint[])sArray.Clone();
-    }
+    private readonly uint[] _pArray = (uint[])pArray.Clone();
+    private readonly uint[] _sArray = (uint[])sArray.Clone();
 
     /// <summary>
     /// Blowfish encipher a single 64-bit block encoded as two 32-bit halves.
@@ -62,10 +56,10 @@ internal class BCryptUtils
     private void EnhancedKeySchedule(byte[] data, byte[] key, bool signExtendBug, int safety)
     {
         int i;
-        uint[] keyOffPointer = { 0 };
-        uint[] lr = { 0, 0 };
-        uint[] dataOffPointer = { 0 };
-        uint[] signPointer = { 0 };
+        uint[] keyOffPointer = [0];
+        uint[] lr = [0, 0];
+        uint[] dataOffPointer = [0];
+        uint[] signPointer = [0];
         uint diff = 0;
         for (i = 0; i < _pArray.Length; i++)
         {
@@ -127,8 +121,8 @@ internal class BCryptUtils
     private void Key(byte[] key, bool signExtendBug)
     {
         int i;
-        uint[] keyOffPointer = { 0 };
-        uint[] data = { 0, 0 };
+        uint[] keyOffPointer = [0];
+        uint[] data = [0, 0];
 
         for (i = 0; i < _pArray.Length; i++)
         {
@@ -170,7 +164,7 @@ internal class BCryptUtils
     /// <returns>A correct and buggy next word of material from <c>data</c> as <c>uint[]</c> with length 2.</returns>
     private static uint StreamToWord(byte[] data, uint[] offsetPointer)
     {
-        uint[] signPointer = { 0 };
+        uint[] signPointer = [0];
         return StreamToWords(data, offsetPointer, signPointer)[0];
     }
 
@@ -182,7 +176,7 @@ internal class BCryptUtils
     /// <returns>The next word of material from data.</returns>
     private static uint StreamToWordBug(byte[] data, uint[] offsetPointer)
     {
-        uint[] signPointer = { 0 };
+        uint[] signPointer = [0];
         return StreamToWords(data, offsetPointer, signPointer)[1];
     }
 
@@ -196,7 +190,7 @@ internal class BCryptUtils
     private static uint[] StreamToWords(byte[] data, uint[] offsetPointer, uint[] signPointer)
     {
         int i;
-        uint[] words = { 0, 0 };
+        uint[] words = [0, 0];
         uint off = offsetPointer[0];
         uint sign = signPointer[0];
         for (i = 0; i < 4; i++)

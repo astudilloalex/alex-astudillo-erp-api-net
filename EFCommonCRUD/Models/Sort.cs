@@ -48,8 +48,7 @@ public class Sort
     /// <returns>A new <see cref="Sort"/>.</returns>
     public static Sort And(Sort sort)
     {
-        List<Order> orders = new();
-        foreach (Order order in sort.GetOrders()) orders.Add(order);
+        List<Order> orders = [.. sort.GetOrders()];
         return By(orders);
     }
 
@@ -80,7 +79,7 @@ public class Sort
     /// <returns>A new <see cref="Sort"/></returns>
     public static Sort By(Order[] orders)
     {
-        return new Sort(orders.ToList());
+        return new Sort([.. orders]);
     }
 
     /// <summary>
@@ -100,7 +99,7 @@ public class Sort
     /// <returns>A new <see cref="Sort"/></returns>
     public static Sort By(string[] properties)
     {
-        return properties.Length == 0 ? Unsorted() : new Sort(defaultDirection, properties.ToList());
+        return properties.Length == 0 ? Unsorted() : new Sort(defaultDirection, [.. properties]);
     }
 
     /// <summary>

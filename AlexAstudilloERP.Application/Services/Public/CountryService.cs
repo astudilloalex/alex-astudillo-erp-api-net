@@ -4,15 +4,8 @@ using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class CountryService : ICountryService
+public class CountryService(ICountryRepository _repository) : ICountryService
 {
-    private readonly ICountryRepository _repository;
-
-    public CountryService(ICountryRepository repository)
-    {
-        _repository = repository;
-    }
-
     public async Task<List<Country>> GetAll(bool? active = null)
     {
         IEnumerable<Country> data = await _repository.FindAllAsync();

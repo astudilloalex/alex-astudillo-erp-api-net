@@ -10,8 +10,7 @@ public static class DTOToEntity
     {
         //List<Address> addresses = new();
         //List<Phone> phones = new();
-        List<Email> emails = new();
-        if (dto.Email != null) emails.Add(new() { Mail = dto.Email });
+        List<Email> emails = dto.Email != null ? [new() { Mail = dto.Email }] : [];
         // Check if exists address.
         if (dto.Address != null)
         {
@@ -61,7 +60,7 @@ public static class DTOToEntity
 
     public static Role RoleRequestDTOToRole(RoleRequestDTO dto)
     {
-        List<Permission> permissions = new();
+        List<Permission> permissions = [];
         foreach (short permissionId in dto.PermissionIds) permissions.Add(new() { Id = permissionId });
         return new()
         {

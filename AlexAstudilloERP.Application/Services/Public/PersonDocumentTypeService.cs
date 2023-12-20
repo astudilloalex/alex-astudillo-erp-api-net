@@ -4,15 +4,8 @@ using AlexAstudilloERP.Domain.Interfaces.Services.Public;
 
 namespace AlexAstudilloERP.Application.Services.Public;
 
-public class PersonDocumentTypeService : IPersonDocumentTypeService
+public class PersonDocumentTypeService(IPersonDocumentTypeRepository _repository) : IPersonDocumentTypeService
 {
-    private readonly IPersonDocumentTypeRepository _repository;
-
-    public PersonDocumentTypeService(IPersonDocumentTypeRepository repository)
-    {
-        _repository = repository;
-    }
-
     public async Task<List<PersonDocumentType>> GetAll(bool? onlyActive = null)
     {
         IEnumerable<PersonDocumentType> data = await _repository.FindAllAsync();

@@ -2,9 +2,6 @@
 
 namespace AlexAstudilloERP.Domain.Exceptions.Conflict;
 
-public class ConflictException : CustomException
+public class ConflictException(ExceptionEnum exceptionEnum) : CustomException(exceptionEnum)
 {
-    public ConflictException(ExceptionEnum exceptionEnum) : base(exceptionEnum)
-    {
-    }
 }
